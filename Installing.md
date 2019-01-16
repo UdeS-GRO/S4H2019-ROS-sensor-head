@@ -14,7 +14,7 @@ The procedure followed to install packages was from <http://wiki.ros.org/kinetic
 Select the "Desktop Install" for the set of packages at step 1.4.
 This might take some time (10-20 minutes or more) on the Raspberry Pi, since there is a lot of disk I/O.
 
-See the file [installing_ros.bash] for the commands entered, or see below:
+See the file [installing_ros.bash](https://github.com/gene2302/3-axis-ROS-sensor-head/blob/master/installing_ros.bash) for the commands entered, or see below:
 ```bash
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 
