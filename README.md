@@ -1,2 +1,2 @@
 # 3-axes-Camera-ROS
-3 axes camera system, can be control by cellphone or USB controler.
+3 axis camera system, can be control by cell phone or USB controler.
