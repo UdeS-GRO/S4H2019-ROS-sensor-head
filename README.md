@@ -6,9 +6,16 @@
 
 3 axis head system, can be control by cell phone or USB controler. This open source project is part of the Robotics Engineering Project Course at the University of Sherbrooke.
 
-# Linux configuration
+Expliquer le setup: 
 
-The OS used for the test is Ubuntu 16.04.5 LTS (Xenial). It's a pretty standard installation. 
+- RaspberryPi: 
+- OpenCR:
+- Camera:
+- ROS:
+
+
+
+# 1- Linux configuration
 
 ## Update
 
@@ -31,13 +38,13 @@ voir deuxieme site
 
 
 
-# OpenCR board configuration
+# 2- OpenCR board configuration
 
 To be able to control the Dynamixel motors via ROS, the OpenCR card need to be converted in a USB to Serial device that will make the bridge between the ROS server (on Linux) and the motors connected with the OpenCR card. 
 
 After Arduino IDE is run, click File → Preferences in the top menu of the IDE. When the Preferences window appears, copy and paste following link to the Additional Boards Manager URLs textbox.
 
-```
+```bash
 https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR/master/arduino/opencr_release/package_opencr_index.json
 ```
 
@@ -57,27 +64,33 @@ In order to the OpenCR card to make the bridge, this code need has to be uploade
 
 Upgrade OpenCR: http://emanual.robotis.com/docs/en/parts/controller/opencr10/#install-on-mac (burner est pas vraiment nécessaire…)
 
+## Hardware
 
+1. Connect a single motor
+2. Connect the power supply
+3. Power on
 
+# 3- ROS Installation
 
+You can follow this [link](http://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_workbench/) for the installation tutorial. The ROS utilization correspond to the section 5 of the tutorial. Below, are the condensed steps that need to be taken.* 
 
-# ROS
+## Install ROS on PC
 
-## ROS Installation
-
-You can follow this [link](http://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_workbench/) for the installation tutorial. Below, are the condensed steps that need to be taken. 
+The following script will allow you to simplify the ROS installation procedure. Run the following command in a terminal window. 
 
 ```bash
 wget https://raw.githubusercontent.com/ROBOTIS-GIT/robotis_tools/master/install_ros_kinetic.sh && chmod 755 ./install_ros_kinetic.sh && bash ./install_ros_kinetic.sh
 ```
+
+**After install ROS, please reboot PC**
+
+## Download ROS Packages
 
 Once ROS is installed, you'll need to change of directory to catkin_ws/src. It is where all the ROS package will be instaled. 
 
 ```bash
 cd catkin_ws/src
 ```
-
-There are the libraries and package that you'll need to clone.
 
 **Main packages**
 
@@ -104,21 +117,29 @@ First, you'll need to source the correct ROS workspace in order to use ROS.
 
 ```bash
 source /opt/ros/kinetic/setup.bash
+cd ~/catkin_ws 
+catkin_make
 ```
 
-This node scans all ID with each Baudrate(9600, 57600, 115200, 1000000, 2000000, 3000000, 4000000) and shows how many dynamixels are connected. 
+
+
+# 4- ROS Use
+
+## Find the Dynamixels connected to the OpenCR card. 
+
+After this, run this node in order to scan all ID with each Baudrate(9600, 57600, 115200, 1000000, 2000000, 3000000, 4000000) and shows how many dynamixels are connected. 
 
 ```bash
 rosrun dynamixel_workbench_controllers find_dynamixel /dev/ttyUSB0
 ```
 
-**WARNING**: This package is intended for `SINGLE` Dynamixel. Please connect only `One(1)` Dynamixel to your device.
-If you connect multiple Dynamixels, manager would detect the **lowest ID** among connected Dynamixels. This package is to check Dynamixel status and access Dynamixel’s control table. Let’s take a look at the `single_manager.launch` file below.
 
-```bash
-cd ~/catkin_ws 
-catkin_make
-```
+
+## Control a single motor with ROS (command line)
+
+WARNING**: This package is intended for `SINGLE` Dynamixel. Please connect only `One(1)` Dynamixel to your device. If you connect multiple Dynamixels, manager would detect the **lowest ID** among connected Dynamixels. 
+
+This package is to check Dynamixel status and access Dynamixel’s control table. 
 
 **Launch single_manager** 
 
@@ -127,6 +148,10 @@ Important: In order to connect this node with the connect USB port, you shall mo
 ```bash
 roslaunch dynamixel_workbench_single_manager single_manager.launch
 ```
+
+
+
+## Control a single motor with ROS (GUI)
 
 This package is to check Dynamixel status and access Dynamixel’s Control Table addresses via **GUI**. **WARNING**: Before you run this package, please launch [single_manager](http://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_workbench/#single-manager) first.
 
