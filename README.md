@@ -13,7 +13,11 @@ Expliquer le setup:
 - Camera:
 - ROS:
 
+Useful links: 
 
+- http://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_workbench/#ros
+- http://emanual.robotis.com/docs/en/parts/controller/opencr10/#install-on-linux
+- https://github.com/GoldenCheetah/GoldenCheetah/wiki/Allowing-your-linux-userid-permission-to-use-your-usb-device
 
 # 1- Linux configuration
 
