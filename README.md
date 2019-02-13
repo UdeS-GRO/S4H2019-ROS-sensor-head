@@ -131,7 +131,7 @@ catkin_make
 
 ## Find the Dynamixels connected to the OpenCR card. 
 
-After this, run this node in order to scan all ID with each Baudrate(9600, 57600, 115200, 1000000, 2000000, 3000000, 4000000) and shows how many dynamixels are connected. 
+After this, run this node in order to scan all ID with each Baudrate (9600, 57600, 115200, 1000000, 2000000, 3000000, 4000000) and shows how many dynamixels are connected. 
 
 ```bash
 rosrun dynamixel_workbench_controllers find_dynamixel /dev/ttyUSB0
@@ -141,7 +141,7 @@ rosrun dynamixel_workbench_controllers find_dynamixel /dev/ttyUSB0
 
 ## Control a single motor with ROS (command line)
 
-WARNING**: This package is intended for `SINGLE` Dynamixel. Please connect only `One(1)` Dynamixel to your device. If you connect multiple Dynamixels, manager would detect the **lowest ID** among connected Dynamixels. 
+**WARNING**: This package is intended for `SINGLE` Dynamixel. Please connect only `One(1)` Dynamixel to your device. If you connect multiple Dynamixels, manager would detect the **lowest ID** among connected Dynamixels. 
 
 This package is to check Dynamixel status and access Dynamixel’s control table. 
 
