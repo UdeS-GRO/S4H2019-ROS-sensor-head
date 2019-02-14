@@ -38,7 +38,7 @@ In order to communicate with the OpenCR card via usb, the user has to be added t
 
 ## Arduino IDE
 
-voir deuxieme site
+See http://emanual.robotis.com/docs/en/parts/controller/opencr10/#install-on-linux for instructions to use the full and latest version of the Arduino IDE, not the one in the packages repository since it might be updated.
 
 
 
@@ -51,7 +51,6 @@ After Arduino IDE is run, click File → Preferences in the top menu of the IDE.
 ```bash
 https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR/master/arduino/opencr_release/package_opencr_index.json
 ```
-
 
 
 Then, click Tools → Board → Boards Manager. Type OpenCR into the textbox to find the OpenCR by ROBOTIS package. When you find it, click Install. After the installation, “INSTALLED” will appear on your screen. See if the OpenCR Board is now on the list of Tools → Board. Click this to import the OpenCR Board source.
