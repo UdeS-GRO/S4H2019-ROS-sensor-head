@@ -163,6 +163,27 @@ rosrun dynamixel_workbench_single_manager_gui dynamixel_workbench_single_manager
 ```
 
 
+**Install package manager Synamptic**
+
+```
+sudo apt-get install synaptic
+sudo synaptic
+Instakll qt creator package
+```
+
+https://www.cnblogs.com/casperwin/p/6206193.html
+
+
+
+https://www.cnblogs.com/casperwin/p/6206193.html
+
+Install qt Creator
+
+Git setup : https://github.com/shovington/Tracking_camera
+
+
+
+Create a package (main program in Python)
 
 
 
