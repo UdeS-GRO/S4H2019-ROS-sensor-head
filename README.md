@@ -30,7 +30,7 @@ $ sudo apt-get upgrade
 
 ## USB Port Permissions
 
-In order to communicate with the OpenCR card via usb, the user has to be added to the correct group. This [link](https://github.com/GoldenCheetah/GoldenCheetah/wiki/Allowing-your-linux-userid-permission-to-use-your-usb-device) shows all the details about this modification. But don't forget this part: **: Important: the computer need to be restarted to have the modifications applied **. 
+In order to communicate with the OpenCR card via usb, the user has to be added to the correct group. This [link](https://github.com/GoldenCheetah/GoldenCheetah/wiki/Allowing-your-linux-userid-permission-to-use-your-usb-device) shows all the details about this modification. But don't forget this part: **Important: the computer need to be restarted to have the modifications applied.**
 
 ```bash
 [user@machine ~]$ sudo usermod -a -G dialout user
