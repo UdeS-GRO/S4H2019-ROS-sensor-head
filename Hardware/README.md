@@ -1,7 +1,7 @@
-##Assembly Process
+# Assembly Process
 
 <img src="images/3-axis-iso.png" width="100%">
-%%<p><img src="images/rover-silver.png" width="43%"/><img src="images/rover-climbing.jpg" width="57%"/></p>
+<p><img src="images/rover-silver.png" width="43%"/><img src="images/rover-climbing.jpg" width="57%"/></p>
 
 1 - Download BOM.
 
