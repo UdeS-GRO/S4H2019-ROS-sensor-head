@@ -21,13 +21,13 @@ Infill : 10 to 60 % Diamond infill
 
 4 - Assembly the Z module
 Take the Z motor, fix the adapter_gear on the motor with 4 screws m2,5.
-Fix the bevel_gear on it. Screw the motor 
+Fix the bevel_gear on it. Screw the motor with the base.
 
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTIwMTg0MzM3NiwxNzg4Nzk3NDAzLDE5Mj
-E5MzQ0NDcsLTU1NDA2NDYwNiwtMzQ1NjQzMzQ0LDExMjAwNTU5
-OV19
+eyJoaXN0b3J5IjpbLTEyNjUxMDc4NDQsMTc4ODc5NzQwMywxOT
+IxOTM0NDQ3LC01NTQwNjQ2MDYsLTM0NTY0MzM0NCwxMTIwMDU1
+OTldfQ==
 -->
