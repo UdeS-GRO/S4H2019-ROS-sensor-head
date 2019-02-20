@@ -185,6 +185,7 @@ Git setup : https://github.com/shovington/Tracking_camera
 
 Create a package (main program in Python)
 
+When can't find package: https://answers.ros.org/question/190317/ros-cant-find-package/
 
 
 
