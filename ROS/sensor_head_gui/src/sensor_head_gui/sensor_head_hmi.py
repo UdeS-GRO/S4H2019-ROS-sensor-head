@@ -16,7 +16,7 @@ class SensorHeadHMIWidget(QtWidgets.QWidget):
 
         # Start the HMI
         super(SensorHeadHMIWidget, self).__init__()
-        ui_file = os.path.join(rospkg.RosPack().get_path('tracking_cam_gui'), 'resource', 'sensor_head_hmi.ui')
+        ui_file = os.path.join(rospkg.RosPack().get_path('sensor_head_gui'), 'resource', 'sensor_head_hmi.ui')
         loadUi(ui_file, self)
 
 
