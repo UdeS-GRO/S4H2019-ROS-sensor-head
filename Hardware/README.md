@@ -16,8 +16,11 @@ Layer high : 0,2mm
 Extruder temp: 195-205 degC
 Infill : 10 to 60 % Diamond infill
 
+4 - 
+
+
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjE0NTk3NTQ3NCwtNTU0MDY0NjA2LC0zND
-U2NDMzNDQsMTEyMDA1NTk5XX0=
+eyJoaXN0b3J5IjpbLTEwNjM2MzIxNjMsLTU1NDA2NDYwNiwtMz
+Q1NjQzMzQ0LDExMjAwNTU5OV19
 -->
