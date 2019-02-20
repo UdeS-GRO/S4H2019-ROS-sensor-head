@@ -22,11 +22,15 @@ class SensorHeadHMIWidget(QtWidgets.QWidget):
 
         # SEND INFO
         self.axis_1_position.valueChanged[int].connect(self.change_motor_position)
+        self.axis_2_position.valueChanged[int].connect(self.change_motor_position2)
+        self.axis_1_position_2.valueChanged[int].connect(self.change_motor_position3)
         self.enable_motor.clicked[bool].connect(self.ChangeMotorState1)
 
 
         # RECEIVE INFO
         self.motor_sub = rospy.Subscriber("/dynamixel_workbench/dynamixel_state", DynamixelStateList, self.UpdateMotorsData)
+
+
 
 
 
@@ -38,11 +42,40 @@ class SensorHeadHMIWidget(QtWidgets.QWidget):
         self.motors_data = {}
         for motor in state.dynamixel_state:
             self.motors_data[motor.id] = motor.present_position
-            self.actual_pos_axis1.setNum(self.motors_data[1])
+            self.actual_pos_axis1.setNum(self.motors_data[3])
 
 
 
     def change_motor_position(self, desired_position):
+        rospy.wait_for_service('/dynamixel_workbench/dynamixel_command')
+        try:
+            move_motor = rospy.ServiceProxy('/dynamixel_workbench/dynamixel_command', DynamixelCommand)
+            request = DynamixelCommandRequest()
+            request.id = 3
+            request.addr_name = "Goal_Position"
+            request.value = desired_position
+            response = move_motor(request)
+
+        except rospy.ServiceException, e:
+            print "Service call failed: %s"%e
+            print("Error here")
+
+
+    def change_motor_position2(self, desired_position):
+        rospy.wait_for_service('/dynamixel_workbench/dynamixel_command')
+        try:
+            move_motor = rospy.ServiceProxy('/dynamixel_workbench/dynamixel_command', DynamixelCommand)
+            request = DynamixelCommandRequest()
+            request.id = 2
+            request.addr_name = "Goal_Position"
+            request.value = desired_position
+            response = move_motor(request)
+
+        except rospy.ServiceException, e:
+            print "Service call failed: %s"%e
+            print("Error here")
+
+    def change_motor_position3(self, desired_position):
         rospy.wait_for_service('/dynamixel_workbench/dynamixel_command')
         try:
             move_motor = rospy.ServiceProxy('/dynamixel_workbench/dynamixel_command', DynamixelCommand)
@@ -54,7 +87,7 @@ class SensorHeadHMIWidget(QtWidgets.QWidget):
 
         except rospy.ServiceException, e:
             print "Service call failed: %s"%e
-
+            print("Error here")
 
 
 
@@ -62,7 +95,7 @@ class SensorHeadHMIWidget(QtWidgets.QWidget):
         '''
         Will be depreceated
         '''
-        self.ControlMotor(1, "Torque_Enable", desired_state)
+        self.ControlMotor(3, "Torque_Enable", desired_state)
         pass
 
 
@@ -76,7 +109,7 @@ class SensorHeadHMIWidget(QtWidgets.QWidget):
         try:
             service_object = rospy.ServiceProxy('/dynamixel_workbench/dynamixel_command', DynamixelCommand)
             request = DynamixelCommandRequest()
-            request.id = 1
+            request.id = 3
             request.addr_name = command
             request.value = value
             service_call_response = service_object(request)
