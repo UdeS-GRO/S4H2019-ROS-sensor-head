@@ -9,9 +9,11 @@
 You need purchase some standard part from Servocity, dynamixel and McMaster for exemple. All links are in the BOM excel.
 
 3 - 3D print all 3d printed parts
-You need to print
+You need to print all pieces and respect qty. 
+Layer high : 0,2mm
+Extruder temp
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTU1NDA2NDYwNiwtMzQ1NjQzMzQ0LDExMj
-AwNTU5OV19
+eyJoaXN0b3J5IjpbLTQ4OTY2MDI3OSwtNTU0MDY0NjA2LC0zND
+U2NDMzNDQsMTEyMDA1NTk5XX0=
 -->
