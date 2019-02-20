@@ -8,18 +8,18 @@ import subprocess
 from python_qt_binding import loadUi
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-from .tracking_cam import TrackingCamWidget
+from .sensor_head_hmi import SensorHeadHMIWidget
 
 
-class CamGUI(Plugin):
+class SensorHeadGUI(Plugin):
     """
         Application window controller
     """
 
     def __init__(self, context):
-        super(CamGUI, self).__init__(context)
+        super(SensorHeadGUI, self).__init__(context)
         # Give QObjects reasonable names
-        self.setObjectName('CamGUI')
+        self.setObjectName('SensorHeadGUI')
 
         # Process standalone plugin command-line arguments
         from argparse import ArgumentParser
@@ -32,7 +32,7 @@ class CamGUI(Plugin):
             print('unknowns: ', unknowns)
 
         # Create QWidget
-        self._widget = TrackingCamWidget()
+        self._widget = SensorHeadHMIWidget()
         if context.serial_number() > 1:
             self._widget.setWindowTitle(self._widget.windowTitle() +
                                         (' (%d)' % context.serial_number()))

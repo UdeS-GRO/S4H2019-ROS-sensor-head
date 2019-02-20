@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>630</width>
+    <height>449</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="title">
+          <string>GroupBox</string>
+         </property>
+         <widget class="QGroupBox" name="groupBox">
+          <property name="geometry">
+           <rect>
+            <x>110</x>
+            <y>120</y>
+            <width>231</width>
+            <height>291</height>
+           </rect>
+          </property>
+          <property name="title">
+           <string>CONTROL IN POSITION</string>
+          </property>
+          <widget class="QWidget" name="gridLayoutWidget_3">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>20</y>
+             <width>188</width>
+             <height>251</height>
+            </rect>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_3">
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_position_axis_3">
+              <property name="text">
+               <string>Axe 1</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QSlider" name="axis_2_position">
+              <property name="minimum">
+               <number>0</number>
+              </property>
+              <property name="maximum">
+               <number>800</number>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QSlider" name="axis_1_position_2">
+              <property name="minimum">
+               <number>0</number>
+              </property>
+              <property name="maximum">
+               <number>2000</number>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <layout class="QGridLayout" name="gridLayout_4">
+              <item row="1" column="0">
+               <widget class="QSlider" name="axis_1_position">
+                <property name="maximum">
+                 <number>1400</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_position_axis_1">
+                <property name="text">
+                 <string>Axe 1</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <layout class="QVBoxLayout" name="verticalLayout">
+                <item>
+                 <widget class="QLabel" name="corse_desired_pos_axis1">
+                  <property name="text">
+                   <string>Actual position</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="actual_pos_axis1">
+                  <property name="text">
+                   <string>TextLabel</string>
+                  </property>
+                  <property name="wordWrap">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_position_axis_2">
+              <property name="text">
+               <string>Axe 1</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+         <widget class="QPushButton" name="enable_motor">
+          <property name="geometry">
+           <rect>
+            <x>310</x>
+            <y>50</y>
+            <width>191</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>ENABLE MOTOR</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="mode_selection">
+          <property name="geometry">
+           <rect>
+            <x>300</x>
+            <y>20</y>
+            <width>191</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>AUTO</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+         </widget>
+         <widget class="QCommandLinkButton" name="commandLinkButton">
+          <property name="geometry">
+           <rect>
+            <x>510</x>
+            <y>10</y>
+            <width>91</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>HOMING</string>
+          </property>
+         </widget>
+         <widget class="QGroupBox" name="groupBox_5">
+          <property name="geometry">
+           <rect>
+            <x>450</x>
+            <y>190</y>
+            <width>151</width>
+            <height>231</height>
+           </rect>
+          </property>
+          <property name="title">
+           <string>SAFE POSITIONS</string>
+          </property>
+          <widget class="QWidget" name="verticalLayoutWidget_2">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>20</y>
+             <width>131</width>
+             <height>203</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <widget class="QLabel" name="label_zero_pos_axis_4">
+              <property name="text">
+               <string>Axe 1</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout">
+              <item>
+               <widget class="QSpinBox" name="spinBox_7">
+                <property name="prefix">
+                 <string>- </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSpinBox" name="spinBox_4">
+                <property name="prefix">
+                 <string>+ </string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_zero_pos_axis_5">
+              <property name="text">
+               <string>Axe 2</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <item>
+               <widget class="QSpinBox" name="spinBox_8">
+                <property name="prefix">
+                 <string>- </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSpinBox" name="spinBox_5">
+                <property name="prefix">
+                 <string>+ </string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_zero_pos_axis_6">
+              <property name="text">
+               <string>Axe 3</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_3">
+              <item>
+               <widget class="QSpinBox" name="spinBox_9">
+                <property name="suffix">
+                 <string/>
+                </property>
+                <property name="prefix">
+                 <string>- </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSpinBox" name="spinBox_6">
+                <property name="prefix">
+                 <string>+</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QPushButton" name="new_zero_confirmation_2">
+              <property name="text">
+               <string>SAVE</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+         <widget class="QLabel" name="actual_pos_axis2">
+          <property name="geometry">
+           <rect>
+            <x>150</x>
+            <y>60</y>
+            <width>67</width>
+            <height>17</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="actual_pos_axis3">
+          <property name="geometry">
+           <rect>
+            <x>150</x>
+            <y>90</y>
+            <width>67</width>
+            <height>17</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="corse_desired_pos_axis2">
+          <property name="geometry">
+           <rect>
+            <x>50</x>
+            <y>60</y>
+            <width>67</width>
+            <height>17</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="corse_desired_pos_axis3">
+          <property name="geometry">
+           <rect>
+            <x>50</x>
+            <y>90</y>
+            <width>67</width>
+            <height>17</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
