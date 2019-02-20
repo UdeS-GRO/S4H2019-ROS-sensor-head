@@ -10,10 +10,14 @@ You need purchase some standard part from Servocity, dynamixel and McMaster for 
 
 3 - 3D print all 3d printed parts
 You need to print all pieces and respect qty. 
+
+Caracteritics for PLA printing:
 Layer high : 0,2mm
-Extruder temp
+Extruder temp: 195-205 degC
+Infill : 10 to 60 % Diamond infill
+
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQ4OTY2MDI3OSwtNTU0MDY0NjA2LC0zND
+eyJoaXN0b3J5IjpbMjE0NTk3NTQ3NCwtNTU0MDY0NjA2LC0zND
 U2NDMzNDQsMTEyMDA1NTk5XX0=
 -->
