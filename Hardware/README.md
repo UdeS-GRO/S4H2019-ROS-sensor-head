@@ -19,12 +19,13 @@ Layer high : 0,2mm
 Extruder temp: 195-205 degC
 Infill : 10 to 60 % Diamond infill
 
-4 - Assembly the Z
+4 - Assembly the Z module
+Take the Z motor, fix the adapter_gear on the motor with 4 sc
 
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE4MTYxNzg4MzYsMTkyMTkzNDQ0NywtNT
-U0MDY0NjA2LC0zNDU2NDMzNDQsMTEyMDA1NTk5XX0=
+eyJoaXN0b3J5IjpbLTMxMDUyMDI5LDE5MjE5MzQ0NDcsLTU1ND
+A2NDYwNiwtMzQ1NjQzMzQ0LDExMjAwNTU5OV19
 -->
