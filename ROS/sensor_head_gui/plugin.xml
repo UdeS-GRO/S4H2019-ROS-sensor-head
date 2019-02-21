@@ -2,10 +2,10 @@
 <!-- type=ros package, filename, className -->
   <class name="SensorHeadGUI" type="sensor_head_gui.sensor_head_hmi_plugin.SensorHeadGUI" base_class_type="rqt_gui_py::Plugin">
     <description>
-      Interface for tracking camera
+      Interface for motor control
     </description>
     <qtgui>
-      <label>Tracking Camera</label>
+      <label>Sensor Head Motor Camera</label>
     </qtgui>
   </class>
 </library>
