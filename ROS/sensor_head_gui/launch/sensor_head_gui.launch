@@ -1,7 +1,18 @@
 <?xml version='1.0'?>
-<launch>
-
-<node pkg="tracking_cam_gui" name="sensor_head_gui" type="sensor_head_gui" respawn="false" output="screen">
-	</node>
-
+<launch>	<!-- <group ns="wg"> -->
+	
+		
+	<param name="dynamixel_info" value="$(find sensor_head_gui)/config/dynamixel_info_motors.yaml"/>
+	<include file="$(find dynamixel_workbench_controllers)/launch/dynamixel_controllers.launch" pass_all_args="true">
+		<arg name="usb_port" value="/dev/ttyACM0"/>
+		<arg name="dxl_baud_rate" value="57600"/>
+		<arg name="namespace" value="dynamixel_workbench"/>
+		<arg name="use_moveit" value="false"/>
+		<arg name="use_joint_state" value="true"/>
+		<arg name="use_cmd_vel" value="false"/>
+		<!-- <param name="dynamixel_info" value="$(find sensor_head_gui)/config/dynamixel_info_motors.yaml"/> -->
+	</include>	<!-- </group> -->
+	
+	
+	<node pkg="sensor_head_gui" name="sensor_head_gui" type="sensor_head_gui" respawn="false" output="screen"></node>
 </launch>

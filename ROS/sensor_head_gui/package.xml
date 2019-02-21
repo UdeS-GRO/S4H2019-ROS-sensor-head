@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>sensor_head_gui</name>
-  <version>0.0.0</version>
+  <version>0.0.3</version>
   <description>The sensor_head_gui package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
