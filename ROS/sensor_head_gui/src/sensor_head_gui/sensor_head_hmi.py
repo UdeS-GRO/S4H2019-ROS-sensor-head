@@ -75,8 +75,8 @@ class SensorHeadHMIWidget(QtWidgets.QWidget):
         Will be depreceated
         '''
         self.ControlMotor(3, "Torque_Enable", desired_state)
-        self.ControlMotor(2, "Torque_Enable", desired_state)
-        self.ControlMotor(1, "Torque_Enable", desired_state)
+        # self.ControlMotor(2, "Torque_Enable", desired_state)
+        # self.ControlMotor(1, "Torque_Enable", desired_state)
         # if self.enable_motor.isChecked():
         #     self.enable_motor.text = "DISABLE MOTOR"
         # else:
