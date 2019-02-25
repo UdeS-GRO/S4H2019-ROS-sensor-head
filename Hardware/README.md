@@ -27,14 +27,14 @@ Finaly, join top plate with the base and srew it with 3X m3 SHCS.
 
 5- Assembly the X module:
 
-
+Take the X motor (XM-430-w350) and screw the motor adapter (item no ...). 
 
 
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE0NjAzNDc5MDcsLTEyNjUxMDc4NDQsMT
-c4ODc5NzQwMywxOTIxOTM0NDQ3LC01NTQwNjQ2MDYsLTM0NTY0
-MzM0NCwxMTIwMDU1OTldfQ==
+eyJoaXN0b3J5IjpbLTQxMjI1MjY2MSwtMTQ2MDM0NzkwNywtMT
+I2NTEwNzg0NCwxNzg4Nzk3NDAzLDE5MjE5MzQ0NDcsLTU1NDA2
+NDYwNiwtMzQ1NjQzMzQ0LDExMjAwNTU5OV19
 -->
