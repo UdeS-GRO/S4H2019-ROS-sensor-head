@@ -25,7 +25,7 @@ Take the Z motor, fix the adapter_gear on the motor with 4 screws m2.5.
 Fix the bevel_gear on it. Screw the motor with the base. Fix the other bevel-gear on the 2in shaft. Place one bearing on the bearing hole. Place the other bearing in the top plate bearing hole. This is "pressfit" hole.
 Finaly, join top plate with the base and srew it with 3X m3 SHCS.
 
-5- Assembly the X module:
+5 - Assembly the X module:
 
 Take the X motor (XM-430-w350) and screw the motor adapter (item no ...). Place bearing support (2x) and spacer with screw #6-32(2x). Screw the shaft adaptor under the 3d printed piece with 4x #6-32.
 Align shaft, bearing, spacer and ring for complete the assy.
@@ -37,7 +37,7 @@ Align shaft, bearing, spacer and ring for complete the assy.
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTI0Mjc0NjAzNCwtMTQ2MDM0NzkwNywtMT
+eyJoaXN0b3J5IjpbLTIzODEzNzM1NiwtMTQ2MDM0NzkwNywtMT
 I2NTEwNzg0NCwxNzg4Nzk3NDAzLDE5MjE5MzQ0NDcsLTU1NDA2
 NDYwNiwtMzQ1NjQzMzQ0LDExMjAwNTU5OV19
 -->
