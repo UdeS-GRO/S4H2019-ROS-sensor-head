@@ -20,14 +20,15 @@ Extruder temp: 195-205 degC
 Infill : 10 to 60 % Diamond infill
 
 4 - Assembly the Z module
-Take the Z motor, fix the adapter_gear on the motor with 4 screws m2,5.
-Fix the bevel_gear on it. Screw the motor with the base.
+Take the Z motor, fix the adapter_gear on the motor with 4 screws m2.5.
+Fix the bevel_gear on it. Screw the motor with the base. Fix the other bevel-gear on t
+
 
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyNjUxMDc4NDQsMTc4ODc5NzQwMywxOT
-IxOTM0NDQ3LC01NTQwNjQ2MDYsLTM0NTY0MzM0NCwxMTIwMDU1
-OTldfQ==
+eyJoaXN0b3J5IjpbNzU0MjU5NjQ5LC0xMjY1MTA3ODQ0LDE3OD
+g3OTc0MDMsMTkyMTkzNDQ0NywtNTU0MDY0NjA2LC0zNDU2NDMz
+NDQsMTEyMDA1NTk5XX0=
 -->
