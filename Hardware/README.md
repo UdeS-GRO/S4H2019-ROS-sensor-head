@@ -27,14 +27,17 @@ Finaly, join top plate with the base and srew it with 3X m3 SHCS.
 
 5- Assembly the X module:
 
-Take the X motor (XM-430-w350) and screw the motor adapter (item no ...). Place bearing support (2x) and spacer with screw #6-32(2x). Screw the shaft adaptor under the 
+Take the X motor (XM-430-w350) and screw the motor adapter (item no ...). Place bearing support (2x) and spacer with screw #6-32(2x). Screw the shaft adaptor under the 3d printed piece with 4x #6-32.
+Align shaft, bearing, spacer and ring for complete the assy.
+
+6 - 
 
 
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTY3Nzg3NjQ5MCwtMTQ2MDM0NzkwNywtMT
+eyJoaXN0b3J5IjpbMTI0Mjc0NjAzNCwtMTQ2MDM0NzkwNywtMT
 I2NTEwNzg0NCwxNzg4Nzk3NDAzLDE5MjE5MzQ0NDcsLTU1NDA2
 NDYwNiwtMzQ1NjQzMzQ0LDExMjAwNTU5OV19
 -->
