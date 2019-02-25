@@ -19,17 +19,22 @@ Layer high : 0,2mm
 Extruder temp: 195-205 degC
 Infill : 10 to 60 % Diamond infill
 
-4 - Assembly the Z module
+4 - Assembly the Z module:
+
 Take the Z motor, fix the adapter_gear on the motor with 4 screws m2.5.
 Fix the bevel_gear on it. Screw the motor with the base. Fix the other bevel-gear on the 2in shaft. Place one bearing on the bearing hole. Place the other bearing in the top plate bearing hole. This is "pressfit" hole.
-Finaly, join top plate with the base and srew it with 3X 
+Finaly, join top plate with the base and srew it with 3X m3 SHCS.
+
+5- Assembly the X module:
+
+
 
 
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzE3NzQ1MDM3LC0xMjY1MTA3ODQ0LDE3OD
-g3OTc0MDMsMTkyMTkzNDQ0NywtNTU0MDY0NjA2LC0zNDU2NDMz
-NDQsMTEyMDA1NTk5XX0=
+eyJoaXN0b3J5IjpbLTE0NjAzNDc5MDcsLTEyNjUxMDc4NDQsMT
+c4ODc5NzQwMywxOTIxOTM0NDQ3LC01NTQwNjQ2MDYsLTM0NTY0
+MzM0NCwxMTIwMDU1OTldfQ==
 -->
