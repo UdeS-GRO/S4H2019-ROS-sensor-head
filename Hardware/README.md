@@ -30,7 +30,7 @@ Finaly, join top plate with the base and srew it with 3X m3 SHCS.
 
 Take the X motor (XM-430-w350) and screw the motor adaptor (item no ...). Place bearing support (2x) and spacer with screw #6-32(2x). Screw the shaft adaptor under the 3d printed piece with 4x #6-32.
 Align shaft, bearing, spacer and ring for complete the assy.
-![](https://github.com/gene2302/3-axis-ROS-sensor-head/blob/master/Hardware/Images/Z_axis.PNG)
+![](https://github.com/gene2302/3-axis-ROS-sensor-head/blob/master/Hardware/Images/X_axis.PNG)
 
 6 - Assembly the Y module:
 
