@@ -32,14 +32,14 @@ Align shaft, bearing, spacer and ring for complete the assy.
 
 6 - Assembly the Y module:
 
-Take the Y motor(XM-430-w250) and screw the motor adaptor on it. Plug 1in shaft in the a
+Take the Y motor(XM-430-w250) and screw the motor adaptor on it. Plug 1in shaft in the adaptor motor. Next, screw bearing supports with the 3d printed y-plate. 
 
 
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTEzODY5Njk5MCw0NDA3NjIyMTcsLTIyNj
+eyJoaXN0b3J5IjpbMTgzNzA3MDQxNiw0NDA3NjIyMTcsLTIyNj
 I0MTQwMiwtMjM4MTM3MzU2LC0xNDYwMzQ3OTA3LC0xMjY1MTA3
 ODQ0LDE3ODg3OTc0MDMsMTkyMTkzNDQ0NywtNTU0MDY0NjA2LC
 0zNDU2NDMzNDQsMTEyMDA1NTk5XX0=
