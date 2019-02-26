@@ -36,12 +36,12 @@ Take the Y motor(XM-430-w250) and screw the motor adaptor on it. Plug 1in shaft 
 
 7 - Assembly the full module.
 
-Take all modules  
+Take all modules and 
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTA3MzIwMzIwNCwtMzY2Mjg2ODYxLDQ0MD
+eyJoaXN0b3J5IjpbLTYyNzYzMDE0OSwtMzY2Mjg2ODYxLDQ0MD
 c2MjIxNywtMjI2MjQxNDAyLC0yMzgxMzczNTYsLTE0NjAzNDc5
 MDcsLTEyNjUxMDc4NDQsMTc4ODc5NzQwMywxOTIxOTM0NDQ3LC
 01NTQwNjQ2MDYsLTM0NTY0MzM0NCwxMTIwMDU1OTldfQ==
