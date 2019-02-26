@@ -6,6 +6,13 @@
 
 3 axis head system that can be controlled by a cell phone or a USB controller. This open source project is part of the Robotics Engineering Project Course at the Université de Sherbrooke.
 
+Expliquer le setup: 
+
+- RaspberryPi: 
+- OpenCR:
+- Camera:
+- ROS:
+
 Useful links: 
 
 - http://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_workbench/#ros
@@ -35,6 +42,8 @@ In order to communicate with the OpenCR card via usb, the user has to be added t
 
 See http://emanual.robotis.com/docs/en/parts/controller/opencr10/#install-on-linux for instructions to use the full and latest version of the Arduino IDE, not the one in the packages repository since it might be updated.
 
+
+
 # 2- OpenCR board configuration
 
 To be able to control the Dynamixel motors via ROS, the OpenCR card need to be converted in a USB to Serial device that will make the bridge between the ROS server (on Linux) and the motors connected with the OpenCR card. 
@@ -48,17 +57,29 @@ https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR/master/arduino/opencr_relea
 
 Then, click Tools → Board → Boards Manager. Type OpenCR into the textbox to find the OpenCR by ROBOTIS package. When you find it, click Install. After the installation, “INSTALLED” will appear on your screen. See if the OpenCR Board is now on the list of Tools → Board. Click this to import the OpenCR Board source.
 
+
+
 ## Code upload
 
-In order to the OpenCR card to make the bridge, please upload `usb_to_dxl` firmware (`File` -> `Examples` -> `OpenCR` -> `10.Etc` -> `usb_to_dxl`) Then you can use `/dev/ttyACM0` port (The number of the port may be different depending on setup).
+In order to the OpenCR card to make the bridge, this code need has to be uploaded. 
+
+**TIP**: If you want to use OpenCR as U2D2, please upload `usb_to_dxl` firmware (`File` -> `Examples` -> `OpenCR` -> `10.Etc` -> `usb_to_dxl`) Then you can use `/dev/ttyACM0` port (The number of the port may be different depending on setup).
 
 ## Hardware
 
-In order to test the motors, please connect a SINGLE motor, connect the power supply and power on the card. 
+In order to test the motors, please c
+
+Upgrade OpenCR: http://emanual.robotis.com/docs/en/parts/controller/opencr10/#install-on-mac (burner est pas vraiment nécessaire…)
+
+## Hardware
+
+1. Connect a SINGLEsingle motor, c
+2. Connect the power supply and p
+3. Power on the card. 
 
 # 3- ROS Installation
 
-You can follow this [link](http://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_workbench/) for the installation tutorial. The ROS utilization correspond to the section 5 of the tutorial. Below are the condensed steps that need to be taken. Below are the simplified steps. 
+You can follow this [link](http://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_workbench/) for the installation tutorial. The ROS utilization correspond to the section 5 of the tutorial. Below are the condensed steps that need to be taken. Below are the simplified steps.* 
 
 ## Install ROS on PC
 
@@ -93,6 +114,8 @@ git clone https://github.com/ROBOTIS-GIT/open_manipulator_msgs.git
 sudo apt-get install ros-kinetic-moveit-core ros-kinetic-moveit-ros-planning ros-kinetic-moveit-ros-planning-interface
 ```
 
+
+
 Once all the git has been cloned, different ROS packages will be installed too. 
 
 ## ROS Initilization
@@ -111,25 +134,31 @@ catkin_make
 
 ## Find the Dynamixels connected to the OpenCR card. 
 
-In order to see which Dynamixel motors are connected, this command need to executed. Change ''ACM0'' to the port used by the OpenCR card. 
+In order to see which Dynamixel motors are connected, this command need to executed. Change ''ACM0'' to the port used by the OpenCR carAfter this, run this node in order to scan all ID with each Baudrate (9600, 57600, 115200, 1000000, 2000000, 3000000, 4000000) and show how many dynamixels are connected. 
 
 ```bash
-rosrun dynamixel_workbench_controllers find_dynamixel /dev/ttyACM0
+rosrun dynamixel_workbench_controllers find_dynamixel /dev/ttyACMUSB0
 ```
 
 
 
-## Control a SINGLE motor with ROS (command line)
+## Control a SINGLEsingle motor with ROS (command line)
 
-**WARNING**: This package is intended for `SINGLE` Dynamixel. Please connect only `One(1)` Dynamixel to your device. If you connect multiple Dynamixels, manager would detect the **lowest ID** among connected Dynamixels. This package is to check Dynamixel status and access Dynamixel’s control table. 
+**WARNING**: This package is intended for `SINGLE` Dynamixel. Please connect only `One(1)` Dynamixel to your device. If you connect multiple Dynamixels, manager would detect the **lowest ID** among connected Dynamixels. 
 
-## Control a SINGLE motor with ROS (gui)
+This package is to check Dynamixel status and access Dynamixel’s control table. 
 
-Important: In order to connect this node with the connect USB port, you shall modify the port in the configuration file located in the dynamixel_workbench_controllers config file. 
+## Control a SINGLE motor with ROS (gui)**Launch single_manager** 
+
+Important: In order to connect this node with the connect USB port, you shall modify the port in the configuration file located in the dynamixel_workbench_controllers config fileTBD. 
 
 ```bash
 roslaunch dynamixel_workbench_single_manager single_manager.launch
 ```
+
+
+
+## Control a single motor with ROS (GUI)
 
 This package is to check Dynamixel status and access Dynamixel’s Control Table addresses via **GUI**. **WARNING**: Before you run this package, please launch [single_manager](http://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_workbench/#single-manager) first.
 
@@ -145,7 +174,30 @@ In order to use the package, please launch this launch file.
 roslaunch sensor_head_gui sensor_head_gui.launch
 ```
 
-This file will launch several ROS node (dynamical_workbench_controllers, sensor_head_gui). If you can't find the package, please see https://answers.ros.org/question/190317/ros-cant-find-package/
+This file will launch several ROS node (dynamical_workbench_controllers, sensor_head_gui). If you
+**Install package manager Synamptic**
+
+```
+sudo apt-get install synaptic
+sudo synaptic
+Instakll qt creator package
+```
+
+https://www.cnblogs.com/casperwin/p/6206193.html
+
+
+
+https://www.cnblogs.com/casperwin/p/6206193.html
+
+Install qt Creator
+
+Git setup : https://github.com/shovington/Tracking_camera
+
+
+
+Create a package (main program in Python)
+
+When can't find the package, please see: https://answers.ros.org/question/190317/ros-cant-find-package/
 
 
 
@@ -162,3 +214,6 @@ This file will launch several ROS node (dynamical_workbench_controllers, sensor_
 
 
 
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbLTE3OTMwMzEzMjVdfQ==
+-->
