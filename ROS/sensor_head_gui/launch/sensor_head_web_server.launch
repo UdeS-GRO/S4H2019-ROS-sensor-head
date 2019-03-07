@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+    <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" />
+
+    <node pkg="sensor_head_gui" name="sensor_head_gui" type="sensor_head_web_server.py" respawn="false" output="screen" />
+</launch>
