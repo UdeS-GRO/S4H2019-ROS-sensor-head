@@ -7,7 +7,7 @@ var alpha, valpha, z;
 var beta, vbeta, x;
 var gamma, vgamma, y;
 
-var orientationTimer;
+var orientationMotionTimer;
 // Set up a global variable for the term div:
 var term = document.getElementById('term');
 
@@ -65,8 +65,6 @@ function deviceOrientationHandler(eventData) {
     // alpha is the compass direction the device is facing in degrees
     alpha = eventData.alpha;
 
-// termLog(alpha);
-   
 }
 
 
@@ -92,37 +90,42 @@ function deviceMotionHandler(eventData) {
     x = acceleration.x;
     y = acceleration.y;
     z = acceleration.z;
-
+    
     // Grab the rotation rate from the results
     var rotation = eventData.rotationRate;
     vgamma = rotation.gamma;
     vbeta = rotation.beta;
     valpha = rotation.alpha;
 
-// termLog(x);
 }
 
 function logOrientation(alpha_angle, beta_angle, gamma_angle) {
     const orientation = {
-        alpha: alpha_angle,
-        beta: beta_angle,
-        gamma: gamma_angle
+        alpha: alpha_angle.toFixed(3),
+        beta: beta_angle.toFixed(3),
+        gamma: gamma_angle.toFixed(3)
     };
     termLog(JSON.stringify(orientation));
-    // termLog(alpha);
 }
 
-// Logs the orientation each 500 milliseconds
-orientationTimer = setInterval(function () {
-    logOrientation(alpha, beta, gamma);
-    // logOrientation();
-}, 500);
 
-// window.ondevicemotion = function(event) {
-// 	var accelerationX = event.accelerationIncludingGravity.x;
-// 	var accelerationY = event.accelerationIncludingGravity.y;
-//     var accelerationZ = event.accelerationIncludingGravity.z;
-    
-//     // window.alert(accelerationX);
-//     termLog(accelerationX);
-// };
+function logMotion(accX, accY, accZ, v_alpha, v_beta, v_gamma) {
+    const acceleration = {
+        x: accX.toFixed(3),
+        y: accY.toFixed(3),
+        z: accZ.toFixed(3)
+    };
+    const rotationRate = {
+        valpha: v_alpha.toFixed(3),
+        vbeta: v_beta.toFixed(3),
+        vgamma: v_gamma.toFixed(3)
+    };
+    termLog(JSON.stringify(acceleration));
+    termLog(JSON.stringify(rotationRate));
+}
+
+// Logs the orientation and motion every 500 milliseconds
+orientationMotionTimer = setInterval(function () {
+    logOrientation(alpha, beta, gamma);
+    logMotion(x, y, z, valpha, vbeta, vgamma)
+}, 500);
