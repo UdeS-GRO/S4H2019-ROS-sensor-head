@@ -84,7 +84,8 @@ $RECYCLE.BIN/
 ~$*.SLDPRT
 ~$*.SLDASM
 
-
+# Do not add certificate files
+.pem
 
 
 
