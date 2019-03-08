@@ -7,6 +7,7 @@ var alpha, valpha, z;
 var beta, vbeta, x;
 var gamma, vgamma, y;
 
+var orientationTimer;
 // Set up a global variable for the term div:
 var term = document.getElementById('term');
 
@@ -32,6 +33,7 @@ function getDateTimeString() {
  */
 function termLog(consoleLineString) {
     term.innerHTML += "[" + getDateTimeString() + "] " + consoleLineString + "<br/>";
+    term.scrollTop = term.scrollHeight;
 }
 
 
@@ -63,6 +65,8 @@ function deviceOrientationHandler(eventData) {
     // alpha is the compass direction the device is facing in degrees
     alpha = eventData.alpha;
 
+// termLog(alpha);
+   
 }
 
 
@@ -94,4 +98,31 @@ function deviceMotionHandler(eventData) {
     vgamma = rotation.gamma;
     vbeta = rotation.beta;
     valpha = rotation.alpha;
+
+// termLog(x);
 }
+
+function logOrientation(alpha_angle, beta_angle, gamma_angle) {
+    const orientation = {
+        alpha: alpha_angle,
+        beta: beta_angle,
+        gamma: gamma_angle
+    };
+    termLog(JSON.stringify(orientation));
+    // termLog(alpha);
+}
+
+// Logs the orientation each 500 milliseconds
+orientationTimer = setInterval(function () {
+    logOrientation(alpha, beta, gamma);
+    // logOrientation();
+}, 500);
+
+// window.ondevicemotion = function(event) {
+// 	var accelerationX = event.accelerationIncludingGravity.x;
+// 	var accelerationY = event.accelerationIncludingGravity.y;
+//     var accelerationZ = event.accelerationIncludingGravity.z;
+    
+//     // window.alert(accelerationX);
+//     termLog(accelerationX);
+// };
