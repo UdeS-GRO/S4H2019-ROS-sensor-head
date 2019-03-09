@@ -37,7 +37,41 @@ function termLog(consoleLineString) {
 }
 
 
-// setup event handler to capture the orientation event and store the most recent data in a variable
+
+// setup connection to the ROS server and prepare the topic
+var ros = new ROSLIB.Ros();
+
+ros.on('connection', function () {
+    console.log('Connected to websocket server.');
+    termLog('Connected to websocket server.');
+});
+
+ros.on('error', function (error) {
+    console.log('Error connecting to websocket server: ', error);
+    termLog('Error connecting to websocket server: ' + error.toString());
+    window.alert('Error connecting to websocket server');
+});
+
+ros.on('close', function () {
+    console.log('Connection to websocket server closed.');
+    termLog('Connection to websocket server closed.');
+});
+
+// var imageTopic = new ROSLIB.Topic({
+//   ros: ros,
+//   name: '/camera/image/compressed',
+//   messageType: 'sensor_msgs/CompressedImage'
+// });
+
+// var imuTopic = new ROSLIB.Topic({
+//   ros: ros,
+//   name: '/gyro',
+//   messageType: 'sensor_msgs/Imu'
+// });
+
+
+// Setup event handler to capture the orientation event and store the most
+// recent data in a variable.
 if (window.DeviceOrientationEvent) {
     // Listen for the deviceorientation event and handle the raw data
     window.addEventListener('deviceorientation', deviceOrientationHandler, false);
@@ -90,7 +124,7 @@ function deviceMotionHandler(eventData) {
     x = acceleration.x;
     y = acceleration.y;
     z = acceleration.z;
-    
+
     // Grab the rotation rate from the results
     var rotation = eventData.rotationRate;
     vgamma = rotation.gamma;
