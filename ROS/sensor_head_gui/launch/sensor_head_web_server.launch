@@ -1,6 +1,13 @@
 <?xml version="1.0"?>
 <launch>
+    <arg name="web_server_port" default="4443" />
+    <arg name="web_server_www_root" default="$(find sensor_head_gui)/src/sensor_head_web_server/www" />
+
     <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" />
 
-    <node pkg="sensor_head_gui" name="sensor_head_gui" type="sensor_head_web_server.py" respawn="false" output="screen" />
+    <node pkg="sensor_head_gui" name="sensor_head_web_server" type="sensor_head_web_server.py" respawn="false" output="screen">
+        <param name="web_server_port" value="$(arg web_server_port)" type="int" />
+        <param name="web_server_www_root" value="$(arg web_server_www_root)" />
+    </node>
+
 </launch>
