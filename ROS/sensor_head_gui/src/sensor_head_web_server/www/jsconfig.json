@@ -1,0 +1,14 @@
+// Used for Visual Studio Code Intellisense for developpment. 
+{
+    "typeAcquisition": {
+        "include": [
+          "three","roslib"
+        ]
+      },
+    "compilerOptions": {
+        "target": "ES6"
+    },
+    "include": [
+        "js/**/*"
+    ]
+}

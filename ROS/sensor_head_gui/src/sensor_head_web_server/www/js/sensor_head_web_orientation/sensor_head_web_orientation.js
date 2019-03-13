@@ -63,16 +63,17 @@ ros.on('close', function () {
 //   messageType: 'sensor_msgs/CompressedImage'
 // });
 
-// var imuTopic = new ROSLIB.Topic({
-//   ros: ros,
-//   name: '/gyro',
-//   messageType: 'sensor_msgs/Imu'
-// });
+var imuTopic = new ROSLIB.Topic({
+    ros: ros,
+    name: '/mobile_imu',
+    messageType: 'sensor_msgs/Imu'
+});
 
 
 // Setup event handler to capture the orientation event and store the most
 // recent data in a variable.
 if (window.DeviceOrientationEvent) {
+
     // Listen for the deviceorientation event and handle the raw data
     window.addEventListener('deviceorientation', deviceOrientationHandler, false);
     termLog("Device orientation (angle) supported!");
@@ -158,8 +159,60 @@ function logMotion(accX, accY, accZ, v_alpha, v_beta, v_gamma) {
     termLog(JSON.stringify(rotationRate));
 }
 
+function publishImuSnapshot() {
+    const currentImuData = {
+        alpha: alpha,
+        beta: beta,
+        gamma: gamma,
+        valpha: valpha,
+        vbeta: vbeta,
+        vgamma: vgamma,
+        x: x,
+        y: y,
+        z: z
+    };
+
+    const beta_radian = ((beta + 360) / 360 * 2 * Math.PI) % (2 * Math.PI);
+    const gamma_radian = ((gamma + 360) / 360 * 2 * Math.PI) % (2 * Math.PI);
+    const alpha_radian = ((alpha + 360) / 360 * 2 * Math.PI) % (2 * Math.PI);
+    var eurlerpose = new THREE.Euler(beta_radian, gamma_radian, alpha_radian);
+    var quaternionpose = new THREE.Quaternion();
+    quaternionpose.setFromEuler(eurlerpose);
+
+    var imuMessage = new ROSLIB.Message({
+        header: {
+            frame_id: "world"
+        },
+        orientation: {
+            x: quaternionpose.x,
+            y: quaternionpose.y,
+            z: quaternionpose.z,
+            w: quaternionpose.w
+        },
+        orientation_covariance: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        angular_velocity: {
+            x: vbeta,
+            y: vgamma,
+            z: valpha,
+        },
+        angular_velocity_covariance: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        linear_acceleration: {
+            x: x,
+            y: y,
+            z: z,
+        },
+        linear_acceleration_covariance: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    });
+
+    imuTopic.publish(imuMessage);
+
+}
+
+ros.connect("ws://" + window.location.hostname + ":9090");
+
 // Logs the orientation and motion every 500 milliseconds
 orientationMotionTimer = setInterval(function () {
     logOrientation(alpha, beta, gamma);
-    logMotion(x, y, z, valpha, vbeta, vgamma)
+    publishImuSnapshot();
+    // logMotion(x, y, z, valpha, vbeta, vgamma);
 }, 500);
