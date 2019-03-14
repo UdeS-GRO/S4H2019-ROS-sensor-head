@@ -228,7 +228,7 @@ termLog("wss://" + window.location.hostname + ":9090");
 ros.connect("wss://" + window.location.hostname + ":9090");
 // Logs the orientation and motion every 500 milliseconds
 orientationMotionTimer = setInterval(function () {
-    logOrientation(alpha, beta, gamma);
+    // logOrientation(alpha, beta, gamma);
     publishImuSnapshot();
-    logMotion(x, y, z, valpha, vbeta, vgamma);
-}, 500);
+    // logMotion(x, y, z, valpha, vbeta, vgamma);
+}, 75);
