@@ -47,8 +47,9 @@ ros.on('connection', function () {
 });
 
 ros.on('error', function (error) {
-    console.log('Error connecting to websocket server: ', error);
-    termLog('Error connecting to websocket server: ' + error.toString());
+    console.log('Error connecting to websocket server: ', JSON.stringify(error));
+    console.log(error);
+    termLog('Error connecting to websocket server: ' + JSON.stringify(error));
     window.alert('Error connecting to websocket server');
 });
 
@@ -56,12 +57,6 @@ ros.on('close', function () {
     console.log('Connection to websocket server closed.');
     termLog('Connection to websocket server closed.');
 });
-
-// var imageTopic = new ROSLIB.Topic({
-//   ros: ros,
-//   name: '/camera/image/compressed',
-//   messageType: 'sensor_msgs/CompressedImage'
-// });
 
 var imuTopic = new ROSLIB.Topic({
     ros: ros,
@@ -99,7 +94,7 @@ function deviceOrientationHandler(eventData) {
 
     // alpha is the compass direction the device is facing in degrees
     alpha = eventData.alpha;
-
+    // console.log(eventData);
 }
 
 
@@ -131,14 +126,14 @@ function deviceMotionHandler(eventData) {
     vgamma = rotation.gamma;
     vbeta = rotation.beta;
     valpha = rotation.alpha;
-
+    // console.log(eventData);
 }
 
 function logOrientation(alpha_angle, beta_angle, gamma_angle) {
     const orientation = {
-        alpha: alpha_angle.toFixed(3),
-        beta: beta_angle.toFixed(3),
-        gamma: gamma_angle.toFixed(3)
+        alpha: alpha_angle ? alpha_angle.toFixed(3) : 0,
+        beta: beta_angle ? beta_angle.toFixed(3) : 0,
+        gamma: gamma_angle ? gamma_angle.toFixed(3) : 0
     };
     termLog(JSON.stringify(orientation));
 }
@@ -146,21 +141,21 @@ function logOrientation(alpha_angle, beta_angle, gamma_angle) {
 
 function logMotion(accX, accY, accZ, v_alpha, v_beta, v_gamma) {
     const acceleration = {
-        x: accX.toFixed(3),
-        y: accY.toFixed(3),
-        z: accZ.toFixed(3)
+        x: accX ? accX.toFixed(3) : 0,
+        y: accY ? accY.toFixed(3) : 0,
+        z: accZ ? accZ.toFixed(3) : 0
     };
     const rotationRate = {
-        valpha: v_alpha.toFixed(3),
-        vbeta: v_beta.toFixed(3),
-        vgamma: v_gamma.toFixed(3)
+        valpha: v_alpha ? v_alpha.toFixed(3) : 0,
+        vbeta: v_beta ? v_beta.toFixed(3) : 0,
+        vgamma: v_gamma ? v_gamma.toFixed(3) : 0
     };
     termLog(JSON.stringify(acceleration));
     termLog(JSON.stringify(rotationRate));
 }
 
 function publishImuSnapshot() {
-    const currentImuData = {
+    let imuData = {
         alpha: alpha,
         beta: beta,
         gamma: gamma,
@@ -171,13 +166,31 @@ function publishImuSnapshot() {
         y: y,
         z: z
     };
+    let orientation_covariance = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+    let angular_velocity_covariance = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+    let linear_acceleration_covariance = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-    const beta_radian = ((beta + 360) / 360 * 2 * Math.PI) % (2 * Math.PI);
-    const gamma_radian = ((gamma + 360) / 360 * 2 * Math.PI) % (2 * Math.PI);
-    const alpha_radian = ((alpha + 360) / 360 * 2 * Math.PI) % (2 * Math.PI);
+
+
+    if (!imuData.alpha || !imuData.beta || !imuData.gamma) {
+        orientation_covariance[0] = -1;
+    }
+    if (!imuData.valpha || !imuData.vbeta || !imuData.vgamma) {
+        angular_velocity_covariance[0] = -1;
+    }
+    if (!imuData.x || !imuData.y || !imuData.z) {
+        linear_acceleration_covariance[0] = -1;
+    }
+
+
+    const beta_radian = imuData.beta ? ((imuData.beta + 360) / 360 * 2 * Math.PI) % (2 * Math.PI) : 0;
+    const gamma_radian = imuData.gamma ? ((imuData.gamma + 360) / 360 * 2 * Math.PI) % (2 * Math.PI) : 0;
+    const alpha_radian = imuData.alpha ? ((imuData.alpha + 360) / 360 * 2 * Math.PI) % (2 * Math.PI) : 0;
     var eurlerpose = new THREE.Euler(beta_radian, gamma_radian, alpha_radian);
     var quaternionpose = new THREE.Quaternion();
     quaternionpose.setFromEuler(eurlerpose);
+
+
 
     var imuMessage = new ROSLIB.Message({
         header: {
@@ -189,30 +202,33 @@ function publishImuSnapshot() {
             z: quaternionpose.z,
             w: quaternionpose.w
         },
-        orientation_covariance: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        orientation_covariance: orientation_covariance,
         angular_velocity: {
-            x: vbeta,
-            y: vgamma,
-            z: valpha,
+            x: imuData.vbeta ? imuData.vbeta : 0,
+            y: imuData.vgamma ? imuData.vgamma : 0,
+            z: imuData.valpha ? imuData.valpha : 0,
         },
-        angular_velocity_covariance: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        angular_velocity_covariance: angular_velocity_covariance,
         linear_acceleration: {
-            x: x,
-            y: y,
-            z: z,
+            x: imuData.x ? imuData.x : 0,
+            y: imuData.y ? imuData.y : 0,
+            z: imuData.z ? imuData.z : 0,
         },
-        linear_acceleration_covariance: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        linear_acceleration_covariance: linear_acceleration_covariance,
     });
 
     imuTopic.publish(imuMessage);
 
 }
 
-ros.connect("ws://" + window.location.hostname + ":9090");
-
+// Need to use wss (secure websocket) instead of ws (websocket) since the 
+// webpage is using https and all requests must be secured. Or else, the 
+// browsers block the connection to the rosbridge server.
+termLog("wss://" + window.location.hostname + ":9090");
+ros.connect("wss://" + window.location.hostname + ":9090");
 // Logs the orientation and motion every 500 milliseconds
 orientationMotionTimer = setInterval(function () {
     logOrientation(alpha, beta, gamma);
     publishImuSnapshot();
-    // logMotion(x, y, z, valpha, vbeta, vgamma);
+    logMotion(x, y, z, valpha, vbeta, vgamma);
 }, 500);

@@ -52,6 +52,7 @@ httpd.socket = ssl.wrap_socket(httpd.socket, server_side=True,
 def shutdown_hook():
     print "Trying to shut down server"
     rospy.loginfo("Trying to shut down server")
+    # httpd.shutdown()
     httpd.socket.close()
 
 
