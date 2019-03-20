@@ -11,6 +11,9 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   rqt_gui
   rqt_gui_py
+  std_msgs
+  message_generation
+  sensor_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -71,6 +74,7 @@ catkin_python_setup()
 # generate_messages(
 #   DEPENDENCIES
 #   std_msgs  # Or other packages containing msgs
+#   sensor_msgs
 # )
 
 ################################################
@@ -105,7 +109,7 @@ catkin_python_setup()
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES sensor_head_gui
-#  CATKIN_DEPENDS rospy rqt_gui rqt_gui_py
+  CATKIN_DEPENDS rospy rqt_gui rqt_gui_py std_msgs message_runtime sensor_msgs
 #  DEPENDS system_lib
 )
 
