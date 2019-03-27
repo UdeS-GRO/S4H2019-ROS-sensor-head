@@ -7,13 +7,36 @@
         <arg name="ssl" value="true" />
         <arg name="certfile" default="/home/pi/s4e4gro.pem" />
         <arg name="keyfile" default="/home/pi/s4e4gro.pem" />
-        <arg name="port" value="9090"/>
-         <!-- <arg name="keyfile" default="/home/pi/s4e4gro.pem" /> -->
+        <arg name="port" value="9090" />
+        <!-- <arg name="keyfile" default="/home/pi/s4e4gro.pem" /> -->
     </include>
 
     <node pkg="sensor_head_gui" name="sensor_head_web_server" type="sensor_head_web_server.py" respawn="false" output="screen">
         <param name="web_server_port" value="$(arg web_server_port)" type="int" />
         <param name="web_server_www_root" value="$(arg web_server_www_root)" />
     </node>
+    <node pkg="usb_cam" type="usb_cam_node" name="usb_cam_node_sensor_head" output="screen" respawn="true" respawn_delay="1">
+        <!-- See http://wiki.ros.org/usb_cam for a list of parameters and valid values -->
+        <param name="video_device" value="/dev/video0" />
+        <param name="image_width" value="640" />
+        <param name="image_height" value="480" />
+<!--
+        <param name="pixel_format" value="rgb24" />
+-->
+        <param name="pixel_format" value="yuyv" />
+        <param name="camera_frame_id" value="usb_cam" />
+<!--
+        <param name="io_method" value="userptr" />
+-->
+        <param name="io_method" value="mmap" />
+        <param name="framerate " value="24" />
+    </node>
 
+    <node pkg="web_video_server" type="web_video_server" name="web_video_server" 
+    output="screen" respawn="true" respawn_delay="1">
+		<param name="port" value="8080" />
+		<param name="address" value="0.0.0.0" />
+		<param name="server_threads" value="2" />
+		<param name="ros_threads" value="3" />
+    </node>
 </launch>

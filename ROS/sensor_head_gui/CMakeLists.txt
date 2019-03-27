@@ -14,6 +14,8 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   message_generation
   sensor_msgs
+  usb_cam
+  web_video_server
 )
 
 ## System dependencies are found with CMake's conventions
@@ -109,7 +111,7 @@ catkin_python_setup()
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES sensor_head_gui
-  CATKIN_DEPENDS rospy rqt_gui rqt_gui_py std_msgs message_runtime sensor_msgs
+  CATKIN_DEPENDS rospy rqt_gui rqt_gui_py std_msgs message_runtime sensor_msgs usb_cam web_video_server
 #  DEPENDS system_lib
 )
 

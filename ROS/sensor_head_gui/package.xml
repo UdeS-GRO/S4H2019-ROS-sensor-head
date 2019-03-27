@@ -55,11 +55,15 @@
   <build_depend>rqt_gui_py</build_depend>
   <build_depend>sensor_msgs</build_depend>
   <build_depend>std_msgs</build_depend>
+  <build_depend>usb_cam</build_depend>
+  <build_depend>web_video_server</build_depend>
   <build_export_depend>rospy</build_export_depend>
   <build_export_depend>rqt_gui</build_export_depend>
   <build_export_depend>rqt_gui_py</build_export_depend>
   <build_export_depend>sensor_msgs</build_export_depend>
   <build_export_depend>std_msgs</build_export_depend>
+  <build_export_depend>usb_cam</build_export_depend>
+  <build_export_depend>web_video_server</build_export_depend>
   <exec_depend>rospy</exec_depend>
   <exec_depend>rqt_gui</exec_depend>
   <exec_depend>rqt_gui_py</exec_depend>
@@ -67,11 +71,12 @@
   <exec_depend>rosbridge_server</exec_depend>
   <exec_depend>sensor_msgs</exec_depend>
   <exec_depend>std_msgs</exec_depend>
+  <exec_depend>usb_cam</exec_depend>
+  <exec_depend>web_video_server</exec_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>
     <rqt_gui plugin="${prefix}/plugin.xml" />
     <!-- Other tools can request additional information be placed here -->
-
   </export>
 </package>
