@@ -1,24 +1,25 @@
 import rospy
-from geometry_msgs.msg import Twist
-from 
+from sensor_head_gui.msg import Controller
+from sensor_head_gui.msg import Deadman
 from sensor_msgs.msg import Joy
 
 class ManualControl():
 	
 	def callback(self, data):
-		twist = Twist()
-		twist.linear.x = 100*data.axes[0]
-		twist.linear.y = 100*data.axes[1]
-		twist.linear.z = 100*data.axes[3]
-		#deadman = 100*data.axes[2]
-		self.pub.publish(twist)
-		#self.pub2.publish(deadman)
+		controller = Controller()
+		deadman = Deadman()
+		controller.axis.x = 100*data.axes[0]
+		controller.axis.y = 100*data.axes[1]
+		controller.axis.z = 100*data.axes[3]
+		deadman.switch = 100*data.axes[5]
+		self.pub_axis.publish(controller)
+		self.pub_deadman.publish(deadman)
 
 	def __init__(self, publisher):
 
 		
-		self.pub = rospy.Publisher(publisher, Twist)
-		#self.pub2 = rospy.Publisher(publisher, deadman)
+		self.pub_axis = rospy.Publisher(publisher, Controller, queue_size=10)
+		self.pub_deadman = rospy.Publisher(publisher, Deadman, queue_size=10)
 		rospy.Subscriber("joy", Joy, self.callback)
 		rospy.spin()
 
