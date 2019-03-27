@@ -7,7 +7,6 @@ from PyQt5.QtCore import pyqtSlot
 from dynamixel_workbench_msgs.srv import *
 from dynamixel_workbench_msgs.msg import *
 from functools import partial
-from std_msgs.msg import Int32
 
 
 class SensorHeadHMIWidget(QtWidgets.QWidget):
@@ -18,11 +17,6 @@ class SensorHeadHMIWidget(QtWidgets.QWidget):
         ui_file = os.path.join(rospkg.RosPack().get_path(
             'sensor_head_gui'), 'resource', 'sensor_head_hmi.ui')
         loadUi(ui_file, self)
-
-
-        # TOPIC
-        self.pub = rospy.Publisher('test2', Int32)
-
 
         # SEND INFO
         self.slider_position_axis_x.valueChanged[int].connect(
@@ -37,12 +31,9 @@ class SensorHeadHMIWidget(QtWidgets.QWidget):
         self.enable_motor.setChecked(True)
         self.enable_motor.setChecked(False)
 
-
-
         # RECEIVE INFO
         self.motor_sub = rospy.Subscriber(
             "/dynamixel_workbench/dynamixel_state", DynamixelStateList, self.UpdateMotorsData)
-
 
     def UpdateMotorsData(self, state):
         """Update the motor dictionnary information with the dynamixel state list
@@ -57,12 +48,27 @@ class SensorHeadHMIWidget(QtWidgets.QWidget):
 
         self.actual_pos_axis1.setNum(self.motors_data[3])
 
-
-
     def change_motor_position(self, motor_id, desired_position):
-        self.pub.publish(desired_position)
-        pass
+        """Sends a request to change the desired position of a motor specified by its ID.
 
+        Arguments:
+            motor_id {int} -- ID of the motor. Must match the dynamixel motor's id.
+            desired_position {[type]} -- [description]
+        """
+
+        rospy.wait_for_service('/dynamixel_workbench/dynamixel_command')
+        try:
+            move_motor = rospy.ServiceProxy(
+                '/dynamixel_workbench/dynamixel_command', DynamixelCommand)
+            request = DynamixelCommandRequest()
+            request.id = motor_id
+            request.addr_name = "Goal_Position"
+            request.value = desired_position
+            response = move_motor(request)
+
+        except rospy.ServiceException, e:
+            print "Service call failed: %s" % e
+            print("Error here")
 
     def ChangeMotorState1(self, desired_state):
         '''
@@ -78,5 +84,18 @@ class SensorHeadHMIWidget(QtWidgets.QWidget):
         pass
 
     def ControlMotor(self, id, command, value):
-        pass
+        '''
+        TODO: Will become the function used in independant ROS package
+        '''
+        rospy.wait_for_service('/dynamixel_workbench/dynamixel_command')
+        try:
+            service_object = rospy.ServiceProxy(
+                '/dynamixel_workbench/dynamixel_command', DynamixelCommand)
+            request = DynamixelCommandRequest()
+            request.id = 3
+            request.addr_name = command
+            request.value = value
+            service_call_response = service_object(request)
 
+        except rospy.ServiceException, e:
+            print "Service call failed: %s" % e
