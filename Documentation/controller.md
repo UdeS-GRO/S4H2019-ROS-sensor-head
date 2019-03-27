@@ -54,10 +54,16 @@ ls -l /dev/input/js2
 
 then run joy to see values of your axes and buttons that should be between -1 and 1
 
+In different terminals, run:
 ```bash
 roscore
+```
+```bash
 rosparam set joy_node/dev "/dev/input/js2"
 rosrun joy joy_node
+``` 
+and
+```bash
 rostopic echo joy
 ```
 
