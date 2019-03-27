@@ -10,6 +10,7 @@ from functools import partial
 from rqt_gui.main import Main
 from std_msgs.msg import String
 import sys
+from std_msgs.msg import Int32
 
 
 class main_node():
