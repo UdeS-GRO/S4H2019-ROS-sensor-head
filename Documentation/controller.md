@@ -1,24 +1,24 @@
 http://wiki.ros.org/joy/Tutorials/ConfiguringALinuxJoystick
 
 Install the xbox controller driver with:
-'''bash
+```bash
 sudo apt-get install xboxdrv
-'''
+```
 
 Add controller in the USB ports of Virtualbox
 Check if it is there with 
-'''bash
+```bash
 lsusb
-'''
+```
 
 sudo apt-get install ros-kinetic-joy
 ls /dev/input/
 
 Test to see which port your controller is attached to like this for example:
 
-'''bash
+```bash
 sudo jstest /dev/input/js2
-'''
+```
 Here's the mapping for our Xbox One Controller
 Axes:
 0: Left Joystick L/R (Analog) L = 1, R = -1
@@ -45,25 +45,30 @@ Buttons (Digital): (0 or 1)
 
 You have to make the joystick accesible to ROS with:
 
-'''bash
+```bash
 sudo chmod a+rw /dev/input/js2
 ls -l /dev/input/js2
-'''
+```
 
 then run joy to see values of your axes and buttons that should be between -1 and 1
 
+```bash
 roscore
 rosparam set joy_node/dev "/dev/input/js2"
 rosrun joy joy_node
 rostopic echo joy
+```
 
 then follow the tutorial at: http://wiki.ros.org/joy/Tutorials/WritingTeleopNode
 but add 
-'''bash
+```bash
 catkin_package()
-'''
+```
 in the CMakeLists.txt file
 
 also do a
+
+```bash
 catkin_make
+```
 and source your bash
