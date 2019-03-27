@@ -10,9 +10,11 @@ Check if it is there with
 ```bash
 lsusb
 ```
-
+then install joy with
+```bash
 sudo apt-get install ros-kinetic-joy
 ls /dev/input/
+```
 
 Test to see which port your controller is attached to like this for example:
 
