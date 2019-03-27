@@ -64,6 +64,11 @@ var imuTopic = new ROSLIB.Topic({
     messageType: 'sensor_msgs/Imu'
 });
 
+var imageTopic = new ROSLIB.Topic({
+    ros : ros,
+    name : '/usb_cam_node_sensor_head/image_raw/compressed',
+    messageType : 'sensor_msgs/CompressedImage'
+});
 
 // Setup event handler to capture the orientation event and store the most
 // recent data in a variable.
@@ -232,3 +237,10 @@ orientationMotionTimer = setInterval(function () {
     publishImuSnapshot();
     // logMotion(x, y, z, valpha, vbeta, vgamma);
 }, 75);
+
+imageTopic.subscribe(function(message)
+{
+   var imagedata = "data:image/jpeg;base64," + message.data;
+   document.getElementById('camera_img').setAttribute('src', imagedata);
+   imageTopic.unsubscribe();
+});
