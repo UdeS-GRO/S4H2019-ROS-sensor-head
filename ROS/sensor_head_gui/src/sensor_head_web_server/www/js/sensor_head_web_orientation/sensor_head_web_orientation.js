@@ -242,5 +242,5 @@ imageTopic.subscribe(function(message)
 {
    var imagedata = "data:image/jpeg;base64," + message.data;
    document.getElementById('camera_img').setAttribute('src', imagedata);
-   imageTopic.unsubscribe();
+//    imageTopic.unsubscribe();
 });
