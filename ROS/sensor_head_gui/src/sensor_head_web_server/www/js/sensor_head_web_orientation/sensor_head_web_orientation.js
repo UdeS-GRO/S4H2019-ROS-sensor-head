@@ -25,7 +25,7 @@ ros.on('error', function (error) {
 
 ros.on('close', function () {
     console.log('Connection to websocket server closed.');
-    
+
 });
 
 var imuTopic = new ROSLIB.Topic({
@@ -46,7 +46,7 @@ if (window.DeviceOrientationEvent) {
 
     // Listen for the deviceorientation event and handle the raw data
     window.addEventListener('deviceorientation', deviceOrientationHandler, false);
-    colole.log("Device orientation (angle) supported!");
+    console.log("Device orientation (angle) supported!");
 
 } else {
     console.log("Device orientation (angle) not supported!");
