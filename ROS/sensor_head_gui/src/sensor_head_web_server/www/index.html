@@ -7,42 +7,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Sensor Head Web Interface</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
 </head>
 
 <body>
-    <!-- Crashes on the pi: -->
-    <!--
-    <img src="http://10.0.0.1:8080/stream?topic=/usb_cam_node_sensor_head/image_raw&type=vp8">
--->
-    <!-- Crashes on the pi: -->
-    <!--
-	<img src="http://10.0.0.1:8080/stream?topic=/usb_cam_node_sensor_head/image_raw&type=vp9">
--->
-
-    <!-- Too slow -->
-    <!--
-	<img src="http://10.0.0.1:8080/stream?topic=/usb_cam_node_sensor_head/image_raw&type=png">
--->
-    <!-- A little lag, seems to show partial frames and sometimes skips frames to keep up -->
-    <!--
-	<img src="http://10.0.0.1:8080/stream?topic=/usb_cam_node_sensor_head/image_raw&type=ros_compressed">
--->
-    <!-- Crashes on the pi: -->
-    <!--
-	<img src="http://10.0.0.1:8080/stream?topic=/usb_cam_node_sensor_head/image_raw&type=h264">
--->
-    <!-- By default, mjpeg: -->
-    <!-- <img src="http://10.0.0.1:8080/stream?topic=/usb_cam_node_sensor_head/image_raw"> -->
-    <!-- <img src="http://pi-Virtualbox:8080/stream?topic=/usb_cam_node_sensor_head/image_raw"> -->
-
+    <!-- A container that is styled to be as big as the viewport, so that the 
+        image can be scaled to fit the screen-->
     <div class='fill-screen'>
-        <!-- <img id="camera_img" src="./img/video_icon.png"> -->
-        
-        <img id="video_icon" src="./img/video_icon.png">
-        <div id="camera_img"></div>
+        <!-- The actual image or video. In the javascript code, the src 
+            attribute is set with the base64 encoded image that comes from the 
+            subscribed topic.-->
+        <img id="camera_img">
     </div>
-    <!-- <div class="term" id="term"></div> -->
-
 
     <!--Must add the scripts at the end of the <body> closing tab 
         so that the scripts can access all the document's elements.-->
