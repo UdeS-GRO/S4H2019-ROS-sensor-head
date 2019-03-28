@@ -1,6 +1,6 @@
 /*jshint esversion: 6 */
 
-// Global variables for the orientation and velocity. 
+// Global variables for the orientation and velocity.
 // See https://developers.google.com/web/fundamentals/native-hardware/device-orientation/
 // for the images on the orientation convention.
 var alpha, valpha, z;
@@ -9,7 +9,7 @@ var gamma, vgamma, y;
 
 var orientationMotionTimer;
 // Set up a global variable for the term div:
-var term = document.getElementById('term');
+// var term = document.getElementById('term');
 
 /**
  * @description Function to return a formatted date and time string
@@ -32,8 +32,9 @@ function getDateTimeString() {
  * @param {string} consoleLineString The string to log to the fake console
  */
 function termLog(consoleLineString) {
-    term.innerHTML += "[" + getDateTimeString() + "] " + consoleLineString + "<br/>";
-    term.scrollTop = term.scrollHeight;
+    // term.innerHTML += "[" + getDateTimeString() + "] " + consoleLineString + "<br/>";
+    // term.scrollTop = term.scrollHeight;
+    console.log(consoleLineString);
 }
 
 
@@ -65,9 +66,9 @@ var imuTopic = new ROSLIB.Topic({
 });
 
 var imageTopic = new ROSLIB.Topic({
-    ros : ros,
-    name : '/usb_cam_node_sensor_head/image_raw/compressed',
-    messageType : 'sensor_msgs/CompressedImage'
+    ros: ros,
+    name: '/usb_cam_node_sensor_head/image_raw/compressed',
+    messageType: 'sensor_msgs/CompressedImage'
 });
 
 // Setup event handler to capture the orientation event and store the most
@@ -226,8 +227,8 @@ function publishImuSnapshot() {
 
 }
 
-// Need to use wss (secure websocket) instead of ws (websocket) since the 
-// webpage is using https and all requests must be secured. Or else, the 
+// Need to use wss (secure websocket) instead of ws (websocket) since the
+// webpage is using https and all requests must be secured. Or else, the
 // browsers block the connection to the rosbridge server.
 termLog("wss://" + window.location.hostname + ":9090");
 ros.connect("wss://" + window.location.hostname + ":9090");
@@ -238,9 +239,9 @@ orientationMotionTimer = setInterval(function () {
     // logMotion(x, y, z, valpha, vbeta, vgamma);
 }, 75);
 
-imageTopic.subscribe(function(message)
-{
-   var imagedata = "data:image/jpeg;base64," + message.data;
-   document.getElementById('camera_img').setAttribute('src', imagedata);
-//    imageTopic.unsubscribe();
+imageTopic.subscribe(function (message) {
+    var imagedata = "data:image/jpeg;base64," + message.data;
+    // document.getElementById('camera_img').setAttribute('src', imagedata);
+    document.getElementById('camera_img').style.backgroundImage = "url('" +imagedata+"')";
+    // imageTopic.unsubscribe();
 });

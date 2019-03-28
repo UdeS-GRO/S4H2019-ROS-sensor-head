@@ -10,33 +10,38 @@
 </head>
 
 <body>
-	<!-- Crashes on the pi: -->
-<!--
+    <!-- Crashes on the pi: -->
+    <!--
     <img src="http://10.0.0.1:8080/stream?topic=/usb_cam_node_sensor_head/image_raw&type=vp8">
 -->
-	<!-- Crashes on the pi: -->
-<!--
+    <!-- Crashes on the pi: -->
+    <!--
 	<img src="http://10.0.0.1:8080/stream?topic=/usb_cam_node_sensor_head/image_raw&type=vp9">
 -->
-	
-	<!-- Too slow -->
-<!--
+
+    <!-- Too slow -->
+    <!--
 	<img src="http://10.0.0.1:8080/stream?topic=/usb_cam_node_sensor_head/image_raw&type=png">
 -->
-	<!-- A little lag, seems to show partial frames and sometimes skips frames to keep up -->
-<!--
+    <!-- A little lag, seems to show partial frames and sometimes skips frames to keep up -->
+    <!--
 	<img src="http://10.0.0.1:8080/stream?topic=/usb_cam_node_sensor_head/image_raw&type=ros_compressed">
 -->
-	<!-- Crashes on the pi: -->
-<!--
+    <!-- Crashes on the pi: -->
+    <!--
 	<img src="http://10.0.0.1:8080/stream?topic=/usb_cam_node_sensor_head/image_raw&type=h264">
 -->
-	<!-- By default, mjpeg: -->
-        <img src="http://10.0.0.1:8080/stream?topic=/usb_cam_node_sensor_head/image_raw">
-        <!-- <img src="http://pi-Virtualbox:8080/stream?topic=/usb_cam_node_sensor_head/image_raw"> -->
+    <!-- By default, mjpeg: -->
+    <!-- <img src="http://10.0.0.1:8080/stream?topic=/usb_cam_node_sensor_head/image_raw"> -->
+    <!-- <img src="http://pi-Virtualbox:8080/stream?topic=/usb_cam_node_sensor_head/image_raw"> -->
 
-        <img id="camera_img">
-    <div class="term" id="term"></div>
+    <div class='fill-screen'>
+        <!-- <img id="camera_img" src="./img/video_icon.png"> -->
+        
+        <img id="video_icon" src="./img/video_icon.png">
+        <div id="camera_img"></div>
+    </div>
+    <!-- <div class="term" id="term"></div> -->
 
 
     <!--Must add the scripts at the end of the <body> closing tab 
@@ -45,7 +50,9 @@
     <script src="./js/roslibjs/roslib.min.js"></script> -->
     <script src="./js/three.js/r102/three.js"></script>
     <script src="./js/roslibjs/roslib.js"></script>
-    <script src="./js/sensor_head_web_orientation/sensor_head_web_orientation.js"></script>
+    <script
+        src="./js/sensor_head_web_orientation/sensor_head_web_orientation.js">
+    </script>
 
 </body>
 
