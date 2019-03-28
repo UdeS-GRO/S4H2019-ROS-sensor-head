@@ -75,7 +75,7 @@ wget https://raw.githubusercontent.com/ROBOTIS-GIT/robotis_tools/master/install_
 Once ROS is installed, you'll need to change the directory to catkin_ws/src. It is where all the ROS package will be installed. 
 
 ```bash
-cd catkin_ws/src
+cd ~/catkin_ws/src
 ```
 
 **Main packages**
@@ -93,16 +93,33 @@ git clone https://github.com/ROBOTIS-GIT/open_manipulator_msgs.git
 sudo apt-get install ros-kinetic-moveit-core ros-kinetic-moveit-ros-planning ros-kinetic-moveit-ros-planning-interface
 ```
 
+**Install this package**
+
+Still in the ```catkin_ws/src/``` folder, clone this project.
+```bash
+git clone https://github.com/gene2302/3-axis-ROS-sensor-head.git
+```
+
 Once all the git has been cloned, different ROS packages will be installed too. 
 
 ## ROS Initilization
 
-First, you'll need to source the correct ROS workspace in order to use ROS from anywhere. Then, catkin_make to build all the ROS workspace. 
+First, you'll need to source the correct ROS workspace in order to use ROS from anywhere. Then, make sure all dependencies are installed by using the rosdep tool. Finally, run catkin_make to build all the ROS workspace. 
 
 ```bash
 source /opt/ros/kinetic/setup.bash
-cd ~/catkin_ws 
+cd ~/catkin_ws
+rosdep install --from-paths src --ignore-src -r -y
 catkin_make
+```
+
+If you are using a Raspberry Pi or a computer low on memory, you might need to limit the number of build threads jobs launched my catkin_make. By default, catkin_make launches one job (thread) per processor core. The `-j 1` argument and value specifies to run one job. It will be slower, but will compile.
+
+```bash
+source /opt/ros/kinetic/setup.bash
+cd ~/catkin_ws
+rosdep install --from-paths src --ignore-src -r -y
+catkin_make -j 1
 ```
 
 
