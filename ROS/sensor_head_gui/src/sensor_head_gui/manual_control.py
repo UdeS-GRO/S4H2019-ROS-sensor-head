@@ -3,7 +3,6 @@ from sensor_head_gui.msg import X_Controller
 from sensor_msgs.msg import Joy
 
 class ManualControl():
-	
 	def callback(self, data):
 		Xbox = X_Controller()
 		vitesse = 1 #degrés
@@ -31,6 +30,4 @@ if __name__ == '__main__':
     rospy.init_node('Joy2Turtle')
     mc = ManualControl("MC_pub")
     rospy.spin()
-	
-		
-		
+

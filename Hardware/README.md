@@ -3,11 +3,11 @@
 ![full assy](https://github.com/gene2302/3-axis-ROS-sensor-head/blob/master/Hardware/Images/3-axis-iso.PNG)
 
 1 - Download BOM.
-	[Excel BOM](https://github.com/gene2302/3-axis-ROS-sensor-head/blob/master/Hardware/BOM/BOM.xlsx)
+	[Excel BOM](https://github.com/gene2302/3-axis-ROS-sensor-head/blob/master/Hardware/BOM/Master_parts_list.xlsx)
 
 2 - Purchase required standards parts.
 
-You need purchase some standard part from Servocity, dynamixel and McMaster for exemple. All links are in the BOM excel.
+You need purchase some standard parts from Servocity, dynamixel and McMaster for exemple. All links are in the BOM excel.
 
 3 - 3D print all 3d printed parts
 

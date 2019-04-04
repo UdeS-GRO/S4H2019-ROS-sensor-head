@@ -14,6 +14,8 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   message_generation
   sensor_msgs
+  usb_cam
+  joy
 )
 
 ## System dependencies are found with CMake's conventions
@@ -108,8 +110,8 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES sensor_head_gui
-  CATKIN_DEPENDS rospy rqt_gui rqt_gui_py std_msgs message_runtime sensor_msgs
-#  DEPENDS system_lib
+  CATKIN_DEPENDS rospy rqt_gui rqt_gui_py std_msgs message_runtime sensor_msgs usb_cam joy
+  DEPENDS xboxdrv
 )
 
 ###########
@@ -172,9 +174,6 @@ install(PROGRAMS
 # install(TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
-
 install(DIRECTORY
   resource
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
