@@ -1,2 +1,3 @@
 # This expresses velocity in free space broken into its axis.
-Vector3  axis
+geometry_msgs/Vector3  axis
+bool deadman
