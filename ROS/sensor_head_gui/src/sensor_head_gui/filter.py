@@ -1,17 +1,6 @@
 import rospy
 from sensor_msgs.msg import Imu
-# import csv
-# import os, rospkg
-# rospack = rospkg.RosPack()
-# with open(os.path.join(rospack.get_path("_slash_mobile_imu.csv"), "csv", "alarms.csv"), 'rb') as csvfile:
-#     reader = csv.reader(csvfile)
-#     for row in reader:
 
-# import CSV
-# with open('_slash_mobile_imu.csv', 'rb') as f:
-#     reader = csv.reader(f)
-# for row in reader:
-#     print row
 class FilterFIR():
 
     def callback(self, data):
@@ -50,8 +39,7 @@ class FilterFIR():
         imu.orientation.z = Z_out
         imu.orientation.w = W_out
 
-        # print (x_inp)
-        print (X_out)
+        #print (X_out)
 
         if len(self.x_inp) == 11:
             self.x_inp.pop(0)
@@ -76,52 +64,9 @@ class FilterFIR():
 
         rospy.Subscriber("/mobile_imu", Imu, self.callback)
         self.mobile_imu_filtered = rospy.Publisher('/mobile_imu_filtered',Imu)
-        # global pub 
-        # 
-
 
 if __name__ == '__main__':
     rospy.init_node("FilterNode")
     fn = FilterFIR()
     rospy.spin()
 
-# import rospy
-# # from geometry_msgs.msg import Twist
-# # from sensor_msgs.msg import Joy
-
-# # from _slash_mobile_imu.csv import x
-
-# class filter_FIR(publisher):
-	
-#     def init_():
-
-
-#     def donnee(data):
-#         coord = x()
-#         coord.x = 
-
-
-
-# 	def callback(data):
-# 		twist = Twist()
-# 		twist.linear.x = 100*data.axes[0]
-# 		twist.linear.y = 100*data.axes[1]
-# 		twist.linear.z = 100*data.axes[3]
-# 		deadman = 100*data.axes[2]
-# 		pub.publish(twist)
-# 		pub2.publish(deadman)
-
-# 	def _init_():
-# 		global pub
-# 		global pub2
-# 		pub = rospy.Publisher(publisher,Twist)
-# 		pub2 = rospy.Publisher(publisher,deadman)
-# 		rospy.Subscriber("joy", Joy, callback)
-# 		rospy.spin()
-
-
-# if __name__ == '__main__':
-#     rospy.init_node("FilterNode")
-#     _init_()
-#     rospy.Subscriber("/mobile_imu", Imu, callback)
-#     rospy.spin()
