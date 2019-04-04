@@ -17,12 +17,11 @@ class main_node():
 
     def __init__(self):
         self.pub = rospy.Publisher('chatter', String, queue_size=10)
-        self.rate = rospy.Rate(10) # 10hz
+        self.rate = rospy.Rate(10)  # 10hz
 
     def refresh(self):
-        #while not rospy.is_shutdown():
+        # while not rospy.is_shutdown():
         hello_str = "hello world %s" % rospy.get_time()
         rospy.loginfo(hello_str)
         self.pub.publish(hello_str)
         self.rate.sleep()
-

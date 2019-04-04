@@ -14,6 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   message_generation
   sensor_msgs
+  geometry_msgs
   usb_cam
   joy
 )
@@ -75,6 +76,7 @@ add_message_files(
 generate_messages(
    DEPENDENCIES
    std_msgs  # Or other packages containing msgs
+   geometry_msgs
    #sensor_msgs
  )
 
@@ -110,7 +112,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES sensor_head_gui
-  CATKIN_DEPENDS rospy rqt_gui rqt_gui_py std_msgs message_runtime sensor_msgs usb_cam joy
+  CATKIN_DEPENDS rospy rqt_gui rqt_gui_py std_msgs message_runtime sensor_msgs usb_cam joy geometry_msgs
   DEPENDS xboxdrv
 )
 
