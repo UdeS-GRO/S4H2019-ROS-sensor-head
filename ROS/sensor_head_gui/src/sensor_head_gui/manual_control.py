@@ -16,3 +16,5 @@ class ManualControl():
             twist.linear.z = 100*data.axes[3]
             self.pub.publish(twist)
 
+if __name__ = '__main__'):
+		__init__()
