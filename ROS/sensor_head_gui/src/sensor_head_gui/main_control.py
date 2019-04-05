@@ -18,13 +18,13 @@ from sensor_head_gui.msg import X_Controller
 #def callback(data):
 #     rospy.loginfo(rospy.get_caller_id() + "I heard %s", data.data)
 class main_control():
-     def __init__(self, publisher):
+     def __init__(self):
 
-          self.subJoy = rospy.Subscriber("Xbox", X_Controller, self.ControlMotor)
-          self.motor_sub = rospy.Subscriber(
-            "/dynamixel_workbench/dynamixel_state", DynamixelStateList, self.UpdateMotorsData)
+          self.subJoy = rospy.Subscriber("Xbox", X_Controller, self.change_motor_position)
+          # self.motor_sub = rospy.Subscriber(
+          #   "/dynamixel_workbench/dynamixel_state", DynamixelStateList, self.UpdateMotorsData)
 
-     def change_motor_positionmotor1(self, data):
+     def change_motor_position(self, data):
         """Sends a request to change the desired position of a motor specified by its ID.
 
         Arguments:

@@ -20,5 +20,5 @@
         </node>
 
 
-        <node pkg="sensor_head_gui" name="sensor_head_gui" type="sensor_head_gui" respawn="false" output="screen" />
+        <!-- <node pkg="sensor_head_gui" name="sensor_head_gui" type="sensor_head_gui" respawn="false" output="screen" /> -->
 </launch>
