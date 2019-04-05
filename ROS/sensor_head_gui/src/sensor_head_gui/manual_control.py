@@ -20,9 +20,9 @@ class manual_control():
             if (data.axes[3] > deadzone or data.axes[3] < -deadzone):
                 self.z_pos = self.z_pos + vitesse*data.axes[3]
             if (data.buttons[6] == 1):
-                self.x_pos = 0
-                self.y_pos = 0
-                self.z_pos = 0
+                Xbox.home = 1
+            else:
+                Xbox.home = 0
         else:
             Xbox.deadman = 0
 
@@ -35,9 +35,9 @@ class manual_control():
    
     
     def __init__(self):
-        self.x_pos = 0
-        self.y_pos = 0
-        self.z_pos = 0
+        self.x_pos = 2048
+        self.y_pos = 2048
+        self.z_pos = 2048
 
         self.pub_Xbox = rospy.Publisher('Xbox', X_Controller, queue_size=10)
         self.subJoy = rospy.Subscriber("joy", Joy, self.callback)
@@ -45,11 +45,8 @@ class manual_control():
 
 if __name__ == '__main__':
     try:
-        rospy.init_node('talker', anonymous=True)
+        rospy.init_node('manualControl', anonymous=True)
         mc = manual_control()
-
-        # pub_Xbox = rospy.Publisher('Xbox', X_Controller, queue_size=10)
-        # subJoy = rospy.Subscriber("joy", Joy, talkerXbox)
         rospy.spin()
     except rospy.ROSInterruptException:
         pass
