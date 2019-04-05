@@ -4,7 +4,7 @@ from sensor_head_gui.msg import X_Controller
 from sensor_msgs.msg import Joy
 
 def talker():
-   
+
     Xbox = X_Controller()
     vitesse = 1  # degrees # TODO: To be specified in parameter
     deadzone = 0.1
@@ -18,13 +18,13 @@ def talker():
     rate = rospy.Rate(10) # 10hz
     
     while not rospy.is_shutdown():
-        if (data.axes[0]>deadzone || data.axes[0]<-deadzone)
+        if (data.axes[0]>deadzone || data.axes[0]<-deadzone):
             x_pos = x_pos + vitesse*data.axes[0]
-        if (data.axes[1]>deadzone || data.axes[1]<-deadzone)
+        if (data.axes[1]>deadzone || data.axes[1]<-deadzone):
             y_pos = y_pos + vitesse*data.axes[1]
-        if (data.axes[3]>deadzone || data.axes[3]<-deadzone)
+        if (data.axes[3]>deadzone || data.axes[3]<-deadzone):
             z_pos = z_pos + vitesse*data.axes[3]
-        if (data.buttons[6]==1)
+        if (data.buttons[6]==1):
             x_pos = 0
             y_pos = 0
             z_pos = 0

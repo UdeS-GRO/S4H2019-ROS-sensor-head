@@ -18,7 +18,7 @@ from std_msgs.msg import Int32
 def listener():
      rospy.init_node('listener', anonymous=True)
  
-     rospy.Subscriber("Xbox", String, callback)
+     rospy.Subscriber("Xbox",1)
  
      # spin() simply keeps python from exiting until this node is stopped
      rospy.spin()
