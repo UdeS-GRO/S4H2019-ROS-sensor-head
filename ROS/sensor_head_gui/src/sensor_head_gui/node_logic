@@ -12,16 +12,19 @@ from functools import partial
 from rqt_gui.main import Main
 from std_msgs.msg import String
 import sys
-from main_control import *
+# from main_control import *
 # from manual_control import *
 
 
-start_joy = True
+# start_joy = True
 
 if __name__ == "__main__":
 
+
     rospy.init_node('main_node', anonymous=True)
-    test = main_node()
+    # main_node() class does not exist anymore
+    
+    # test = main_node()
     # if (start_joy):
     #     mc_node = ManualControl('mc_xbox')
     #     pass
