@@ -20,77 +20,89 @@ from Constants import *
 #     rospy.loginfo(rospy.get_caller_id() + "I heard %s", data.data)
 class main_control():
      def __init__(self):
-
+          
           try:
                rospy.wait_for_service('/dynamixel_workbench/dynamixel_command', 0.1)
                self.motor_proxy = rospy.ServiceProxy('/dynamixel_workbench/dynamixel_command', DynamixelCommand)
-               self.subManette = rospy.Subscriber("Xbox", X_Controller, self.commandMotor)
+               self.subManette = rospy.Subscriber("Xbox", X_Controller, self.change_motor_position)
           except:
                print("WAIT")
                self.timer = rospy.Timer(rospy.Duration(2), self.connect)
-              
+        
 
         # Set max speed
-          self.commandMotor(1, "Position_P_Gain", 300)
-          self.commandMotor(2, "Position_P_Gain", 300)
-          self.commandMotor(3, "Position_P_Gain", 300)
+          # self.commandMotor(1, "Position_P_Gain", 300)
+          # self.commandMotor(2, "Position_P_Gain", 300)
+          # self.commandMotor(3, "Position_P_Gain", 300)
 
-          #self.commandMotor(1, "Torque_Enable", 1)
-          #self.commandMotor(2, "Torque_Enable", 1)
-          #self.commandMotor(3, "Torque_Enable", 1)
+          # self.commandMotor(1, "Torque_Enable", 1)
+          # self.commandMotor(2, "Torque_Enable", 1)
+          # self.commandMotor(3, "Torque_Enable", 1)
 
-          #self.commandMotor(1, "Max_Position_Limit", 4000)
-          #self.commandMotor(2, "Max_Position_Limit", 1700)
-          #self.commandMotor(3, "Max_Position_Limit", 1500)
+          # self.commandMotor(1, "Max_Position_Limit", 4000)
+          # self.commandMotor(2, "Max_Position_Limit", 1700)
+          # self.commandMotor(3, "Max_Position_Limit", 1500)
 
           # self.motor_sub = rospy.Subscriber(
           #   "/dynamixel_workbench/dynamixel_state", DynamixelStateList, self.UpdateMotorsData)
 
      def home(self):
-          request = [0, 0, 0]
-          for i in range(0, 2):
-               request[i] = DynamixelCommandRequest()
+          
+          for i in range(0, 3):
                self.commandMotor(i+1, "Goal_Position", setHome[i])
+          
 
-     # def moveMotor(self, id, pos):
-     #      request = DynamixelCommandRequest()
-     #      if (pos<setHome[id-1]-setRange[id-1]/2):
-     #           request = self.commandMotor(id, "Goal_Position", setHome[id-1]-setRange[id-1]/2)
-     #      elif (pos>setHome[id-1]+setRange[id-1]/2):
-     #           request = self.commandMotor(id, "Goal_Position", setHome[id-1]+setRange[id-1]/2)
-     #      else:
-     #           request = self.commandMotor(id, "Goal_Position", pos)
+     def moveMotor(self, id, pos):
+          
+          if (pos<setHome[id-1]-setRange[id-1]/2):
+               self.commandMotor(id, "Goal_Position", setHome[id-1]-setRange[id-1]/2)
+               #print("moveMotor under")
+          elif (pos>setHome[id-1]+setRange[id-1]/2):
+               self.commandMotor(id, "Goal_Position", setHome[id-1]+setRange[id-1]/2)
+               #print("moveMotor over")
+          else:
+               self.commandMotor(id, "Goal_Position", pos)
+               #print(pos)
+               #print("moveMotor normal")
+          
 
      def commandMotor(self, id, command, value):
           
-        """Sends a request to change the desired position of a motor specified by its ID.
+          """Sends a request to change the desired position of a motor specified by its ID.
 
-        Arguments:
-            motor_id {int} -- ID of the motor. Must match the dynamixel motor's id.
-            desired_position {[type]} -- [description]
-        """
+          Arguments:
+               motor_id {int} -- ID of the motor. Must match the dynamixel motor's id.
+               desired_position {[type]} -- [description]
+          """
 
-        rospy.wait_for_service('/dynamixel_workbench/dynamixel_command')
-        try:
-            move_motor = rospy.ServiceProxy(
-                '/dynamixel_workbench/dynamixel_command', DynamixelCommand)
-            request = DynamixelCommandRequest()
-            request.id = id
-            request.addr_name = command
-            request.value = value
-            response = move_motor(request)
+          rospy.wait_for_service('/dynamixel_workbench/dynamixel_command')
+          #try:
+               
+          request = DynamixelCommandRequest()
+          request.id = id
+          request.addr_name = command
+          request.value = value 
+          try:        
+               self.motor_proxy(request)
+               print("je bouge")
 
-        except rospy.ServiceException, e:
-            print "Service call failed: %s" % e
-            print("Error here")
-            
+
+          except rospy.ServiceException, e:
+               print "Service call failed: %s" % e
+               print("Error here")
+          
      def change_motor_position(self, Xbox):
-          if(Xbox.home == 1):
-               request = self.home()
-          # elif(Xbox.deadman == 1):
-          #      request = self.moveMotor(1, Xbox.axis.z)
-          #      request = self.moveMotor(2, Xbox.axis.x)
-          #      request = self.moveMotor(3, Xbox.axis.y)
+       
+          if(Xbox.deadman == 1):
+               if(Xbox.home == True):
+                    self.home()
+               elif(Xbox.axis.z != z or Xbox.axis.x != x or Xbox.axis.y != y):
+                    self.moveMotor(1, Xbox.axis.z)
+                    self.z = Xbox.axis.z
+                    self.moveMotor(2, Xbox.axis.x)
+                    self.x = Xbox.axis.x
+                    self.moveMotor(3, Xbox.axis.y)
+                    self.y = Xbox.axis.y
           #elif(filtre)
           #elif(hmi)
 
