@@ -1,4 +1,11 @@
 <?xml version="1.0"?>
-<launch>       
-        <node pkg="sensor_head_gui" name="main_node" type="node_logic" respawn="false" output="screen" />
+<launch>
+  <arg name="joy_dev" default="/dev/input/js2" />
+
+  <node pkg="joy" type="joy_node" name="joy_node" output="log" respawn="false" respawn_delay="0">
+    <param name="dev" value="$(arg joy_dev)" />
+  </node>
+  <node pkg="sensor_head_gui" name="main_node" type="node_logic" respawn="false" output="screen" />
+
+
 </launch>

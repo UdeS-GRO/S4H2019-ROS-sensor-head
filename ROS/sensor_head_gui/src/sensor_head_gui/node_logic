@@ -13,13 +13,18 @@ from rqt_gui.main import Main
 from std_msgs.msg import String
 import sys
 from main_control import *
-from manual_control import *
+# from manual_control import *
 
+
+start_joy = True
 
 if __name__ == "__main__":
 
     rospy.init_node('main_node', anonymous=True)
     test = main_node()
-    test2 = ManualControl('Test1')
+    # if (start_joy):
+    #     mc_node = ManualControl('mc_xbox')
+    #     pass
+
 
     rospy.spin()

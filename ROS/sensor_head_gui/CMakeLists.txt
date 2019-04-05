@@ -113,7 +113,7 @@ catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES sensor_head_gui
   CATKIN_DEPENDS rospy rqt_gui rqt_gui_py std_msgs message_runtime sensor_msgs usb_cam joy geometry_msgs
-  DEPENDS xboxdrv
+#  DEPENDS xboxdrv
 )
 
 ###########
