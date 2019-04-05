@@ -46,7 +46,7 @@ class manual_control():
 if __name__ == '__main__':
     try:
         rospy.init_node('talker', anonymous=True)
-        mc = ManualControl()
+        mc = manual_control()
 
         # pub_Xbox = rospy.Publisher('Xbox', X_Controller, queue_size=10)
         # subJoy = rospy.Subscriber("joy", Joy, talkerXbox)

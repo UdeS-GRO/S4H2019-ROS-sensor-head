@@ -15,7 +15,7 @@ from sensor_head_gui.msg import X_Controller
 
 #def callback(data):
 #     rospy.loginfo(rospy.get_caller_id() + "I heard %s", data.data)
-class main_control(self):
+class main_control():
      def __init__(self, publisher):
 
           self.subJoy = rospy.Subscriber("Xbox", X_Controller, self.ControlMotor)
@@ -51,7 +51,7 @@ class main_control(self):
             response = move_motor(request)
 
           ## motor y
-          move_motor = rospy.ServiceProxy(
+            move_motor = rospy.ServiceProxy(
                 '/dynamixel_workbench/dynamixel_command', DynamixelCommand)
             request = DynamixelCommandRequest()
             request.id = 3
@@ -67,4 +67,9 @@ class main_control(self):
 
      
 if __name__ == '__main__':
-          listener()
+     try:
+        rospy.init_node('main', anonymous=True)
+        mc = main_control()
+        rospy.spin()
+     except rospy.ROSInterruptException:
+        pass
