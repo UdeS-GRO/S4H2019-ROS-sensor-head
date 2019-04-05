@@ -6,7 +6,8 @@
     <param name="dev" value="$(arg joy_dev)" />
   </node>
   <node pkg="sensor_head_gui" name="main_node" type="node_logic" respawn="false" output="screen" />
-  <node pkg="sensor_head_gui" type="manual_control" name="manual_control_node" output="log" respawn="false" respawn_delay="0">
+
+  <node pkg="sensor_head_gui" type="manual_control.py" name="manual_control" output="screen" respawn="false" respawn_delay="0">
     
   </node>
 
