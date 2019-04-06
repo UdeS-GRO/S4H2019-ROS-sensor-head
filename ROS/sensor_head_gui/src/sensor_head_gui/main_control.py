@@ -23,7 +23,7 @@ class main_control():
           
           try:
                rospy.wait_for_service('/dynamixel_workbench/dynamixel_command', 0.1)
-               self.motor_proxy = rospy.ServiceProxy('/dynamixel_workbench/dynamixel_command', DynamixelCommand)
+               self.motor_proxy = rospy.ServiceProxy('/dynamixel_workbench/dynamixel_command', DynamixelCommand, persistent=True) # Enabled persistant connection
                self.subManette = rospy.Subscriber("Xbox", X_Controller, self.change_motor_position)
           except:
                print("WAIT")
@@ -75,7 +75,7 @@ class main_control():
                desired_position {[type]} -- [description]
           """
 
-          rospy.wait_for_service('/dynamixel_workbench/dynamixel_command')
+          # rospy.wait_for_service('/dynamixel_workbench/dynamixel_command') # Only at initialisation
           #try:
                
           request = DynamixelCommandRequest()
@@ -109,7 +109,7 @@ class main_control():
      def connect(self, event):
         try:
             rospy.wait_for_service('/dynamixel_workbench/dynamixel_command', 0.1)
-            self.motor_proxy = rospy.ServiceProxy('/dynamixel_workbench/dynamixel_command', DynamixelCommand)
+            self.motor_proxy = rospy.ServiceProxy('/dynamixel_workbench/dynamixel_command', DynamixelCommand, persistent=True)
             self.timer.shutdown()
             print("MOTORS FOUND")
         except:
