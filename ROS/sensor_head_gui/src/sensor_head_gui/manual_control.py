@@ -43,8 +43,16 @@ class manual_control():
         self.x_pos = setHome[1]
         self.y_pos = setHome[2]
 
-        self.pub_Xbox = rospy.Publisher('Xbox', X_Controller, queue_size=10)
-        self.subJoy = rospy.Subscriber("joy", Joy, self.callback)
+        # Setting queue_size=2 tells to only keep 2 messages before messages 
+        # are being dropped. If it not specified, the publishing is synchronous 
+        # by default (will not drop messages). "If you are publishing faster 
+        # than rospy can send the messages over the wire, rospy will start 
+        # dropping old messages." Here, since we don't want to overload the 
+        # motor control with too many messages that are past-due, we can drop 
+        # messages by limiting queue_size.
+        # See http://wiki.ros.org/rospy/Overview/Publishers%20and%20Subscribers#queue_size:_publish.28.29_behavior_and_queuing
+        self.pub_Xbox = rospy.Publisher('Xbox', X_Controller, queue_size=2)
+        self.subJoy = rospy.Subscriber("joy", Joy, self.callback, queue_size=2)
 
 
 if __name__ == '__main__':
