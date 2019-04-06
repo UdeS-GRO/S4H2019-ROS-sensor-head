@@ -6,13 +6,16 @@ zaxis:
   Return_Delay_Time: 0
   Min_Position_Limit: 500
   Max_Position_Limit: 1500
+  Operating_Mode: 3 # Position control mode
 xaxis:
   ID: 2
   Return_Delay_Time: 0
   Min_Position_Limit: 200
   Max_Position_Limit: 600
+  Operating_Mode: 3 # Position control mode
 yaxis:
   ID: 3
   Return_Delay_Time: 0
   Min_Position_Limit: 350
   Max_Position_Limit: 1050
+  Operating_Mode: 3 # Position control mode
