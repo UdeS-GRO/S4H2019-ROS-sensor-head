@@ -9,7 +9,7 @@
   <arg name="deadzone" default="0.1" doc="Amount by which the joystick has to move before it is considered to be off-center." />
   <!-- For the deadzone parameter: a similar value is used in the manual_control.py file -->
 
-  <node pkg="joy" type="joy_node" name="joy_node" output="log" respawn="false" respawn_delay="0">
+  <node pkg="joy" type="joy_node" name="joy_node" output="screen" respawn="false" respawn_delay="0">
     <param name="dev" value="$(arg dev)" />
     <param name="deadzone" value="$(arg deadzone)" />
     <param name="autorepeat_rate" value="$(arg autorepeat_rate)" />
