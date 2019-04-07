@@ -14,29 +14,29 @@ class manual_control():
         """
 
         Xbox = X_Controller()
-        vitesse = 60  # degrees # TODO: To be specified in parameter
+        vitesse = 32  # degrees # TODO: To be specified in parameter
         deadzone = 0.1
 
         if(data.axes[2] < 0 or data.axes[5] < 0):
             Xbox.deadman = 1
             if (data.axes[0] > deadzone or data.axes[0] < -deadzone):
                 self.z_pos = self.z_pos + vitesse*data.axes[0]
-                if (self.z_pos < setHome[0]-setRange[0])
-                    self.z_pos = setHome[0]-setRange[0]
-                elif (self.z_pos > setHome[0]+setRange[0])
-                    self.z_pos = setHome[0]+setRange[0]
+                if (self.z_pos < setHome[0]-setRange[0]/2):
+                    self.z_pos = setHome[0]-setRange[0]/2
+                elif (self.z_pos > setHome[0]+setRange[0]/2):
+                    self.z_pos = setHome[0]+setRange[0]/2
             if (data.axes[1] > deadzone or data.axes[1] < -deadzone):
                 self.x_pos = self.x_pos + vitesse*data.axes[1]
-                if (self.z_pos < setHome[1]-setRange[1])
-                    self.z_pos = setHome[1]-setRange[1]
-                elif (self.z_pos > setHome[1]+setRange[1])
-                    self.z_pos = setHome[1]+setRange[1]
+                if (self.x_pos < setHome[1]-setRange[1]/2):
+                    self.x_pos = setHome[1]-setRange[1]/2
+                elif (self.x_pos > setHome[1]+setRange[1]/2):
+                    self.x_pos = setHome[1]+setRange[1]/2
             if (data.axes[3] > deadzone or data.axes[3] < -deadzone):
                 self.y_pos = self.y_pos + vitesse*data.axes[3]
-                if (self.z_pos < setHome[2]-setRange[2])
-                    self.z_pos = setHome[2]-setRange[2]
-                elif (self.z_pos > setHome[2]+setRange[2])
-                    self.z_pos = setHome[2]+setRange[2]
+                if (self.y_pos < setHome[2]-setRange[2]/2):
+                    self.y_pos = setHome[2]-setRange[2]/2
+                elif (self.y_pos > setHome[2]+setRange[2]/2):
+                    self.y_pos = setHome[2]+setRange[2]/2
             if (data.buttons[6] == 1):
                 Xbox.home = 1
                 self.z_pos = setHome[0]

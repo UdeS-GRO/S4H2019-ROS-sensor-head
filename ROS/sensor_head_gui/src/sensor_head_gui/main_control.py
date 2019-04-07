@@ -52,19 +52,19 @@ class main_control():
         
         try:
             rospy.wait_for_service(
-                '/dynamixel_workbench/dynamixel_command', 0.1)
+                '/dynamixel_workbench/dynamixel_command', 2)
             self.motor_proxy = rospy.ServiceProxy(
                 '/dynamixel_workbench/dynamixel_command', DynamixelCommand, persistent=True)  # Enabled persistant connection
             self.subManette = rospy.Subscriber(
-                "Xbox", X_Controller, self.change_motor_position)
+                "Xbox", X_Controller, self.change_motor_position, queue_size=2)
         except:
             print("WAIT")
             self.timer = rospy.Timer(rospy.Duration(2), self.connect)
 
         # Set max speed
-        # self.commandMotor(1, "Position_P_Gain", 300)
-        # self.commandMotor(2, "Position_P_Gain", 300)
-        # self.commandMotor(3, "Position_P_Gain", 300)
+        # self.commandMotor(1, "Position_P_Gain", 640)
+        # self.commandMotor(2, "Position_P_Gain", 800)
+        # self.commandMotor(3, "Position_P_Gain", 640)
 
         # self.commandMotor(1, "Torque_Enable", 1)
         # self.commandMotor(2, "Torque_Enable", 1)
@@ -140,7 +140,6 @@ class main_control():
         request.value = value
         try:
             self.motor_proxy(request)
-            print ("je bouge")
             print self.x, self.y, self.z
 
         except rospy.ServiceException, e:
@@ -157,11 +156,30 @@ class main_control():
         if(Xbox.deadman == 1):
             if(Xbox.home == True):
                 self.home()
-            elif(Xbox.axis.z != self.z or Xbox.axis.x != self.x or Xbox.axis.y != self.y):
+            elif(Xbox.axis.z != self.z and Xbox.axis.x != self.x and Xbox.axis.y != self.y):
                 self.moveMotor(1, Xbox.axis.z)
                 self.z = Xbox.axis.z
+                self.x = Xbox.axis.x
+                self.y = Xbox.axis.y
+            elif(Xbox.axis.z != self.z and Xbox.axis.x != self.x ):
+                self.moveMotor(1, Xbox.axis.z)
+                self.z = Xbox.axis.z
+                self.x = Xbox.axis.x
+            elif(Xbox.axis.z != self.z and Xbox.axis.y != self.y ):
+                self.moveMotor(1, Xbox.axis.z)
+                self.z = Xbox.axis.z
+                self.y = Xbox.axis.y
+            elif(Xbox.axis.x != self.x and Xbox.axis.y != self.y ):
+                self.moveMotor(1, Xbox.axis.z)
+                self.x = Xbox.axis.x
+                self.y = Xbox.axis.y
+            elif(Xbox.axis.z != self.z):
+                self.moveMotor(1, Xbox.axis.z)
+                self.z = Xbox.axis.z
+            elif(Xbox.axis.x != self.x):
                 self.moveMotor(2, Xbox.axis.x)
                 self.x = Xbox.axis.x
+            elif(Xbox.axis.y != self.y):
                 self.moveMotor(3, Xbox.axis.y)
                 self.y = Xbox.axis.y
         # elif(filtre)

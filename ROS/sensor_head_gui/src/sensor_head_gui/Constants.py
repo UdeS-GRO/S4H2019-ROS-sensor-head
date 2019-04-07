@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-setHome = [1000, 400, 700]
-setRange = [1000, 400, 700] # +-
+setRange = [4095, 1535, 1535] # +-
+setHome = [(setRange[0]+1)/2, (setRange[1]+1)/2, (setRange[2]+1)/2]
 
 z = 0
 x = 0
