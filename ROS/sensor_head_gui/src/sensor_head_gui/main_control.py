@@ -59,10 +59,10 @@ class main_control():
                 persistent=True)  # Enabled persistant connection
             self.subManette = rospy.Subscriber(
                 "Xbox", X_Controller, self.change_motor_position, queue_size=2)
-            self.subAngle = rospy.Subscriber(
-                "/mangle", Vector3, self.readAngle)
+            # self.subAngle = rospy.Subscriber(
+            #     "/mangle", Vector3, self.readAngle)
             self.subMobileImuFiltered = rospy.Subscriber(
-                "/mobile_imu", Imu, self.quat_to_euler, queue_size=1)
+                "/mobile_imu_filtered", Imu, self.quat_to_euler, queue_size=1)
 
         except:
             print("WAIT")
