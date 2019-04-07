@@ -299,16 +299,19 @@ class main_control():
         pass
 
     def quat_to_euler(self, data):
-
+        
         x = data.orientation.x
         y = data.orientation.y
         z = data.orientation.z
         w = data.orientation.w
 
-        angle_x = atan2((2*(x*y+z*w))/(1-2*(y**2+z**2)))
-        angle_y = asin(2*(x*y-z*w))
-        angle_z = atan2(2*(x*w+y*z)/(1-(2*(z**2+w**3))))
-        angles = [angle_x, angle_y, angle_z]
+        yaw = atan2((2*(x*y+z*w))/(1-2*(y**2+z**2)))
+        pitch = asin(2*(x*y-z*w))
+        roll = atan2(2*(x*w+y*z)/(1-(2*(z**2+w**3))))
+        angles = [yaw, pitch, roll]
+        
+        move_to_xyz(yaw,pitch,roll)
+
         return angles
 
 
