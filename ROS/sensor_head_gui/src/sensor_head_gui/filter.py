@@ -48,7 +48,7 @@ class FilterFIR():
 
         # A quaternion needs to be normalised (be a unit vector) to be valid.
         magnitude = sqrt(X_out**2 + Y_out**2 + Z_out**2 + W_out**2)
-        assert norm != 0
+        assert magnitude != 0
         imu.orientation.x = X_out/magnitude
         imu.orientation.y = Y_out/magnitude
         imu.orientation.z = Z_out/magnitude
@@ -81,7 +81,7 @@ class FilterFIR():
         self.w_inp = [1,1,1,1,1,1,1,1,1,1]
 
         rospy.Subscriber("/mobile_imu", Imu, self.callback, queue_size=1)
-        self.mobile_imu_filtered = rospy.Publisher('/mobile_imu_filtered', Imu)
+        self.mobile_imu_filtered = rospy.Publisher('/mobile_imu_filtered', Imu, queue_size=1)
 
 if __name__ == '__main__':
     """[summary]
