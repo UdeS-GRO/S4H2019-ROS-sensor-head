@@ -32,7 +32,7 @@
   </include>
 
   <!-- Start GUI -->
-  <!-- <node pkg="sensor_head_gui" name="sensor_head_gui" type="sensor_head_gui" respawn="false" output="screen" /> -->
+  <node pkg="sensor_head_gui" name="sensor_head_gui" type="sensor_head_gui" respawn="false" output="screen" />
 
   <!-- Start web server and camera for cellphone control -->
   <include file="$(find sensor_head_gui)/launch/sensor_head_web_server.launch">
