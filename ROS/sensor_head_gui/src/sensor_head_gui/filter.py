@@ -1,5 +1,8 @@
+#!/usr/bin/env python
+
 import rospy
 from sensor_msgs.msg import Imu
+from math import sqrt
 
 class FilterFIR():
 
@@ -77,8 +80,8 @@ class FilterFIR():
         self.z_inp = [0,0,0,0,0,0,0,0,0,0]
         self.w_inp = [1,1,1,1,1,1,1,1,1,1]
 
-        rospy.Subscriber("/mobile_imu", Imu, self.callback)
-        self.mobile_imu_filtered = rospy.Publisher('/mobile_imu_filtered',Imu)
+        rospy.Subscriber("/mobile_imu", Imu, self.callback, queue_size=1)
+        self.mobile_imu_filtered = rospy.Publisher('/mobile_imu_filtered', Imu)
 
 if __name__ == '__main__':
     """[summary]

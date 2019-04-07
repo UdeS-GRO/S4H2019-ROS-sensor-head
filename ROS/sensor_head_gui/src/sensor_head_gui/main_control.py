@@ -3,7 +3,7 @@
 import os
 import sys
 from functools import partial
-from math import pi
+from math import pi, atan2, asin
 
 import rospkg
 import rospy
@@ -15,6 +15,7 @@ from rqt_gui.main import Main
 from sensor_head_gui.msg import X_Controller
 from std_msgs.msg import Int32, String
 from geometry_msgs.msg import Vector3
+from sensor_msgs.msg import Imu
 from Constants import *
 
 
@@ -25,39 +26,43 @@ class main_control():
 
         self.motor_range = {}
         self.motor_range['x'] = {}
-        self.motor_range['x']['homeMot'] = 400
+        self.motor_range['x']['homeMot'] = 768
         self.motor_range['x']['homeAng'] = 0.0
-        self.motor_range['x']['minPosMot'] = 200
-        self.motor_range['x']['minPosAng'] = -pi/4
-        self.motor_range['x']['maxPosMot'] = 600
-        self.motor_range['x']['maxPosAng'] = pi/4
+        self.motor_range['x']['minPosMot'] = 0
+        self.motor_range['x']['minPosAng'] = -3*pi/8
+        self.motor_range['x']['maxPosMot'] = 1535
+        self.motor_range['x']['maxPosAng'] = 3*pi/8
         self.motor_range['y'] = {}
-        self.motor_range['y']['homeMot'] = 700
+        self.motor_range['y']['homeMot'] = 768
         self.motor_range['y']['homeAng'] = 0.0
-        self.motor_range['y']['minPosMot'] = 350
-        self.motor_range['y']['minPosAng'] = -pi/4
-        self.motor_range['y']['maxPosMot'] = 1050
-        self.motor_range['y']['maxPosAng'] = pi/4
+        self.motor_range['y']['minPosMot'] = 0
+        self.motor_range['y']['minPosAng'] = -3*pi/8
+        self.motor_range['y']['maxPosMot'] = 1535
+        self.motor_range['y']['maxPosAng'] = 3*pi/8
         self.motor_range['z'] = {}
-        self.motor_range['z']['homeMot'] = 1000
+        self.motor_range['z']['homeMot'] = 2048
         self.motor_range['z']['homeAng'] = 0.0
-        self.motor_range['z']['minPosMot'] = 500
+        self.motor_range['z']['minPosMot'] = 0
         self.motor_range['z']['minPosAng'] = -pi
-        self.motor_range['z']['maxPosMot'] = 1500
+        self.motor_range['z']['maxPosMot'] = 4095
         self.motor_range['z']['maxPosAng'] = pi
-        
+
         self.x = 0
         self.y = 0
         self.z = 0
-        
+
         try:
             rospy.wait_for_service(
                 '/dynamixel_workbench/dynamixel_command', 2)
             self.motor_proxy = rospy.ServiceProxy(
-                '/dynamixel_workbench/dynamixel_command', DynamixelCommand, persistent=True)  # Enabled persistant connection
+                '/dynamixel_workbench/dynamixel_command', DynamixelCommand,
+                persistent=True)  # Enabled persistant connection
             self.subManette = rospy.Subscriber(
                 "Xbox", X_Controller, self.change_motor_position, queue_size=2)
-            self.subAngle = rospy.Subscriber("/mangle", Vector3, self.readAngle)
+            # self.subAngle = rospy.Subscriber(
+            #     "/mangle", Vector3, self.readAngle)
+            self.subMobileImuFiltered = rospy.Subscriber(
+                "/mobile_imu_filtered", Imu, self.quat_to_euler, queue_size=1)
 
         except:
             print("WAIT")
@@ -79,11 +84,11 @@ class main_control():
         # self.motor_sub = rospy.Subscriber(
         #   "/dynamixel_workbench/dynamixel_state", DynamixelStateList, self.UpdateMotorsData)
 
-        # Note that "assert" statements do not execute if the optimisation is 
-        # requested (compiled). The assert statements are there to make sure 
-        # that an impossible contidion isn't true. Thats why we explicitly 
-        # check for invalid configuration given that would produce wrong 
-        # computed commands 
+        # Note that "assert" statements do not execute if the optimisation is
+        # requested (compiled). The assert statements are there to make sure
+        # that an impossible contidion isn't true. Thats why we explicitly
+        # check for invalid configuration given that would produce wrong
+        # computed commands
         if not self.motor_range['x']['minPosMot'] <= self.motor_range['x']['homeMot'] <= self.motor_range['x']['maxPosMot']:
             raise AssertionError
         if not self.motor_range['y']['minPosMot'] <= self.motor_range['y']['homeMot'] <= self.motor_range['y']['maxPosMot']:
@@ -270,7 +275,7 @@ class main_control():
         # assert motx['minPosMot'] <= x_cmd <= motx['maxPosMot']
         # assert moty['minPosMot'] <= y_cmd <= moty['maxPosMot']
         # assert motz['minPosMot'] <= z_cmd <= motz['maxPosMot']
-        
+
         print "x", x_roll_angle, x_cmd, motx
         print "y", y_pitch_angle, y_cmd, moty
         print "z", z_yaw_angle, z_cmd, motz
@@ -292,24 +297,28 @@ class main_control():
         self.moveMotor(2, y_cmd)
         self.moveMotor(3, x_cmd)
         pass
-        
+
     def readAngle(self, data):
         print "readangle: ", data
         self.move_to_xyz(data.x, data.y, data.z)
         pass
 
     def quat_to_euler(self, data):
-
+        
         x = data.orientation.x
         y = data.orientation.y
         z = data.orientation.z
         w = data.orientation.w
 
-        angle_x = atan2((2*(x*y+z*w))/(1-2*(y**2+z**2)))
-        angle_y = asin(2*(x*y-z*w))
-        angle_z = atan2(2*(x*w+y*z)/(1-(2*(z**2+w**3))))
-        angles = [angle_x, angle_y, angle_z]
+        roll = atan2(2*(x*y+z*w),1-(2*(y**2+z**2)))
+        pitch = asin(2*(x*y-z*w))
+        yaw = atan2(2*(x*w+y*z),1-(2*(z**2+w**2)))
+        angles = [roll,pitch,yaw]
+
+        self.move_to_xyz(roll,pitch,yaw)
+
         return angles
+
 
 if __name__ == '__main__':
     """[summary]
