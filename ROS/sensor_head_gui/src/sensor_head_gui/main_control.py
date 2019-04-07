@@ -158,30 +158,35 @@ class main_control():
         if(Xbox.deadman == 1):
             if(Xbox.home == True):
                 self.home()
-            elif(Xbox.axis.z != self.z and Xbox.axis.x != self.x and Xbox.axis.y != self.y):
+            # elif(Xbox.axis.z != self.z and Xbox.axis.x != self.x and Xbox.axis.y != self.y):
+            #     self.moveMotor(1, Xbox.axis.z)
+            #     self.moveMotor(2, Xbox.axis.x)
+            #     self.moveMotor(3, Xbox.axis.y)
+            #     self.z = Xbox.axis.z
+            #     self.x = Xbox.axis.x
+            #     self.y = Xbox.axis.y
+            # elif(Xbox.axis.z != self.z and Xbox.axis.x != self.x ):
+            #     self.moveMotor(1, Xbox.axis.z)
+            #     self.moveMotor(2, Xbox.axis.x)
+            #     self.z = Xbox.axis.z
+            #     self.x = Xbox.axis.x
+            # elif(Xbox.axis.z != self.z and Xbox.axis.y != self.y ):
+            #     self.moveMotor(1, Xbox.axis.z)
+            #     self.moveMotor(3, Xbox.axis.y)
+            #     self.z = Xbox.axis.z
+            #     self.y = Xbox.axis.y
+            # elif(Xbox.axis.x != self.x and Xbox.axis.y != self.y ):
+            #     self.moveMotor(2, Xbox.axis.x)
+            #     self.moveMotor(3, Xbox.axis.y)
+            #     self.x = Xbox.axis.x
+            #     self.y = Xbox.axis.y
+            if(Xbox.axis.z != self.z):
                 self.moveMotor(1, Xbox.axis.z)
                 self.z = Xbox.axis.z
-                self.x = Xbox.axis.x
-                self.y = Xbox.axis.y
-            elif(Xbox.axis.z != self.z and Xbox.axis.x != self.x ):
-                self.moveMotor(1, Xbox.axis.z)
-                self.z = Xbox.axis.z
-                self.x = Xbox.axis.x
-            elif(Xbox.axis.z != self.z and Xbox.axis.y != self.y ):
-                self.moveMotor(1, Xbox.axis.z)
-                self.z = Xbox.axis.z
-                self.y = Xbox.axis.y
-            elif(Xbox.axis.x != self.x and Xbox.axis.y != self.y ):
-                self.moveMotor(1, Xbox.axis.z)
-                self.x = Xbox.axis.x
-                self.y = Xbox.axis.y
-            elif(Xbox.axis.z != self.z):
-                self.moveMotor(1, Xbox.axis.z)
-                self.z = Xbox.axis.z
-            elif(Xbox.axis.x != self.x):
+            if(Xbox.axis.x != self.x):
                 self.moveMotor(2, Xbox.axis.x)
                 self.x = Xbox.axis.x
-            elif(Xbox.axis.y != self.y):
+            if(Xbox.axis.y != self.y):
                 self.moveMotor(3, Xbox.axis.y)
                 self.y = Xbox.axis.y
         # elif(filtre)
