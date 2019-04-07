@@ -300,11 +300,11 @@ class main_control():
         z = data.orientation.z
         w = data.orientation.w
 
-        yaw = atan2((2*(x*y+z*w))/(1-2*(y**2+z**2)))
+        yaw = atan2((2*(x*y+z*w))),(1-2*(y**2+z**2)))
         pitch = asin(2*(x*y-z*w))
-        roll = atan2(2*(x*w+y*z)/(1-(2*(z**2+w**3))))
+        roll = atan2(2*(x*w+y*z)),(1-(2*(z**2+w**2))))
         angles = [yaw, pitch, roll]
-        
+
         move_to_xyz(yaw,pitch,roll)
 
         return angles
