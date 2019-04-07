@@ -81,7 +81,7 @@ class FilterFIR():
         self.w_inp = [1,1,1,1,1,1,1,1,1,1]
 
         rospy.Subscriber("/mobile_imu", Imu, self.callback, queue_size=1)
-        self.mobile_imu_filtered = rospy.Publisher('/mobile_imu_filtered', Imu)
+        self.mobile_imu_filtered = rospy.Publisher('/mobile_imu_filtered', Imu, queue_size=1)
 
 if __name__ == '__main__':
     """[summary]
