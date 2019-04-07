@@ -45,7 +45,11 @@ class main_control():
         self.motor_range['z']['minPosAng'] = -pi
         self.motor_range['z']['maxPosMot'] = 1500
         self.motor_range['z']['maxPosAng'] = pi
-
+        
+        self.x = 0
+        self.y = 0
+        self.z = 0
+        
         try:
             rospy.wait_for_service(
                 '/dynamixel_workbench/dynamixel_command', 0.1)
@@ -136,7 +140,8 @@ class main_control():
         request.value = value
         try:
             self.motor_proxy(request)
-            print("je bouge")
+            print ("je bouge")
+            print self.x, self.y, self.z
 
         except rospy.ServiceException, e:
             print "Service call failed: %s" % e
@@ -152,7 +157,7 @@ class main_control():
         if(Xbox.deadman == 1):
             if(Xbox.home == True):
                 self.home()
-            elif(Xbox.axis.z != z or Xbox.axis.x != x or Xbox.axis.y != y):
+            elif(Xbox.axis.z != self.z or Xbox.axis.x != self.x or Xbox.axis.y != self.y):
                 self.moveMotor(1, Xbox.axis.z)
                 self.z = Xbox.axis.z
                 self.moveMotor(2, Xbox.axis.x)
