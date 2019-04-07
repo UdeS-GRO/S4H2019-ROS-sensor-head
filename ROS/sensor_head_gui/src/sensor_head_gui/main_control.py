@@ -14,7 +14,7 @@ from python_qt_binding import *
 from rqt_gui.main import Main
 from sensor_head_gui.msg import X_Controller
 from std_msgs.msg import Int32, String
-
+from geometry_msgs.msg import Vector3
 from Constants import *
 
 
@@ -56,7 +56,8 @@ class main_control():
             self.motor_proxy = rospy.ServiceProxy(
                 '/dynamixel_workbench/dynamixel_command', DynamixelCommand, persistent=True)  # Enabled persistant connection
             self.subManette = rospy.Subscriber(
-                "Xbox", X_Controller, self.change_motor_position)
+                 "Xbox", X_Controller, self.change_motor_position)
+            self.subAngle = rospy.Subscriber("/mangle", Vector3, self.readAngle)
         except:
             print("WAIT")
             self.timer = rospy.Timer(rospy.Duration(2), self.connect)
@@ -193,10 +194,12 @@ class main_control():
              y_pitch_angle {double} -- [description]
              z_yaw_angle {double} -- [description]
         """
+        print "angle in", x_roll_angle, y_pitch_angle, z_yaw_angle
         # Make sure that we at least have a number as an angle
         x_roll_angle = float(x_roll_angle)
         y_pitch_angle = float(y_pitch_angle)
         z_yaw_angle = float(z_yaw_angle)
+        print "angle float", x_roll_angle, y_pitch_angle, z_yaw_angle
 
         # Creating a local copy to minimise calls to class member
         motx = self.motor_range['x']
@@ -210,27 +213,31 @@ class main_control():
         elif (x_roll_angle < motx['minPosAng']):
             x_cmd = int(motx['minPosMot'])
         else:
+            angle = x_roll_angle - motx['minPosAng']
             delta = (motx['maxPosMot']-motx['minPosMot']) / \
                 (motx['maxPosAng']-motx['minPosAng'])
-            x_cmd = int(round(x_roll_angle*delta + motx['minPosMot'], 0))
+            x_cmd = int(round(angle*delta + motx['minPosMot'], 0))
 
         if (y_pitch_angle > moty['maxPosAng']):
             y_cmd = int(moty['maxPosMot'])
         elif (y_pitch_angle < moty['minPosAng']):
             y_cmd = int(moty['minPosMot'])
         else:
+            angle = y_pitch_angle - moty['minPosAng']
             delta = (moty['maxPosMot']-moty['minPosMot']) / \
                 (moty['maxPosAng']-moty['minPosAng'])
-            y_cmd = int(round(y_pitch_angle*delta + moty['minPosMot'], 0))
+            y_cmd = int(round(angle*delta + moty['minPosMot'], 0))
 
         if (z_yaw_angle > motz['maxPosAng']):
             z_cmd = int(motz['maxPosMot'])
         elif (z_yaw_angle < motz['minPosAng']):
             z_cmd = int(motz['minPosMot'])
         else:
+            angle = z_yaw_angle - motz['minPosAng']
             delta = (motz['maxPosMot']-motz['minPosMot']) / \
                 (motz['maxPosAng']-motz['minPosAng'])
-            z_cmd = int(round(z_yaw_angle*delta + motz['minPosMot'], 0))
+            z_cmd = int(round(angle*delta + motz['minPosMot'], 0))
+            print delta, z_cmd
 
         # Making sure that the motor commands are valid. Note that assert
         # statements do not execute if the optimisation is requested (compiled)
@@ -239,6 +246,10 @@ class main_control():
         # assert motx['minPosMot'] <= x_cmd <= motx['maxPosMot']
         # assert moty['minPosMot'] <= y_cmd <= moty['maxPosMot']
         # assert motz['minPosMot'] <= z_cmd <= motz['maxPosMot']
+        
+        print "x", x_roll_angle, x_cmd, motx
+        print "y", y_pitch_angle, y_cmd, moty
+        print "z", z_yaw_angle, z_cmd, motz
 
         # On second thought, to make the system catch internal error, let's make
         # sure the tests are checked even when optimisation is on.
@@ -256,6 +267,11 @@ class main_control():
         self.moveMotor(1, z_cmd)
         self.moveMotor(2, y_cmd)
         self.moveMotor(3, x_cmd)
+        pass
+        
+    def readAngle(self, data):
+        print "readangle: ", data
+        self.move_to_xyz(data.x, data.y, data.z)
         pass
 
     def quat_to_euler(self, data):
