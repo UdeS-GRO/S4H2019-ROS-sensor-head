@@ -7,6 +7,11 @@ from Constants import *
 
 class manual_control():
     def callback(self, data):
+        """[summary]
+        
+        Arguments:
+            data {[type]} -- [description]
+        """
 
         Xbox = X_Controller()
         vitesse = 5  # degrees # TODO: To be specified in parameter
@@ -39,6 +44,9 @@ class manual_control():
    
     
     def __init__(self):
+        """[summary]
+        """
+
         self.z_pos = setHome[0]
         self.x_pos = setHome[1]
         self.y_pos = setHome[2]
@@ -56,6 +64,9 @@ class manual_control():
 
 
 if __name__ == '__main__':
+    """[summary]
+    """
+
     try:
         rospy.init_node('manualControl', anonymous=True)
         mc = manual_control()

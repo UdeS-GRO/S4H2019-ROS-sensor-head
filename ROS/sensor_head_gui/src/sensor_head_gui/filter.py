@@ -4,6 +4,12 @@ from sensor_msgs.msg import Imu
 class FilterFIR():
 
     def callback(self, data):
+        """[summary]
+        
+        Arguments:
+            data {[type]} -- [description]
+        """
+
 
         imu = Imu()
 
@@ -39,8 +45,6 @@ class FilterFIR():
         imu.orientation.z = Z_out
         imu.orientation.w = W_out
 
-        #print (X_out)
-
         if len(self.x_inp) == 11:
             self.x_inp.pop(0)
         
@@ -57,6 +61,9 @@ class FilterFIR():
         return
 
     def __init__(self):
+        """[summary]
+        """
+
         self.x_inp = [0,0,0,0,0,0,0,0,0,0]
         self.y_inp = [0,0,0,0,0,0,0,0,0,0]
         self.z_inp = [0,0,0,0,0,0,0,0,0,0]
@@ -66,6 +73,9 @@ class FilterFIR():
         self.mobile_imu_filtered = rospy.Publisher('/mobile_imu_filtered',Imu)
 
 if __name__ == '__main__':
+    """[summary]
+    """
+
     rospy.init_node("FilterNode")
     fn = FilterFIR()
     rospy.spin()
