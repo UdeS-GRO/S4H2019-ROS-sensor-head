@@ -3,9 +3,9 @@
 import os
 import sys
 from functools import partial
-from math import pi
+from math import pi, atan2, asin
 
-import rospkg
+import rospkgs
 import rospy
 from dynamixel_workbench_msgs.msg import *
 from dynamixel_workbench_msgs.srv import *
@@ -15,7 +15,7 @@ from rqt_gui.main import Main
 from sensor_head_gui.msg import X_Controller
 from std_msgs.msg import Int32, String
 from geometry_msgs.msg import Vector3
-from sensor_msgs.msgs import Imu
+from sensor_msgs.msg import Imu
 from Constants import *
 
 
@@ -307,7 +307,7 @@ class main_control():
 
         yaw = atan2((2*(x*y+z*w))/(1-2*(y**2+z**2)))
         pitch = asin(2*(x*y-z*w))
-        roll = atan2(2*(x*w+y*z)/(1-(2*(z**2+w**3))))
+        roll = atan2(2*(x*w+y*z)/(1-(2*(z**2+w**2))))
         angles = [yaw, pitch, roll]
         
         move_to_xyz(yaw,pitch,roll)
