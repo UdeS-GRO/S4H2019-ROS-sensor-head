@@ -5,7 +5,7 @@ import sys
 from functools import partial
 from math import pi, atan2, asin
 
-import rospkgs
+import rospkg
 import rospy
 from dynamixel_workbench_msgs.msg import *
 from dynamixel_workbench_msgs.srv import *
