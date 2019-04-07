@@ -2,6 +2,7 @@
 
 import rospy
 from sensor_msgs.msg import Imu
+from math import sqrt
 
 class FilterFIR():
 
