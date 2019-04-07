@@ -275,7 +275,7 @@ class main_control():
         pass
 
     def quat_to_euler(self, data):
-
+        
         x = data.orientation.x
         y = data.orientation.y
         z = data.orientation.z
