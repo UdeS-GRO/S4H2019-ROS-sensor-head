@@ -69,10 +69,10 @@ class main_control():
 
         # self.commandMotor(1, "Torque_Enable", 1)
         # self.commandMotor(2, "Torque_Enable", 1)
-        # self.commandMotor(3, "Torque_Enable", 1)
+        # self.commandMotor(3, "Torque_Enable", 1)filt
 
-        # self.commandMotor(1, "Max_Position_Limit", 4000)
-        # self.commandMotor(2, "Max_Position_Limit", 1700)
+        # self.commandMotor(1, "Max_Position_Limitfilt
+        # self.commandMotor(2, "Max_Position_Limitfilt
         # self.commandMotor(3, "Max_Position_Limit", 1500)
 
         # self.motor_sub = rospy.Subscriber(
@@ -274,6 +274,18 @@ class main_control():
         self.move_to_xyz(data.x, data.y, data.z)
         pass
 
+    def quat_to_euler(self, data):
+
+        x = data.orientation.x
+        y = data.orientation.y
+        z = data.orientation.z
+        w = data.orientation.w
+
+        angle_x = atan2((2*(x*y+z*w))/(1-2*(y**2+z**2)))
+        angle_y = asin(2*(x*y-z*w))
+        angle_z = atan2(2*(x*w+y*z)/(1-(2*(z**2+w**3))))
+        angles = [angle_x, angle_y, angle_z]
+        return angles
 
 if __name__ == '__main__':
     """[summary]
