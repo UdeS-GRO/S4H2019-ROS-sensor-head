@@ -52,7 +52,7 @@ class main_control():
         self.z = 0
 
         self.cellOn = False
-
+        self.timer = 0
 
         rospy.on_shutdown(self.shutdown_hook)
         try:
