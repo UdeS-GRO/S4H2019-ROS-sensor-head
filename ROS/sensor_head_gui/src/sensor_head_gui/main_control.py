@@ -191,16 +191,17 @@ class main_control():
     def callbackHMI(self, CB_hmi):
         if (CB_hmi.home == True):
             self.home()
-        if(CB_hmi == 1):
-            if(HMI.axis.z != self.z):
-                self.moveMotor(1, HMI.axis.z)
-                self.z = HMI.axis.z
-            if(HMI.axis.x != self.x):
-                self.moveMotor(2, HMI.axis.x)
-                self.x = HMI.axis.x
-            if(HMI.axis.y != self.y):
-                self.moveMotor(3, HMI.axis.y)
-                self.y = HMI.axis.y
+        else: 
+            if(CB_hmi == 1):
+                if(HMI.axis.z != self.z):
+                    self.moveMotor(1, HMI.axis.z)
+                    self.z = HMI.axis.z
+                if(HMI.axis.x != self.x):
+                    self.moveMotor(2, HMI.axis.x)
+                    self.x = HMI.axis.x
+                if(HMI.axis.y != self.y):
+                    self.moveMotor(3, HMI.axis.y)
+                    self.y = HMI.axis.y
         pass
 
     def connect(self, event):

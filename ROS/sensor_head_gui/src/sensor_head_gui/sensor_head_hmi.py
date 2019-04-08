@@ -21,7 +21,6 @@ class SensorHeadHMIWidget(QtWidgets.QWidget):
             'sensor_head_gui'), 'resource', 'sensor_head_hmi.ui')
         loadUi(ui_file, self)
 
-        interface = HMI()
 
         # TOPIC
         # self.xaxis = rospy.Publisher('XAxis', Int32)
@@ -50,9 +49,10 @@ class SensorHeadHMIWidget(QtWidgets.QWidget):
         #RECEIVE INFO
         # self.motor_sub = rospy.Subscriber(
         #    "/dynamixel_workbench/dynamixel_state", DynamixelStateList, self.UpdateMotorsData)
-        self.pub_Interface = rospy.Publisher('interface',HMI, queue_size=1)
+        self.pub_Interface = rospy.Publisher('interface',HMI, queue_size=10)
 
     def RefreshValue(self,value,axis):
+        interface = HMI()
         if (axis == 1):
             interface.axis.z = value
         elif (axis == 2):
@@ -62,13 +62,17 @@ class SensorHeadHMIWidget(QtWidgets.QWidget):
         self.pub_Interface.publish(interface)
 
     def ChangeMode(self, desired_state, mode):
+        interface = HMI()
         if(mode == 1):
             interface.CB_hmi = desired_state
         elif(mode == 2):
             interface.CB_telephone = desired_state
+        self.pub_Interface.publish(interface)
 
     def setHome(self, state):
+        interface = HMI()
         interface.home = state
+        self.pub_Interface.publish(interface)
 
     
         
