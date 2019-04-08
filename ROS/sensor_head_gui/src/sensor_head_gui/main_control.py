@@ -19,14 +19,7 @@ from std_msgs.msg import Int32, String
 from geometry_msgs.msg import Vector3
 from sensor_msgs.msg import Imu
 from Constants import *
-from enum import Enum
-
-
-class Source(Enum):
-    Hmi = 0
-    Xbox = 1
-    Mobile = 2
-
+from Source import Source
 
 class main_control():
     def __init__(self):
@@ -184,7 +177,7 @@ class main_control():
             Xbox {[type]} -- [description]
         """
         # Only process control if the current source is given to Xbox
-        if (self.currentSource=Source.Xbox):
+        if (self.currentSource == Source.Xbox):
 
             # Send Xbox commands only when the deadman switch is held on.
             if(Xbox.deadman == 1):
@@ -229,10 +222,13 @@ class main_control():
         """
         if (data.source == data.SOURCE_HMI):
             self.currentSource = Source.Hmi
+
         elif (data.source == data.SOURCE_XBOX):
             self.currentSource = Source.Xbox
+
         elif (data.source == data.SOURCE_MOBILE):
             self.currentSource = Source.Mobile
+
         else:
             self.currentSource = Source.Xbox
 
@@ -341,12 +337,12 @@ class main_control():
 
     def callbackMobile(self, data):
         """[summary]
-        
+
         Arguments:
             data {[type]} -- [description]
         """
 
-        if (self.currentSource=Source.Mobile):
+        if (self.currentSource == Source.Mobile):
 
             euler_or = quat_to_euler(data.orientation)
             self.move_to_xyz(euler_or.roll, euler_or.pitch, euler_or.yaw)
@@ -354,10 +350,10 @@ class main_control():
 
     def quat_to_euler(self, orientation):
         """[summary]
-        
+
         Arguments:
             orientation {[type]} -- [description]
-        
+
         Returns:
             [type] -- [description]
         """
