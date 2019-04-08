@@ -172,7 +172,7 @@ class main_control():
         """
 
         if(Xbox.deadman == 1):
-            if(Xbox.home == True or interface.home == True):
+            if(Xbox.home == True):
                 self.home()
             else:
                 if(Xbox.axis.z != self.z):
@@ -189,6 +189,8 @@ class main_control():
         # elif(filtre)
                 
     def callbackHMI(self, CB_hmi):
+        if (CB_hmi.home == True):
+            self.home()
         if(CB_hmi == 1):
             if(HMI.axis.z != self.z):
                 self.moveMotor(1, HMI.axis.z)
