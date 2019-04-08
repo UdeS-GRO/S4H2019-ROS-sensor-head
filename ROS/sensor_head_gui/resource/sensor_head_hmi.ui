@@ -325,7 +325,7 @@
            </item>
           </layout>
          </widget>
-         <widget class="QRadioButton" name="telephone_bouton">
+         <widget class="QRadioButton" name="src_phone">
           <property name="geometry">
            <rect>
             <x>280</x>
@@ -338,7 +338,7 @@
            <string>Telephone</string>
           </property>
          </widget>
-         <widget class="QRadioButton" name="HMI_bouton">
+         <widget class="QRadioButton" name="src_HMI">
           <property name="geometry">
            <rect>
             <x>280</x>
@@ -349,6 +349,19 @@
           </property>
           <property name="text">
            <string>HMI</string>
+          </property>
+         </widget>
+         <widget class="QRadioButton" name="src_Xbox">
+          <property name="geometry">
+           <rect>
+            <x>280</x>
+            <y>230</y>
+            <width>151</width>
+            <height>22</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Xbox Controler</string>
           </property>
          </widget>
         </widget>
