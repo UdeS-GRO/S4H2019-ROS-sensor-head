@@ -42,9 +42,12 @@ class SensorHeadHMIWidget(QtWidgets.QWidget):
         self.slider_position_axis_y.valueChanged[int].connect(
             partial(self.RefreshValue, 3))
 
-        self.src_phone.toggled[bool].connect(partial(self.ChangeMode, Source.Mobile))
-        self.src_HMI.toggled[bool].connect(partial(self.ChangeMode, Source.Hmi))
-        self.src_Xbox.toggle[bool].connect(partial(self.ChangeMode, Source.Xbox))
+        self.src_phone.clicked.connect(
+            partial(self.ChangeMode, Source.Mobile.value))
+        self.src_HMI.clicked.connect(
+            partial(self.ChangeMode, Source.Hmi.value))
+        self.src_Xbox.clicked.connect(
+            partial(self.ChangeMode, Source.Xbox.value))
         self.Homing.clicked.connect(self.setHome)
 
         # RECEIVE INFO
@@ -65,18 +68,19 @@ class SensorHeadHMIWidget(QtWidgets.QWidget):
             interface.axis.y = value
         self.pub_Interface.publish(interface)
 
-    def ChangeMode(self, desired_state, mode):
+    def ChangeMode(self, mode, desired_state):
+        print "hmidesired_state:", desired_state, "mode:", mode
         if (desired_state == True):
             source = ControlSource()
             source.source = mode
             self.pubSource.publish(source)
-        
+
         return
 
     def setHome(self, state):
-        self.slider_position_axis_z.value = setHome[1]
-        self.slider_position_axis_x.value = setHome[2]
-        self.slider_position_axis_y.value = setHome[3]
+        self.slider_position_axis_z.value = setHome[0]
+        self.slider_position_axis_x.value = setHome[1]
+        self.slider_position_axis_y.value = setHome[2]
         return
 
 

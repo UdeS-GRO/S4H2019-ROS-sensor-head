@@ -196,21 +196,24 @@ class main_control():
 
         self.cellOn = Xbox.cellOn
 
-    def callbackHMI(self, CB_hmi):
-        if (CB_hmi.home == True):
-            self.home()
-        else:
-            if(CB_hmi == 1):
-                if(HMI.axis.z != self.z):
-                    self.moveMotor(1, HMI.axis.z)
-                    self.z = HMI.axis.z
-                if(HMI.axis.x != self.x):
-                    self.moveMotor(2, HMI.axis.x)
-                    self.x = HMI.axis.x
-                if(HMI.axis.y != self.y):
-                    self.moveMotor(3, HMI.axis.y)
-                    self.y = HMI.axis.y
-        pass
+    def callbackHMI(self, data):
+        """[summary]
+        
+        Arguments:
+            data {[type]} -- [description]
+        """
+
+        if (self.currentSource == Source.Hmi):
+            
+            if(data.axis.z != self.z):
+                self.moveMotor(1, data.axis.z)
+                self.z = data.axis.z
+            if(data.axis.x != self.x):
+                self.moveMotor(2, data.axis.x)
+                self.x = data.axis.x
+            if(data.axis.y != self.y):
+                self.moveMotor(3, data.axis.y)
+                self.y = data.axis.y
 
         return
 
@@ -220,6 +223,8 @@ class main_control():
         Arguments:
             data {ControlSource} -- Contains the source number that should take the control 
         """
+
+        print "source act:", self.currentSource, "new:", data
         if (data.source == data.SOURCE_HMI):
             self.currentSource = Source.Hmi
 
