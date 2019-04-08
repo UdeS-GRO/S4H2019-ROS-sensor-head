@@ -13,6 +13,7 @@ from PyQt5 import *
 from python_qt_binding import *
 from rqt_gui.main import Main
 from sensor_head_gui.msg import X_Controller
+from sensor_head_gui.msg import HMI
 from std_msgs.msg import Int32, String
 from geometry_msgs.msg import Vector3
 from sensor_msgs.msg import Imu
@@ -63,6 +64,9 @@ class main_control():
             #     "/mangle", Vector3, self.readAngle)
             self.subMobileImuFiltered = rospy.Subscriber(
                 "/mobile_imu_filtered", Imu, self.quat_to_euler, queue_size=1)
+
+            self.subHMI = rospy.Subscriber(
+                "/interface", HMI, self.change_motor_position, queue_size=1)
 
         except:
             print("WAIT")
@@ -161,7 +165,7 @@ class main_control():
         """
 
         if(Xbox.deadman == 1):
-            if(Xbox.home == True):
+            if(Xbox.home == True or interface.home == True):
                 self.home()
             else:
                 if(Xbox.axis.z != self.z):
@@ -174,7 +178,16 @@ class main_control():
                     self.moveMotor(3, Xbox.axis.y)
                     self.y = Xbox.axis.y
         # elif(filtre)
-        # elif(hmi)
+        elif(CB_hmi == 1):
+            if(HMI.axis.z != self.z):
+                self.moveMotor(1, HMI.axis.z)
+                self.z = HMI.axis.z
+            if(HMI.axis.x != self.x):
+                self.moveMotor(2, HMI.axis.x)
+                self.x = HMI.axis.x
+            if(HMI.axis.y != self.y):
+                self.moveMotor(3, HMI.axis.y)
+                self.y = HMI.axis.y
 
     def connect(self, event):
         """[summary]

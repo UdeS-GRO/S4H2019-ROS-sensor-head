@@ -13,7 +13,7 @@ from sensor_head_gui.msg import HMI
 
 
 class SensorHeadHMIWidget(QtWidgets.QWidget):
-    def __init__(self):
+    def Callback(self):
 
         # Start the HMI
         super(SensorHeadHMIWidget, self).__init__()
@@ -24,9 +24,9 @@ class SensorHeadHMIWidget(QtWidgets.QWidget):
         interface = HMI()
 
         # TOPIC
-        self.xaxis = rospy.Publisher('XAxis', Int32)
-        self.yaxis = rospy.Publisher('YAxis', Int32)
-        self.zaxis = rospy.Publisher('ZAxis', Int32)
+        # self.xaxis = rospy.Publisher('XAxis', Int32)
+        # self.yaxis = rospy.Publisher('YAxis', Int32)
+        # self.zaxis = rospy.Publisher('ZAxis', Int32)
         # self.telephone = rospy.Publisher('CB_telephone',)
         # self.hmi = rospy.Publisher('CB_hmi')
 
@@ -40,22 +40,21 @@ class SensorHeadHMIWidget(QtWidgets.QWidget):
             partial(self.RefreshValue, 2))
         self.slider_position_axis_z.valueChanged[int].connect(
             partial(self.RefreshValue, 3))
+        self.telephone_bouton.toggled[bool].connect(partial(self.ChangeMode,1))
+        self.HMI_bouton.toggled[bool].connect(partial(self.ChangeMode,2))
+        self.Homing.toggle[bool].connect(self.setHome)
 
+       
 
-        # self.checkbox_telephone.toggled[bool].connect(self.checkbox_telephone.publish)
-        # self.checkbox_hmi.toggled[bool].connect(self.checkbox_hmi.publish)
-
-        # self.enable_motor.setCheckable(True)
-        # self.enable_motor.toggled[bool].connect(self.ChangeMotorState1)
-        # self.enable_motor.setChecked(True)
-        # self.enable_motor.setChecked(False)
-        
-        
-        self.pub_Interface = rospy.Publisher('interface',HMI, queue_size=1)
 
         #RECEIVE INFO
         # self.motor_sub = rospy.Subscriber(
         #    "/dynamixel_workbench/dynamixel_state", DynamixelStateList, self.UpdateMotorsData)
+
+    def __init__(self):
+        """[summary]
+        """
+        self.pub_Interface = rospy.Publisher('interface',HMI, queue_size=1)
 
     def RefreshValue(self,value,axis):
         if (axis == 1):
@@ -65,6 +64,18 @@ class SensorHeadHMIWidget(QtWidgets.QWidget):
         elif (axis == 3):
             interface.axis.z = value
         self.pub_Interface.publish(interface)
+
+    def ChangeMode(self, desired_state, mode):
+        if(mode == 1):
+            interface.CB_hmi = desired_state
+        elif(mode == 2):
+            interface.CB_telephone = desired_state
+
+    def setHome(self, state):
+        interface.home = state
+
+    
+        
 
 if __name__ == '__main__':
     """[summary]
