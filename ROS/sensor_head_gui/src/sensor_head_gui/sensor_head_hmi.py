@@ -39,7 +39,7 @@ class SensorHeadHMIWidget(QtWidgets.QWidget):
         self.telephone_bouton.toggled[bool].connect(
             partial(self.ChangeMode, 1))
         self.HMI_bouton.toggled[bool].connect(partial(self.ChangeMode, 2))
-        self.Homing.toggle[bool].connect(self.setHome)
+        self.Homing.clicked.connect(self.setHome)
 
         # RECEIVE INFO
         # self.motor_sub = rospy.Subscriber(
