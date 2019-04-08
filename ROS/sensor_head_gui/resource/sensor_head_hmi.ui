@@ -52,31 +52,15 @@
               </property>
              </widget>
             </item>
-            <item row="3" column="0">
-             <widget class="QSlider" name="slider_position_axis_x">
-              <property name="minimum">
-               <number>0</number>
-              </property>
-              <property name="maximum">
-               <number>800</number>
-              </property>
-              <property name="sliderPosition">
-               <number>400</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
             <item row="0" column="0">
              <layout class="QGridLayout" name="gridLayout_4">
               <item row="1" column="0">
                <widget class="QSlider" name="slider_position_axis_y">
                 <property name="maximum">
-                 <number>1400</number>
+                 <number>1535</number>
                 </property>
                 <property name="sliderPosition">
-                 <number>700</number>
+                 <number>768</number>
                 </property>
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
@@ -126,10 +110,26 @@
                <number>0</number>
               </property>
               <property name="maximum">
-               <number>2000</number>
+               <number>4095</number>
               </property>
               <property name="sliderPosition">
-               <number>1000</number>
+               <number>2048</number>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QSlider" name="slider_position_axis_x">
+              <property name="minimum">
+               <number>0</number>
+              </property>
+              <property name="maximum">
+               <number>1535</number>
+              </property>
+              <property name="sliderPosition">
+               <number>768</number>
               </property>
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
@@ -139,7 +139,7 @@
            </layout>
           </widget>
          </widget>
-         <widget class="QCommandLinkButton" name="commandLinkButton">
+         <widget class="QCommandLinkButton" name="Homing">
           <property name="geometry">
            <rect>
             <x>510</x>
@@ -262,56 +262,17 @@
            </layout>
           </widget>
          </widget>
-         <widget class="QLabel" name="actual_pos_axis2">
-          <property name="geometry">
-           <rect>
-            <x>150</x>
-            <y>60</y>
-            <width>67</width>
-            <height>17</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-         </widget>
          <widget class="QLabel" name="actual_pos_axis3">
           <property name="geometry">
            <rect>
-            <x>150</x>
-            <y>90</y>
-            <width>67</width>
-            <height>17</height>
+            <x>290</x>
+            <y>130</y>
+            <width>81</width>
+            <height>21</height>
            </rect>
           </property>
           <property name="text">
-           <string>TextLabel</string>
-          </property>
-         </widget>
-         <widget class="QLabel" name="corse_desired_pos_axis2">
-          <property name="geometry">
-           <rect>
-            <x>50</x>
-            <y>60</y>
-            <width>67</width>
-            <height>17</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-         </widget>
-         <widget class="QLabel" name="corse_desired_pos_axis3">
-          <property name="geometry">
-           <rect>
-            <x>50</x>
-            <y>90</y>
-            <width>67</width>
-            <height>17</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>TextLabel</string>
+           <string>Controleur</string>
           </property>
          </widget>
          <widget class="QWidget" name="layoutWidget">
@@ -363,6 +324,32 @@
             </widget>
            </item>
           </layout>
+         </widget>
+         <widget class="QRadioButton" name="telephone_bouton">
+          <property name="geometry">
+           <rect>
+            <x>280</x>
+            <y>170</y>
+            <width>117</width>
+            <height>22</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Telephone</string>
+          </property>
+         </widget>
+         <widget class="QRadioButton" name="HMI_bouton">
+          <property name="geometry">
+           <rect>
+            <x>280</x>
+            <y>200</y>
+            <width>117</width>
+            <height>22</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>HMI</string>
+          </property>
          </widget>
         </widget>
        </item>
