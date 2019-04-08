@@ -13,7 +13,7 @@ from sensor_head_gui.msg import HMI
 
 
 class SensorHeadHMIWidget(QtWidgets.QWidget):
-    def Callback(self):
+    def __init__(self):
 
         # Start the HMI
         super(SensorHeadHMIWidget, self).__init__()
@@ -50,10 +50,6 @@ class SensorHeadHMIWidget(QtWidgets.QWidget):
         #RECEIVE INFO
         # self.motor_sub = rospy.Subscriber(
         #    "/dynamixel_workbench/dynamixel_state", DynamixelStateList, self.UpdateMotorsData)
-
-    def __init__(self):
-        """[summary]
-        """
         self.pub_Interface = rospy.Publisher('interface',HMI, queue_size=1)
 
     def RefreshValue(self,value,axis):
