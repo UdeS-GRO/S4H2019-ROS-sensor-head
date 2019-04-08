@@ -13,15 +13,13 @@ from sensor_head_gui.msg import HMI
 
 
 class SensorHeadHMIWidget(QtWidgets.QWidget):
-    def Callback(self):
+    def __init__(self):
 
         # Start the HMI
         super(SensorHeadHMIWidget, self).__init__()
         ui_file = os.path.join(rospkg.RosPack().get_path(
             'sensor_head_gui'), 'resource', 'sensor_head_hmi.ui')
         loadUi(ui_file, self)
-
-        interface = HMI()
 
         # TOPIC
         # self.xaxis = rospy.Publisher('XAxis', Int32)
@@ -30,33 +28,26 @@ class SensorHeadHMIWidget(QtWidgets.QWidget):
         # self.telephone = rospy.Publisher('CB_telephone',)
         # self.hmi = rospy.Publisher('CB_hmi')
 
-       
-
         # SEND INFO
-        
+
         self.slider_position_axis_x.valueChanged[int].connect(
             partial(self.RefreshValue, 1))
         self.slider_position_axis_y.valueChanged[int].connect(
             partial(self.RefreshValue, 2))
         self.slider_position_axis_z.valueChanged[int].connect(
             partial(self.RefreshValue, 3))
-        self.telephone_bouton.toggled[bool].connect(partial(self.ChangeMode,1))
-        self.HMI_bouton.toggled[bool].connect(partial(self.ChangeMode,2))
+        self.telephone_bouton.toggled[bool].connect(
+            partial(self.ChangeMode, 1))
+        self.HMI_bouton.toggled[bool].connect(partial(self.ChangeMode, 2))
         self.Homing.toggle[bool].connect(self.setHome)
 
-       
-
-
-        #RECEIVE INFO
+        # RECEIVE INFO
         # self.motor_sub = rospy.Subscriber(
         #    "/dynamixel_workbench/dynamixel_state", DynamixelStateList, self.UpdateMotorsData)
+        self.pub_Interface = rospy.Publisher('interface', HMI, queue_size=10)
 
-    def __init__(self):
-        """[summary]
-        """
-        self.pub_Interface = rospy.Publisher('interface',HMI, queue_size=1)
-
-    def RefreshValue(self,value,axis):
+    def RefreshValue(self, value, axis):
+        interface = HMI()
         if (axis == 1):
             interface.axis.z = value
         elif (axis == 2):
@@ -66,16 +57,18 @@ class SensorHeadHMIWidget(QtWidgets.QWidget):
         self.pub_Interface.publish(interface)
 
     def ChangeMode(self, desired_state, mode):
+        interface = HMI()
         if(mode == 1):
             interface.CB_hmi = desired_state
         elif(mode == 2):
             interface.CB_telephone = desired_state
+        self.pub_Interface.publish(interface)
 
     def setHome(self, state):
+        interface = HMI()
         interface.home = state
+        self.pub_Interface.publish(interface)
 
-    
-        
 
 if __name__ == '__main__':
     """[summary]
@@ -87,4 +80,3 @@ if __name__ == '__main__':
         rospy.spin()
     except rospy.ROSInterruptException:
         pass
-

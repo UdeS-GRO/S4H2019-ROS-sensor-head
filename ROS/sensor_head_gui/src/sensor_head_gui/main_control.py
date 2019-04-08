@@ -70,7 +70,7 @@ class main_control():
                 "/mobile_imu_filtered", Imu, self.quat_to_euler, queue_size=1)
 
             self.subHMI = rospy.Subscriber(
-                "/interface", HMI, self.change_motor_position, queue_size=1)
+                "/interface", HMI, self.callbackHMI, queue_size=1)
 
         except:
             print("WAIT")
@@ -172,7 +172,7 @@ class main_control():
         """
 
         if(Xbox.deadman == 1):
-            if(Xbox.home == True or interface.home == True):
+            if(Xbox.home == True):
                 self.home()
             else:
                 if(Xbox.axis.z != self.z):
@@ -186,18 +186,23 @@ class main_control():
                     self.y = Xbox.axis.y
 
         self.cellOn = Xbox.cellOn
-        
         # elif(filtre)
-        elif(CB_hmi == 1):
-            if(HMI.axis.z != self.z):
-                self.moveMotor(1, HMI.axis.z)
-                self.z = HMI.axis.z
-            if(HMI.axis.x != self.x):
-                self.moveMotor(2, HMI.axis.x)
-                self.x = HMI.axis.x
-            if(HMI.axis.y != self.y):
-                self.moveMotor(3, HMI.axis.y)
-                self.y = HMI.axis.y
+                
+    def callbackHMI(self, CB_hmi):
+        if (CB_hmi.home == True):
+            self.home()
+        else: 
+            if(CB_hmi == 1):
+                if(HMI.axis.z != self.z):
+                    self.moveMotor(1, HMI.axis.z)
+                    self.z = HMI.axis.z
+                if(HMI.axis.x != self.x):
+                    self.moveMotor(2, HMI.axis.x)
+                    self.x = HMI.axis.x
+                if(HMI.axis.y != self.y):
+                    self.moveMotor(3, HMI.axis.y)
+                    self.y = HMI.axis.y
+        pass
 
     def connect(self, event):
         """[summary]
@@ -306,20 +311,19 @@ class main_control():
         pass
 
     def quat_to_euler(self, data):
-        
+
         x = data.orientation.x
         y = data.orientation.y
         z = data.orientation.z
         w = data.orientation.w
 
-        roll = atan2(2*(x*y+z*w),1-(2*(y**2+z**2)))
+        roll = atan2(2*(x*y+z*w), 1-(2*(y**2+z**2)))
         pitch = asin(2*(x*y-z*w))
-        yaw = atan2(2*(x*w+y*z),1-(2*(z**2+w**2)))
-        angles = [roll,pitch,yaw]
-        
+        yaw = atan2(2*(x*w+y*z), 1-(2*(z**2+w**2)))
+        angles = [roll, pitch, yaw]
+
         if (self.cellOn):
-            self.move_to_xyz(roll,pitch,yaw)
-        
+            self.move_to_xyz(roll, pitch, yaw)
 
         return angles
 
