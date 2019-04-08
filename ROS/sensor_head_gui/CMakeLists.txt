@@ -57,6 +57,7 @@ add_message_files(
    FILES
    X_Controller.msg
    HMI.msg
+   ControlSource.msg
  )
 
 ## Generate services in the 'srv' folder
