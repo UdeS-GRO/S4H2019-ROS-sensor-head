@@ -27,12 +27,12 @@ class main_control():
 
         self.motor_range = {}
         self.motor_range['x'] = {}
-        self.motor_range['x']['homeMot'] = 768
+        self.motor_range['x']['homeMot'] = 683
         self.motor_range['x']['homeAng'] = 0.0
         self.motor_range['x']['minPosMot'] = 0
-        self.motor_range['x']['minPosAng'] = -3*pi/8
+        self.motor_range['x']['minPosAng'] = -pi/3
         self.motor_range['x']['maxPosMot'] = 1535
-        self.motor_range['x']['maxPosAng'] = 3*pi/8
+        self.motor_range['x']['maxPosAng'] = pi/3
         self.motor_range['y'] = {}
         self.motor_range['y']['homeMot'] = 768
         self.motor_range['y']['homeAng'] = 0.0
@@ -52,6 +52,10 @@ class main_control():
         self.y = 0
         self.z = 0
 
+        self.cellOn = False
+        self.timer = 0
+
+        rospy.on_shutdown(self.shutdown_hook)
         try:
             rospy.wait_for_service(
                 '/dynamixel_workbench/dynamixel_command', 2)
@@ -105,6 +109,9 @@ class main_control():
             raise AssertionError
         if not self.motor_range['z']['minPosAng'] <= self.motor_range['z']['homeAng'] <= self.motor_range['z']['maxPosAng']:
             raise AssertionError
+
+    def shutdown_hook(self):
+        self.timer.shutdown()
 
     def home(self):
         """[summary]
@@ -177,6 +184,9 @@ class main_control():
                 if(Xbox.axis.y != self.y):
                     self.moveMotor(3, Xbox.axis.y)
                     self.y = Xbox.axis.y
+
+        self.cellOn = Xbox.cellOn
+        
         # elif(filtre)
         elif(CB_hmi == 1):
             if(HMI.axis.z != self.z):
@@ -306,8 +316,10 @@ class main_control():
         pitch = asin(2*(x*y-z*w))
         yaw = atan2(2*(x*w+y*z),1-(2*(z**2+w**2)))
         angles = [roll,pitch,yaw]
-
-        self.move_to_xyz(roll,pitch,yaw)
+        
+        if (self.cellOn):
+            self.move_to_xyz(roll,pitch,yaw)
+        
 
         return angles
 
