@@ -52,7 +52,7 @@ class main_control():
         self.z = 0
 
         self.cellOn = 0
-
+        rospy.on_shutdown(self.shutdown_hook)
         try:
             rospy.wait_for_service(
                 '/dynamixel_workbench/dynamixel_command', 2)
@@ -104,7 +104,8 @@ class main_control():
         if not self.motor_range['z']['minPosAng'] <= self.motor_range['z']['homeAng'] <= self.motor_range['z']['maxPosAng']:
             raise AssertionError
 
-        
+    def shutdown_hook(self):
+        self.timer.shutdown()
 
     def home(self):
         """[summary]
@@ -305,7 +306,6 @@ class main_control():
         if (self.cellOn):
             self.move_to_xyz(roll,pitch,yaw)
         
-
 
         return angles
 
