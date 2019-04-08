@@ -51,6 +51,8 @@ class main_control():
         self.y = 0
         self.z = 0
 
+        self.cellOn = 0
+
         try:
             rospy.wait_for_service(
                 '/dynamixel_workbench/dynamixel_command', 2)
@@ -101,6 +103,8 @@ class main_control():
             raise AssertionError
         if not self.motor_range['z']['minPosAng'] <= self.motor_range['z']['homeAng'] <= self.motor_range['z']['maxPosAng']:
             raise AssertionError
+
+        
 
     def home(self):
         """[summary]
@@ -173,6 +177,10 @@ class main_control():
                 if(Xbox.axis.y != self.y):
                     self.moveMotor(3, Xbox.axis.y)
                     self.y = Xbox.axis.y
+
+        if (Xbox.cellOn == 1):
+            self.cellOn = Xbox.cellOn
+        
         # elif(filtre)
         # elif(hmi)
 
@@ -293,8 +301,11 @@ class main_control():
         pitch = asin(2*(x*y-z*w))
         yaw = atan2(2*(x*w+y*z),1-(2*(z**2+w**2)))
         angles = [roll,pitch,yaw]
+        
+        if (self.cellOn):
+            self.move_to_xyz(roll,pitch,yaw)
+        
 
-        self.move_to_xyz(roll,pitch,yaw)
 
         return angles
 
