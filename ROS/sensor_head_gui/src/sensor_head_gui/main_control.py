@@ -51,7 +51,9 @@ class main_control():
         self.y = 0
         self.z = 0
 
-        self.cellOn = 0
+        self.cellOn = False
+
+        
         rospy.on_shutdown(self.shutdown_hook)
         try:
             rospy.wait_for_service(
@@ -179,8 +181,7 @@ class main_control():
                     self.moveMotor(3, Xbox.axis.y)
                     self.y = Xbox.axis.y
 
-        if (Xbox.cellOn == 1):
-            self.cellOn = Xbox.cellOn
+        self.cellOn = Xbox.cellOn
         
         # elif(filtre)
         # elif(hmi)
