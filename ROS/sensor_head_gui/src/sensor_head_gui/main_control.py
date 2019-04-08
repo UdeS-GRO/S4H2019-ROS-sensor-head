@@ -70,7 +70,7 @@ class main_control():
                 "/mobile_imu_filtered", Imu, self.quat_to_euler, queue_size=1)
 
             self.subHMI = rospy.Subscriber(
-                "/interface", HMI, self.change_motor_position, queue_size=1)
+                "/interface", HMI, self.callbackHMI, queue_size=1)
 
         except:
             print("WAIT")
@@ -186,9 +186,10 @@ class main_control():
                     self.y = Xbox.axis.y
 
         self.cellOn = Xbox.cellOn
-        
         # elif(filtre)
-        elif(CB_hmi == 1):
+                
+    def callbackHMI(self, CB_hmi):
+        if(CB_hmi == 1):
             if(HMI.axis.z != self.z):
                 self.moveMotor(1, HMI.axis.z)
                 self.z = HMI.axis.z
@@ -198,6 +199,7 @@ class main_control():
             if(HMI.axis.y != self.y):
                 self.moveMotor(3, HMI.axis.y)
                 self.y = HMI.axis.y
+        pass
 
     def connect(self, event):
         """[summary]
