@@ -26,12 +26,12 @@ class main_control():
 
         self.motor_range = {}
         self.motor_range['x'] = {}
-        self.motor_range['x']['homeMot'] = 768
+        self.motor_range['x']['homeMot'] = 683
         self.motor_range['x']['homeAng'] = 0.0
         self.motor_range['x']['minPosMot'] = 0
-        self.motor_range['x']['minPosAng'] = -3*pi/8
+        self.motor_range['x']['minPosAng'] = -pi/3
         self.motor_range['x']['maxPosMot'] = 1535
-        self.motor_range['x']['maxPosAng'] = 3*pi/8
+        self.motor_range['x']['maxPosAng'] = pi/3
         self.motor_range['y'] = {}
         self.motor_range['y']['homeMot'] = 768
         self.motor_range['y']['homeAng'] = 0.0
@@ -53,7 +53,7 @@ class main_control():
 
         self.cellOn = False
 
-        
+
         rospy.on_shutdown(self.shutdown_hook)
         try:
             rospy.wait_for_service(
