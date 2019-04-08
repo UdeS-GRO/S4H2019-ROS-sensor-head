@@ -47,6 +47,9 @@ class manual_control():
         else:
             Xbox.deadman = 0
 
+        if (data.buttons[0] == 1):
+            Xbox.cellOn = 1
+
         Xbox.axis.x = round(self.x_pos)
         Xbox.axis.y = round(self.y_pos)
         Xbox.axis.z = round(self.z_pos)

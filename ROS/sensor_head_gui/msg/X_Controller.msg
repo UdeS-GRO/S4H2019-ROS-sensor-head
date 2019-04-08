@@ -2,3 +2,4 @@
 geometry_msgs/Vector3  axis
 bool deadman
 bool home
+bool cellOn
