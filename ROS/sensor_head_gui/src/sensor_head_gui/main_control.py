@@ -14,10 +14,18 @@ from python_qt_binding import *
 from rqt_gui.main import Main
 from sensor_head_gui.msg import X_Controller
 from sensor_head_gui.msg import HMI
+from sensor_head_gui.msg import ControlSource
 from std_msgs.msg import Int32, String
 from geometry_msgs.msg import Vector3
 from sensor_msgs.msg import Imu
 from Constants import *
+from enum import Enum
+
+
+class Source(Enum):
+    Hmi = 0
+    Xbox = 1
+    Mobile = 2
 
 
 class main_control():
@@ -54,23 +62,28 @@ class main_control():
 
         self.cellOn = False
         self.timer = 0
+        self.currentSource = Source.Xbox  # Xbox
 
         rospy.on_shutdown(self.shutdown_hook)
         try:
             rospy.wait_for_service(
                 '/dynamixel_workbench/dynamixel_command', 2)
+
             self.motor_proxy = rospy.ServiceProxy(
                 '/dynamixel_workbench/dynamixel_command', DynamixelCommand,
                 persistent=True)  # Enabled persistant connection
+
             self.subManette = rospy.Subscriber(
                 "Xbox", X_Controller, self.change_motor_position, queue_size=2)
-            # self.subAngle = rospy.Subscriber(
-            #     "/mangle", Vector3, self.readAngle)
+
             self.subMobileImuFiltered = rospy.Subscriber(
-                "/mobile_imu_filtered", Imu, self.quat_to_euler, queue_size=1)
+                "/mobile_imu_filtered", Imu, self.callbackMobile, queue_size=1)
 
             self.subHMI = rospy.Subscriber(
                 "/interface", HMI, self.callbackHMI, queue_size=1)
+
+            self.subControlSource = rospy.Subscriber(
+                "/control_source", ControlSource, self.callbackCtrlSrc, queue_size=10)
 
         except:
             print("WAIT")
@@ -170,28 +183,30 @@ class main_control():
         Arguments:
             Xbox {[type]} -- [description]
         """
+        # Only process control if the current source is given to Xbox
+        if (self.currentSource=Source.Xbox):
 
-        if(Xbox.deadman == 1):
-            if(Xbox.home == True):
-                self.home()
-            else:
-                if(Xbox.axis.z != self.z):
-                    self.moveMotor(1, Xbox.axis.z)
-                    self.z = Xbox.axis.z
-                if(Xbox.axis.x != self.x):
-                    self.moveMotor(2, Xbox.axis.x)
-                    self.x = Xbox.axis.x
-                if(Xbox.axis.y != self.y):
-                    self.moveMotor(3, Xbox.axis.y)
-                    self.y = Xbox.axis.y
+            # Send Xbox commands only when the deadman switch is held on.
+            if(Xbox.deadman == 1):
+                if(Xbox.home == True):
+                    self.home()
+                else:
+                    if(Xbox.axis.z != self.z):
+                        self.moveMotor(1, Xbox.axis.z)
+                        self.z = Xbox.axis.z
+                    if(Xbox.axis.x != self.x):
+                        self.moveMotor(2, Xbox.axis.x)
+                        self.x = Xbox.axis.x
+                    if(Xbox.axis.y != self.y):
+                        self.moveMotor(3, Xbox.axis.y)
+                        self.y = Xbox.axis.y
 
         self.cellOn = Xbox.cellOn
-        # elif(filtre)
-                
+
     def callbackHMI(self, CB_hmi):
         if (CB_hmi.home == True):
             self.home()
-        else: 
+        else:
             if(CB_hmi == 1):
                 if(HMI.axis.z != self.z):
                     self.moveMotor(1, HMI.axis.z)
@@ -203,6 +218,25 @@ class main_control():
                     self.moveMotor(3, HMI.axis.y)
                     self.y = HMI.axis.y
         pass
+
+        return
+
+    def callbackCtrlSrc(self, data):
+        """Processes the current source input set by the HMI.
+
+        Arguments:
+            data {ControlSource} -- Contains the source number that should take the control 
+        """
+        if (data.source == data.SOURCE_HMI):
+            self.currentSource = Source.Hmi
+        elif (data.source == data.SOURCE_XBOX):
+            self.currentSource = Source.Xbox
+        elif (data.source == data.SOURCE_MOBILE):
+            self.currentSource = Source.Mobile
+        else:
+            self.currentSource = Source.Xbox
+
+        return
 
     def connect(self, event):
         """[summary]
@@ -305,25 +339,38 @@ class main_control():
         self.moveMotor(3, x_cmd)
         pass
 
-    def readAngle(self, data):
-        print "readangle: ", data
-        self.move_to_xyz(data.x, data.y, data.z)
-        pass
+    def callbackMobile(self, data):
+        """[summary]
+        
+        Arguments:
+            data {[type]} -- [description]
+        """
 
-    def quat_to_euler(self, data):
+        if (self.currentSource=Source.Mobile):
 
-        x = data.orientation.x
-        y = data.orientation.y
-        z = data.orientation.z
-        w = data.orientation.w
+            euler_or = quat_to_euler(data.orientation)
+            self.move_to_xyz(euler_or.roll, euler_or.pitch, euler_or.yaw)
+        return
+
+    def quat_to_euler(self, orientation):
+        """[summary]
+        
+        Arguments:
+            orientation {[type]} -- [description]
+        
+        Returns:
+            [type] -- [description]
+        """
+
+        x = orientation.x
+        y = orientation.y
+        z = orientation.z
+        w = orientation.w
 
         roll = atan2(2*(x*y+z*w), 1-(2*(y**2+z**2)))
         pitch = asin(2*(x*y-z*w))
         yaw = atan2(2*(x*w+y*z), 1-(2*(z**2+w**2)))
-        angles = [roll, pitch, yaw]
-
-        if (self.cellOn):
-            self.move_to_xyz(roll, pitch, yaw)
+        angles = {'roll': roll, 'pitch': pitch, 'yaw': yaw}
 
         return angles
 
