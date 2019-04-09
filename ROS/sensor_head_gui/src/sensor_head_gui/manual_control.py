@@ -79,7 +79,7 @@ class manual_control():
         # See http://wiki.ros.org/rospy/Overview/Publishers%20and%20Subscribers#queue_size:_publish.28.29_behavior_and_queuing
         self.pub_Xbox = rospy.Publisher('Xbox', X_Controller, queue_size=2)
         self.subJoy = rospy.Subscriber("joy", Joy, self.callback, queue_size=2)
-        rospy.Timer(rospy.Duration(0.1), self.publishXbox)
+        rospy.Timer(rospy.Duration(0.05), self.publishXbox)
 
 
 if __name__ == '__main__':
