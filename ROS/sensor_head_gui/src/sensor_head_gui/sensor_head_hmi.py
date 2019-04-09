@@ -6,6 +6,8 @@ import rospy
 from python_qt_binding import *
 from PyQt5 import *
 from PyQt5.QtCore import pyqtSlot
+from PyQt5 import QtGui, QtWidgets
+from PyQt5.QtWidgets import QAbstractSlider
 from dynamixel_workbench_msgs.srv import *
 from dynamixel_workbench_msgs.msg import *
 from functools import partial
@@ -58,14 +60,20 @@ class SensorHeadHMIWidget(QtWidgets.QWidget):
         self.pubSource = rospy.Publisher(
             '/control_source', ControlSource, queue_size=10)
 
-    def RefreshValue(self, value, axis):
+    def RefreshValue(self, axis, value):
         interface = HMI()
         if (axis == 1):
             interface.axis.z = value
+            interface.axis.x = self.slider_position_axis_x.value()
+            interface.axis.y = self.slider_position_axis_y.value()
         elif (axis == 2):
             interface.axis.x = value
+            interface.axis.z = self.slider_position_axis_z.value()
+            interface.axis.y = self.slider_position_axis_y.value()
         elif (axis == 3):
             interface.axis.y = value
+            interface.axis.z = self.slider_position_axis_z.value()
+            interface.axis.x = self.slider_position_axis_x.value()
         self.pub_Interface.publish(interface)
 
     def ChangeMode(self, mode, desired_state):
@@ -78,9 +86,17 @@ class SensorHeadHMIWidget(QtWidgets.QWidget):
         return
 
     def setHome(self, state):
-        self.slider_position_axis_z.value = setHome[0]
-        self.slider_position_axis_x.value = setHome[1]
-        self.slider_position_axis_y.value = setHome[2]
+        
+        self.slider_position_axis_z.setValue(setHome[0])
+        QtWidgets.qApp.processEvents()
+        self.slider_position_axis_x.setValue(setHome[1])
+        QtWidgets.qApp.processEvents()
+        self.slider_position_axis_y.setValue(setHome[2])
+        QtWidgets.qApp.processEvents()
+        # self.slider_position_axis_y.triggerAction(QAbstractSlider.SliderMove)
+        # self.slider_position_axis_z.triggerAction(QAbstractSlider.SliderMove)
+        # self.slider_position_axis_x.triggerAction(QAbstractSlider.SliderMove)
+        # QAbstractSlider.SliderMove
         return
 
 

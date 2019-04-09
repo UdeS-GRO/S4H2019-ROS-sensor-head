@@ -21,6 +21,7 @@ from sensor_msgs.msg import Imu
 from Constants import *
 from Source import Source
 
+
 class main_control():
     def __init__(self):
         """Initialisation function.
@@ -67,7 +68,7 @@ class main_control():
                 persistent=True)  # Enabled persistant connection
 
             self.subManette = rospy.Subscriber(
-                "Xbox", X_Controller, self.change_motor_position, queue_size=2)
+                "Xbox", X_Controller, self.callbackXbox, queue_size=2)
 
             self.subMobileImuFiltered = rospy.Subscriber(
                 "/mobile_imu_filtered", Imu, self.callbackMobile, queue_size=1)
@@ -118,6 +119,24 @@ class main_control():
 
     def shutdown_hook(self):
         self.timer.shutdown()
+
+    def connect(self, event):
+        """[summary]
+
+        Arguments:
+            event {[type]} -- [description]
+        """
+
+        try:
+            rospy.wait_for_service(
+                '/dynamixel_workbench/dynamixel_command', 0.1)
+            self.motor_proxy = rospy.ServiceProxy(
+                '/dynamixel_workbench/dynamixel_command', DynamixelCommand, persistent=True)
+            self.timer.shutdown()
+            print("MOTORS FOUND")
+        except:
+            self.motors = 0
+            print("WAITING FOR DYNAMIXEL MOTORS")
 
     def home(self):
         """[summary]
@@ -170,7 +189,7 @@ class main_control():
             print "Service call failed: %s" % e
             print("Error here")
 
-    def change_motor_position(self, Xbox):
+    def callbackXbox(self, Xbox):
         """[summary]
 
         Arguments:
@@ -198,13 +217,13 @@ class main_control():
 
     def callbackHMI(self, data):
         """[summary]
-        
+
         Arguments:
             data {[type]} -- [description]
         """
-
+        print "hmimsg called"
         if (self.currentSource == Source.Hmi):
-            
+            print "hmi msg:", data
             if(data.axis.z != self.z):
                 self.moveMotor(1, data.axis.z)
                 self.z = data.axis.z
@@ -239,23 +258,40 @@ class main_control():
 
         return
 
-    def connect(self, event):
+    def callbackMobile(self, data):
         """[summary]
 
         Arguments:
-            event {[type]} -- [description]
+            data {[type]} -- [description]
         """
 
-        try:
-            rospy.wait_for_service(
-                '/dynamixel_workbench/dynamixel_command', 0.1)
-            self.motor_proxy = rospy.ServiceProxy(
-                '/dynamixel_workbench/dynamixel_command', DynamixelCommand, persistent=True)
-            self.timer.shutdown()
-            print("MOTORS FOUND")
-        except:
-            self.motors = 0
-            print("WAITING FOR DYNAMIXEL MOTORS")
+        if (self.currentSource == Source.Mobile):
+
+            euler_or = quat_to_euler(data.orientation)
+            self.move_to_xyz(euler_or.roll, euler_or.pitch, euler_or.yaw)
+        return
+
+    def quat_to_euler(self, orientation):
+        """[summary]
+
+        Arguments:
+            orientation {[type]} -- [description]
+
+        Returns:
+            [type] -- [description]
+        """
+
+        x = orientation.x
+        y = orientation.y
+        z = orientation.z
+        w = orientation.w
+
+        roll = atan2(2*(x*y+z*w), 1-(2*(y**2+z**2)))
+        pitch = asin(2*(x*y-z*w))
+        yaw = atan2(2*(x*w+y*z), 1-(2*(z**2+w**2)))
+        angles = {'roll': roll, 'pitch': pitch, 'yaw': yaw}
+
+        return angles
 
     def move_to_xyz(self, x_roll_angle, y_pitch_angle, z_yaw_angle):
         """All angles are in radians
@@ -339,41 +375,6 @@ class main_control():
         self.moveMotor(2, y_cmd)
         self.moveMotor(3, x_cmd)
         pass
-
-    def callbackMobile(self, data):
-        """[summary]
-
-        Arguments:
-            data {[type]} -- [description]
-        """
-
-        if (self.currentSource == Source.Mobile):
-
-            euler_or = quat_to_euler(data.orientation)
-            self.move_to_xyz(euler_or.roll, euler_or.pitch, euler_or.yaw)
-        return
-
-    def quat_to_euler(self, orientation):
-        """[summary]
-
-        Arguments:
-            orientation {[type]} -- [description]
-
-        Returns:
-            [type] -- [description]
-        """
-
-        x = orientation.x
-        y = orientation.y
-        z = orientation.z
-        w = orientation.w
-
-        roll = atan2(2*(x*y+z*w), 1-(2*(y**2+z**2)))
-        pitch = asin(2*(x*y-z*w))
-        yaw = atan2(2*(x*w+y*z), 1-(2*(z**2+w**2)))
-        angles = {'roll': roll, 'pitch': pitch, 'yaw': yaw}
-
-        return angles
 
 
 if __name__ == '__main__':

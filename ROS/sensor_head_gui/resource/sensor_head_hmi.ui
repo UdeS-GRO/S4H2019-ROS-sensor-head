@@ -59,6 +59,9 @@
                 <property name="maximum">
                  <number>1535</number>
                 </property>
+                <property name="singleStep">
+                 <number>1</number>
+                </property>
                 <property name="sliderPosition">
                  <number>768</number>
                 </property>
