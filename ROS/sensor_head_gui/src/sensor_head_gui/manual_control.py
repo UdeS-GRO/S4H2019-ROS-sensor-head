@@ -20,7 +20,7 @@ class manual_control():
         Xbox = X_Controller()
         vitesse = 32  # degrees # TODO: To be specified in parameter
         deadzone = 0.1
-        data.axes[3] = -1*data.axes[3]
+        dataAxes3 = -1*data.axes[3]
 
         if(data.axes[2] < 0 or data.axes[5] < 0):
             Xbox.deadman = 1
@@ -30,8 +30,8 @@ class manual_control():
                     self.z_pos = setHome[0]-setRange[0]/2
                 elif (self.z_pos > setHome[0]+setRange[0]/2):
                     self.z_pos = setHome[0]+setRange[0]/2
-            if (data.axes[3] > deadzone or data.axes[3] < -deadzone):
-                self.x_pos = self.x_pos + vitesse*data.axes[3]
+            if (dataAxes3 > deadzone or dataAxes3 < -deadzone):
+                self.x_pos = self.x_pos + vitesse*dataAxes3
                 if (self.x_pos < setHome[1]-setRange[1]/2):
                     self.x_pos = setHome[1]-setRange[1]/2
                 elif (self.x_pos > setHome[1]+setRange[1]/2):
