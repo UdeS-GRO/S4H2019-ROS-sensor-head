@@ -20,6 +20,7 @@ class manual_control():
         Xbox = X_Controller()
         vitesse = 32  # degrees # TODO: To be specified in parameter
         deadzone = 0.1
+        data.axes[3] = -1*data.axes[3]
 
         if(data.axes[2] < 0 or data.axes[5] < 0):
             Xbox.deadman = 1
