@@ -267,8 +267,8 @@ class main_control():
 
         if (self.currentSource == Source.Mobile):
 
-            euler_or = quat_to_euler(data.orientation)
-            self.move_to_xyz(euler_or.roll, euler_or.pitch, euler_or.yaw)
+            euler_or = self.quat_to_euler(data.orientation)
+            self.move_to_xyz(euler_or['roll'], euler_or['pitch'], euler_or['yaw'])
         return
 
     def quat_to_euler(self, orientation):
