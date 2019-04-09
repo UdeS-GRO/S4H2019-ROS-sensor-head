@@ -68,6 +68,24 @@ class FilterFIR():
 
         if len(self.w_inp) == 21:
             self.w_inp.pop(0)
+        #  if (data.axes[0] > deadzone or data.axes[0] < -deadzone):
+        #         self.z_pos = self.z_pos + vitesse*data.axes[0]
+        #         if (self.z_pos < setHome[0]-setRange[0]/2):
+        #             self.z_pos = setHome[0]-setRange[0]/2
+        #         elif (self.z_pos > setHome[0]+setRange[0]/2):
+        #             self.z_pos = setHome[0]+setRange[0]/2
+        #     if (data.axes[3] > deadzone or data.axes[3] < -deadzone):
+        #         self.x_pos = self.x_pos + vitesse*data.axes[3]
+        #         if (self.x_pos < setHome[1]-setRange[1]/2):
+        #             self.x_pos = setHome[1]-setRange[1]/2
+        #         elif (self.x_pos > setHome[1]+setRange[1]/2):
+        #             self.x_pos = setHome[1]+setRange[1]/2
+        #     if (data.axes[1] > deadzone or data.axes[1] < -deadzone):
+        #         self.y_pos = self.y_pos + vitesse*data.axes[1]
+        #         if (self.y_pos < setHome[2]-setRange[2]/2):
+        #             self.y_pos = setHome[2]-setRange[2]/2
+        #         elif (self.y_pos > setHome[2]+setRange[2]/2):
+        #             self.y_pos = setHome[2]+setRange[2]/2
 
         self.mobile_imu_filtered.publish(imu)
         return
@@ -82,6 +100,8 @@ class FilterFIR():
         self.y_inp = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
         self.z_inp = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
         self.w_inp = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+        self.v= [0,0,0]
+
 
         rospy.Subscriber("/mobile_imu", Imu, self.callback, queue_size=1)
         self.mobile_imu_filtered = rospy.Publisher('/mobile_imu_filtered', Imu, queue_size=1)

@@ -157,7 +157,7 @@ function publishImuSnapshot() {
     }
 
 
-    const beta_radian = imuData.beta ? ((imuData.beta + 360) / 360 * 2 * Math.PI) % (2 * Math.PI) : 0;
+    const beta_radian =  imuData.beta ? ((imuData.beta + 360) / 360 * 2 * Math.PI) % (2 * Math.PI) : 0;
     const gamma_radian = imuData.gamma ? ((imuData.gamma + 360) / 360 * 2 * Math.PI) % (2 * Math.PI) : 0;
     const alpha_radian = imuData.alpha ? ((imuData.alpha + 360) / 360 * 2 * Math.PI) % (2 * Math.PI) : 0;
     var eurlerpose = new THREE.Euler(beta_radian, gamma_radian, alpha_radian);
@@ -191,6 +191,13 @@ function publishImuSnapshot() {
         linear_acceleration_covariance: linear_acceleration_covariance,
     });
 
+        // var info = {'x': imuData.beta,
+        //     'y': imuData.gamma,
+        //     'z':imuData.alpha };
+            var info = {'x': imuData.vbeta,
+            'y': imuData.vgamma,
+            'z':imuData.valpha };
+        console.log(valpha);
     imuTopic.publish(imuMessage);
 
 }
