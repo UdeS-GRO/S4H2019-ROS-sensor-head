@@ -57,7 +57,7 @@ class FilterFIR():
      
         # print(imu.orientation.x)
 
-        if len(self.x_inp) == 11:
+        if len(self.x_inp) == 21:
             self.x_inp.pop(0)
         
         if len(self.y_inp) == 21:
@@ -66,7 +66,7 @@ class FilterFIR():
         if len(self.z_inp) == 21:
             self.z_inp.pop(0)
 
-        if len(self.w_inp) == 11:
+        if len(self.w_inp) == 21:
             self.w_inp.pop(0)
 
         self.mobile_imu_filtered.publish(imu)
