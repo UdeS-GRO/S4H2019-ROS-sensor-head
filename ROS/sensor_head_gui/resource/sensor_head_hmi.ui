@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>630</width>
+    <width>447</width>
     <height>449</height>
    </rect>
   </property>
@@ -21,12 +21,12 @@
        <item row="0" column="0">
         <widget class="QGroupBox" name="groupBox_2">
          <property name="title">
-          <string>GroupBox</string>
+          <string/>
          </property>
          <widget class="QGroupBox" name="groupBox">
           <property name="geometry">
            <rect>
-            <x>40</x>
+            <x>10</x>
             <y>120</y>
             <width>231</width>
             <height>291</height>
@@ -81,6 +81,9 @@
                <layout class="QVBoxLayout" name="verticalLayout">
                 <item>
                  <widget class="QLabel" name="corse_desired_pos_axis1">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
                   <property name="text">
                    <string>Actual position</string>
                   </property>
@@ -145,7 +148,7 @@
          <widget class="QCommandLinkButton" name="Homing">
           <property name="geometry">
            <rect>
-            <x>510</x>
+            <x>310</x>
             <y>10</y>
             <width>91</width>
             <height>31</height>
@@ -155,152 +158,29 @@
            <string>HOMING</string>
           </property>
          </widget>
-         <widget class="QGroupBox" name="groupBox_5">
-          <property name="geometry">
-           <rect>
-            <x>450</x>
-            <y>190</y>
-            <width>151</width>
-            <height>231</height>
-           </rect>
-          </property>
-          <property name="title">
-           <string>SAFE POSITIONS</string>
-          </property>
-          <widget class="QWidget" name="verticalLayoutWidget_2">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>20</y>
-             <width>131</width>
-             <height>203</height>
-            </rect>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_3">
-            <item>
-             <widget class="QLabel" name="label_zero_pos_axis_4">
-              <property name="text">
-               <string>Axe 1</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout">
-              <item>
-               <widget class="QSpinBox" name="spinBox_7">
-                <property name="prefix">
-                 <string>- </string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QSpinBox" name="spinBox_4">
-                <property name="prefix">
-                 <string>+ </string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_zero_pos_axis_5">
-              <property name="text">
-               <string>Axe 2</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_2">
-              <item>
-               <widget class="QSpinBox" name="spinBox_8">
-                <property name="prefix">
-                 <string>- </string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QSpinBox" name="spinBox_5">
-                <property name="prefix">
-                 <string>+ </string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_zero_pos_axis_6">
-              <property name="text">
-               <string>Axe 3</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_3">
-              <item>
-               <widget class="QSpinBox" name="spinBox_9">
-                <property name="suffix">
-                 <string/>
-                </property>
-                <property name="prefix">
-                 <string>- </string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QSpinBox" name="spinBox_6">
-                <property name="prefix">
-                 <string>+</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="QPushButton" name="new_zero_confirmation_2">
-              <property name="text">
-               <string>SAVE</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </widget>
          <widget class="QLabel" name="actual_pos_axis3">
           <property name="geometry">
            <rect>
-            <x>290</x>
-            <y>130</y>
+            <x>230</x>
+            <y>120</y>
             <width>81</width>
             <height>21</height>
            </rect>
           </property>
           <property name="text">
-           <string>Controleur</string>
+           <string>Controller</string>
           </property>
          </widget>
          <widget class="QWidget" name="layoutWidget">
           <property name="geometry">
            <rect>
-            <x>300</x>
-            <y>20</y>
+            <x>200</x>
+            <y>40</y>
             <width>201</width>
             <height>62</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
-           <item>
-            <widget class="QPushButton" name="mode_selection">
-             <property name="text">
-              <string>AUTO</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="checked">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
            <item>
             <widget class="QPushButton" name="enable_motor">
              <property name="enabled">
@@ -331,22 +211,22 @@
          <widget class="QRadioButton" name="src_phone">
           <property name="geometry">
            <rect>
-            <x>280</x>
-            <y>170</y>
-            <width>117</width>
+            <x>230</x>
+            <y>150</y>
+            <width>151</width>
             <height>22</height>
            </rect>
           </property>
           <property name="text">
-           <string>Telephone</string>
+           <string>Mobile phone</string>
           </property>
          </widget>
          <widget class="QRadioButton" name="src_HMI">
           <property name="geometry">
            <rect>
-            <x>280</x>
-            <y>200</y>
-            <width>117</width>
+            <x>230</x>
+            <y>180</y>
+            <width>151</width>
             <height>22</height>
            </rect>
           </property>
@@ -357,14 +237,14 @@
          <widget class="QRadioButton" name="src_Xbox">
           <property name="geometry">
            <rect>
-            <x>280</x>
-            <y>230</y>
+            <x>230</x>
+            <y>210</y>
             <width>151</width>
             <height>22</height>
            </rect>
           </property>
           <property name="text">
-           <string>Xbox Controler</string>
+           <string>Xbox Controller</string>
           </property>
           <property name="checked">
            <bool>true</bool>
