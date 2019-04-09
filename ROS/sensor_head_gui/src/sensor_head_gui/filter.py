@@ -54,13 +54,16 @@ class FilterFIR():
         imu.orientation.z = Z_out/magnitude
         imu.orientation.w = W_out/magnitude
 
+     
+        print(imu.orientation.x)
+
         if len(self.x_inp) == 11:
             self.x_inp.pop(0)
         
-        if len(self.y_inp) == 11:
+        if len(self.y_inp) == 21:
             self.y_inp.pop(0)
 
-        if len(self.z_inp) == 11:
+        if len(self.z_inp) == 21:
             self.z_inp.pop(0)
 
         if len(self.w_inp) == 11:
@@ -75,10 +78,10 @@ class FilterFIR():
 
         # We fill the filter with "emtpy" or "neutral" quaternions, the identity
         # quaternion, {0,0,0,1}
-        self.x_inp = [0,0,0,0,0,0,0,0,0,0]
-        self.y_inp = [0,0,0,0,0,0,0,0,0,0]
-        self.z_inp = [0,0,0,0,0,0,0,0,0,0]
-        self.w_inp = [1,1,1,1,1,1,1,1,1,1]
+        self.x_inp = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        self.y_inp = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        self.z_inp = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        self.w_inp = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 
         rospy.Subscriber("/mobile_imu", Imu, self.callback, queue_size=1)
         self.mobile_imu_filtered = rospy.Publisher('/mobile_imu_filtered', Imu, queue_size=1)
