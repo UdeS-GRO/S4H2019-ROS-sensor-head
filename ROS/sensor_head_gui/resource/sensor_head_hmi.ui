@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>447</width>
+    <width>630</width>
     <height>449</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>449</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Form</string>
@@ -148,7 +154,7 @@
          <widget class="QCommandLinkButton" name="Homing">
           <property name="geometry">
            <rect>
-            <x>310</x>
+            <x>510</x>
             <y>10</y>
             <width>91</width>
             <height>31</height>
@@ -161,7 +167,7 @@
          <widget class="QLabel" name="actual_pos_axis3">
           <property name="geometry">
            <rect>
-            <x>230</x>
+            <x>290</x>
             <y>120</y>
             <width>81</width>
             <height>21</height>
@@ -174,7 +180,7 @@
          <widget class="QWidget" name="layoutWidget">
           <property name="geometry">
            <rect>
-            <x>200</x>
+            <x>400</x>
             <y>40</y>
             <width>201</width>
             <height>62</height>
@@ -211,7 +217,7 @@
          <widget class="QRadioButton" name="src_phone">
           <property name="geometry">
            <rect>
-            <x>230</x>
+            <x>290</x>
             <y>150</y>
             <width>151</width>
             <height>22</height>
@@ -224,7 +230,7 @@
          <widget class="QRadioButton" name="src_HMI">
           <property name="geometry">
            <rect>
-            <x>230</x>
+            <x>290</x>
             <y>180</y>
             <width>151</width>
             <height>22</height>
@@ -237,7 +243,7 @@
          <widget class="QRadioButton" name="src_Xbox">
           <property name="geometry">
            <rect>
-            <x>230</x>
+            <x>290</x>
             <y>210</y>
             <width>151</width>
             <height>22</height>
