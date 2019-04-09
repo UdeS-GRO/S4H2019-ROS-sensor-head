@@ -55,7 +55,7 @@ class FilterFIR():
         imu.orientation.w = W_out/magnitude
 
      
-        print(imu.orientation.x)
+        # print(imu.orientation.x)
 
         if len(self.x_inp) == 11:
             self.x_inp.pop(0)
