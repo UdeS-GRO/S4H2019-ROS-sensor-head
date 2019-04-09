@@ -12,7 +12,11 @@ class manual_control():
         Arguments:
             data {[type]} -- [description]
         """
+        self.currentData = data
+  
 
+    def publishXbox(self):
+        data = self.currentData
         Xbox = X_Controller()
         vitesse = 32  # degrees # TODO: To be specified in parameter
         deadzone = 0.1
@@ -55,13 +59,12 @@ class manual_control():
         Xbox.axis.z = round(self.z_pos)
 
         self.pub_Xbox.publish(Xbox)
-
-   
+        
     
     def __init__(self):
         """[summary]
         """
-
+        self.currentData = X_Controller()
         self.z_pos = setHome[0]
         self.x_pos = setHome[1]
         self.y_pos = setHome[2]
@@ -76,6 +79,7 @@ class manual_control():
         # See http://wiki.ros.org/rospy/Overview/Publishers%20and%20Subscribers#queue_size:_publish.28.29_behavior_and_queuing
         self.pub_Xbox = rospy.Publisher('Xbox', X_Controller, queue_size=2)
         self.subJoy = rospy.Subscriber("joy", Joy, self.callback, queue_size=2)
+        rospy.Timer(rospy.Duration(0.1), self.publishXbox)
 
 
 if __name__ == '__main__':
