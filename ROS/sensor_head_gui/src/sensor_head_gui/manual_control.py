@@ -15,7 +15,7 @@ class manual_control():
         self.currentData = data
   
 
-    def publishXbox(self):
+    def publishXbox(self, otherunusedparam):
         data = self.currentData
         Xbox = X_Controller()
         vitesse = 32  # degrees # TODO: To be specified in parameter
