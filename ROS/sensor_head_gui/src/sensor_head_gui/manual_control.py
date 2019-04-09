@@ -12,10 +12,15 @@ class manual_control():
         Arguments:
             data {[type]} -- [description]
         """
+        self.currentData = data
+  
 
+    def publishXbox(self, otherunusedparam):
+        data = self.currentData
         Xbox = X_Controller()
         vitesse = 32  # degrees # TODO: To be specified in parameter
         deadzone = 0.1
+        dataAxes3 = -1*data.axes[3]
 
         if(data.axes[2] < 0 or data.axes[5] < 0):
             Xbox.deadman = 1
@@ -25,8 +30,8 @@ class manual_control():
                     self.z_pos = setHome[0]-setRange[0]/2
                 elif (self.z_pos > setHome[0]+setRange[0]/2):
                     self.z_pos = setHome[0]+setRange[0]/2
-            if (data.axes[3] > deadzone or data.axes[3] < -deadzone):
-                self.x_pos = self.x_pos + vitesse*data.axes[3]
+            if (dataAxes3 > deadzone or dataAxes3 < -deadzone):
+                self.x_pos = self.x_pos + vitesse*dataAxes3
                 if (self.x_pos < setHome[1]-setRange[1]/2):
                     self.x_pos = setHome[1]-setRange[1]/2
                 elif (self.x_pos > setHome[1]+setRange[1]/2):
@@ -55,13 +60,14 @@ class manual_control():
         Xbox.axis.z = round(self.z_pos)
 
         self.pub_Xbox.publish(Xbox)
-
-   
+        
     
     def __init__(self):
         """[summary]
         """
-
+        self.currentData = Joy()
+        self.currentData.axes=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+        self.currentData.buttons=[0,0,0,0,0,0,0,0,0,0,0]
         self.z_pos = setHome[0]
         self.x_pos = setHome[1]
         self.y_pos = setHome[2]
@@ -76,6 +82,7 @@ class manual_control():
         # See http://wiki.ros.org/rospy/Overview/Publishers%20and%20Subscribers#queue_size:_publish.28.29_behavior_and_queuing
         self.pub_Xbox = rospy.Publisher('Xbox', X_Controller, queue_size=2)
         self.subJoy = rospy.Subscriber("joy", Joy, self.callback, queue_size=2)
+        rospy.Timer(rospy.Duration(0.05), self.publishXbox)
 
 
 if __name__ == '__main__':

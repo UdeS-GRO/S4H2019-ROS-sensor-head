@@ -3,9 +3,9 @@
 
   <!-- Joy node configuration -->
   <!-- For information on joy's parameters, see http://wiki.ros.org/joy -->
-  <arg name="dev" default="/dev/input/js2" doc="The device name of the joystic" />
+  <arg name="dev" default="/dev/input/js0" doc="The device name of the joystic" />
   <arg name="autorepeat_rate" default="10.0" doc="The rate in Hz that messages will be resent when no state has changed." />
-  <arg name="coalesce_interval" default="0.01" doc="Axis events that are received within coalesce_interval (seconds) of each other are sent out in a single ROS message." />
+  <arg name="coalesce_interval" default="0.005" doc="Axis events that are received within coalesce_interval (seconds) of each other are sent out in a single ROS message." />
   <arg name="deadzone" default="0.1" doc="Amount by which the joystick has to move before it is considered to be off-center." />
   <!-- For the deadzone parameter: a similar value is used in the manual_control.py file -->
 
