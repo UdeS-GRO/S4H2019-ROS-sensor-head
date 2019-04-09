@@ -64,7 +64,9 @@ class manual_control():
     def __init__(self):
         """[summary]
         """
-        self.currentData = X_Controller()
+        self.currentData = Joy()
+        self.currentData.axes=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+        self.currentData.buttons=[0,0,0,0,0,0,0,0,0,0,0]
         self.z_pos = setHome[0]
         self.x_pos = setHome[1]
         self.y_pos = setHome[2]
