@@ -17,7 +17,8 @@ var lastGamma = 0,
     lastBeta = 0;
 var quat = [0,0,0,1];
 
-const sensorAbs = new AbsoluteOrientationSensor();
+// const sensorAbs = new AbsoluteOrientationSensor();
+const sensorAbs = new RelativeOrientationSensor();
 sensorAbs.onreading = () => quat = sensorAbs.quaternion;
 sensorAbs.start();
 // setup connection to the ROS server and prepare the topic
@@ -260,7 +261,7 @@ function publishImuSnapshot() {
     //     y: y,
     //     z: z
     // };
-    
+
     // scope.deviceOrientation = currentDevOr;
     // let devo = currentDevOr;
     let imuData = {
