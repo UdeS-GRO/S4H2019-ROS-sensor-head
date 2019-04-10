@@ -2,7 +2,7 @@
 
 import rospy
 from sensor_msgs.msg import Imu
-from math import sqrt
+from math import sqrt, atan2, pi
 
 class FilterFIR():
 
@@ -68,6 +68,7 @@ class FilterFIR():
 
         if len(self.w_inp) == 21:
             self.w_inp.pop(0)
+        
         #  if (data.axes[0] > deadzone or data.axes[0] < -deadzone):
         #         self.z_pos = self.z_pos + vitesse*data.axes[0]
         #         if (self.z_pos < setHome[0]-setRange[0]/2):
@@ -86,9 +87,44 @@ class FilterFIR():
         #             self.y_pos = setHome[2]-setRange[2]/2
         #         elif (self.y_pos > setHome[2]+setRange[2]/2):
         #             self.y_pos = setHome[2]+setRange[2]/2
-
+        # eul = self.Quat2Angle(x,y,z,w)
+        # # print eul
+        # print data.angular_velocity
         self.mobile_imu_filtered.publish(imu)
         return
+
+    def Quat2Angle(self, x, y, z, w ):
+
+        test = x * y + z * w
+
+        if (test > 0.499):
+            yaw = 2 * atan2(x, w)
+            pitch = pi / 2
+            roll = 0
+
+            euler1 = [ pitch, roll, yaw]
+            return euler1
+        
+
+        if (test < -0.499):
+            yaw = -2 * atan2(x, w)
+            pitch = -pi / 2
+            roll = 0
+            euler2 = [pitch, roll, yaw]
+            return euler2
+        
+
+        sqx = x * x
+        sqy = y * y
+        sqz = z * z
+        yaw = atan2(2 * y * w - 2 * x * z, 1 - 2 * sqy - 2 * sqz)
+        pitch = asin(2 * test)
+        roll = atan2(2 * x * w - 2 * y * z, 1 - 2 * sqx - 2 * sqz)
+
+        euler = [pitch, roll, yaw]
+
+        return euler
+
 
     def __init__(self):
         """[summary]
