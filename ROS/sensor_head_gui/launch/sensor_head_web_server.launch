@@ -14,16 +14,16 @@
         <param name="web_server_port" value="$(arg web_server_port)" type="int" />
         <param name="web_server_www_root" value="$(arg web_server_www_root)" />
     </node>
-    <!-- <node pkg="usb_cam" type="usb_cam_node" name="usb_cam_node_sensor_head" output="screen" respawn="true" respawn_delay="1"> -->
+    <node pkg="usb_cam" type="usb_cam_node" name="usb_cam_node_sensor_head" output="screen" respawn="true" respawn_delay="1">
         <!-- See http://wiki.ros.org/usb_cam for a list of parameters and valid values -->
-        <!-- <param name="video_device" value="/dev/video0" />
+        <param name="video_device" value="/dev/video0" />
         <param name="image_width" value="640" />
         <param name="image_height" value="480" />
         <param name="pixel_format" value="yuyv" />
         <param name="camera_frame_id" value="usb_cam" />
         <param name="io_method" value="mmap" />
         <param name="framerate " value="24" />
-    </node> -->
+    </node>
     <node pkg="sensor_head_gui" type="filter.py" name="filter_angle" output="screen" respawn="false" respawn_delay="0">
         
     </node>
