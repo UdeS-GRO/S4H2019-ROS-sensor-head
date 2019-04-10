@@ -268,6 +268,7 @@ class main_control():
         """
 
         if (self.currentSource == Source.Mobile):
+            print "oui"
 
             euler_or = self.quat_to_euler(data.orientation)
             self.move_to_xyz(euler_or['roll'], euler_or['pitch'], euler_or['yaw'])
