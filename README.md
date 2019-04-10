@@ -158,29 +158,21 @@ rosrun dynamixel_workbench_single_manager_gui dynamixel_workbench_single_manager
 
 # 5- Using "sensor_head_gui" package
 
-In order to use the package, please launch this launch file. 
+In order to use the package, please launch this launch file.
 
 ```
-roslaunch sensor_head_gui sensor_head_gui.launch
+roslaunch sensor_head_gui base_launch.launch
 ```
 
 This file will launch several ROS nodes (dynamical_workbench_controllers, sensor_head_gui). If you can't find the package, please see https://answers.ros.org/question/190317/ros-cant-find-package/
 
 The arguments in this file, as well as the two .yaml configuration files in the ```ROS/sensor_head_gui/config/``` folder, can be modified with other values if your setup is different.
 
+Before the first run, a certificate must be created to be able to use a secured (https) website, required to use motion sensors on a mobile device. Create a SSL certificate by filling out the answers to the informations asked by the program, and make sure to use the exact name (address) that will be used at the FQDN or YOUR name question:
+```
+cd ~ && openssl req -new -x509 -keyout s4e4gro.pem -out s4e4gro.pem -days 365 -nodes
+```
 
+Using a https connection is required to use the orientation and motion javascript interfaces, or else they do not work, since it was deprecated. The certificate file is not included in the source control. 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+You can now open a browser to "https://localhost:4443" or replace localhost with the host's IP adress, or the computer's name if the full names are resolved. Adding the https is important.
