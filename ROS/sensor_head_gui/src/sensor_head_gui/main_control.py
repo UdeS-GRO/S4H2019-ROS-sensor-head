@@ -54,6 +54,8 @@ class main_control():
         self.y = 0
         self.z = 0
 
+        self.gyropos = [0, 0, 0]
+
         self.cellOn = False
         self.timer = 0
         self.currentSource = Source.Xbox  # Xbox
@@ -72,9 +74,11 @@ class main_control():
 
             # self.subMobileImuFiltered = rospy.Subscriber(
             #     "/mobile_imu_filtered", Imu, self.callbackMobile, queue_size=1)
-            self.subMobileImuFiltered = rospy.Subscriber(
-                "/mobile_imu", Imu, self.callbackMobile, queue_size=1)
+            # self.subMobileImuFiltered = rospy.Subscriber(
+            #     "/mobile_imu", Imu, self.callbackMobile, queue_size=1)
 
+            self.subMobileImuFiltered = rospy.Subscriber(
+                "/mobile_imu", Vector3, self.callbackMobile2, queue_size=1)
             self.subHMI = rospy.Subscriber(
                 "/interface", HMI, self.callbackHMI, queue_size=1)
 
@@ -271,7 +275,8 @@ class main_control():
             # print "oui"
 
             euler_or = self.quat_to_euler(data.orientation)
-            self.move_to_xyz(euler_or['roll'], euler_or['pitch'], euler_or['yaw'])
+            self.move_to_xyz(euler_or['roll'],
+                             euler_or['pitch'], euler_or['yaw'])
         return
 
     def quat_to_euler(self, orientation):
@@ -300,9 +305,8 @@ class main_control():
             pitch = pi / 2
             roll = 0
 
-            euler1 = [ pitch, roll, yaw]
+            euler1 = [pitch, roll, yaw]
             return euler1
-        
 
         if (test < -0.499):
             yaw = -2 * atan2(x, w)
@@ -310,7 +314,6 @@ class main_control():
             roll = 0
             euler2 = [pitch, roll, yaw]
             return euler2
-        
 
         sqx = x * x
         sqy = y * y
@@ -385,9 +388,9 @@ class main_control():
         # assert moty['minPosMot'] <= y_cmd <= moty['maxPosMot']
         # assert motz['minPosMot'] <= z_cmd <= motz['maxPosMot']
 
-        print "x", x_roll_angle, x_cmd #, motx
-        print "y", y_pitch_angle, y_cmd#, moty
-        print "z", z_yaw_angle, z_cmd#, motz
+        print "x", x_roll_angle, x_cmd  # , motx
+        print "y", y_pitch_angle, y_cmd  # , moty
+        print "z", z_yaw_angle, z_cmd  # , motz
 
         # On second thought, to make the system catch internal error, let's make
         # sure the tests are checked even when optimisation is on.
@@ -406,6 +409,34 @@ class main_control():
         self.moveMotor(2, y_cmd)
         self.moveMotor(3, x_cmd)
         # pass
+
+    def callbackMobile2(self, vector3data):
+        factor = 1
+        self.gyropos[0] += factor*vector3data.x
+        self.gyropos[1] += factor*vector3data.y
+        self.gyropos[2] += factor*vector3data.z
+
+        motx = self.motor_range['x']
+        moty = self.motor_range['y']
+        motz = self.motor_range['z']
+
+        if (self.gyropos[3] < setHome[0]-setRange[0]/2):
+            self.gyropos[3] = setHome[0]-setRange[0]/2
+        elif (self.gyropos[3] < setHome[0]+setRange[0]/2):
+            self.gyropos[3] = setHome[0]+setRange[0]/2
+
+        if (self.gyropos[0] < setHome[1]-setRange[1]/2):
+            self.gyropos[0] = setHome[1]-setRange[1]/2
+        elif (self.gyropos[0] < setHome[1]+setRange[1]/2):
+            self.gyropos[0] = setHome[1]+setRange[1]/2
+
+        if (self.gyropos[1] < setHome[2]-setRange[2]/2):
+            self.gyropos[1] = setHome[2]-setRange[2]/2
+        elif (self.gyropos[1] < setHome[2]+setRange[2]/2):
+            self.gyropos[1] = setHome[2]+setRange[2]/2
+
+
+        pass
 
 
 if __name__ == '__main__':
