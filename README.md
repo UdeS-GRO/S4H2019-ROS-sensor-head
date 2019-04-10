@@ -109,6 +109,7 @@ First, you'll need to source the correct ROS workspace in order to use ROS from 
 ```bash
 source /opt/ros/kinetic/setup.bash
 cd ~/catkin_ws
+sudo apt-get update
 rosdep install --from-paths src --ignore-src -r -y
 catkin_make
 ```
@@ -118,6 +119,7 @@ If you are using a Raspberry Pi or a computer low on memory, you might need to l
 ```bash
 source /opt/ros/kinetic/setup.bash
 cd ~/catkin_ws
+sudo apt-get update
 rosdep install --from-paths src --ignore-src -r -y
 catkin_make -j 1
 ```
