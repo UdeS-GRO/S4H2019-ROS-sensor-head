@@ -375,7 +375,7 @@ class main_control():
         # print "z", z_yaw_angle, z_cmd
 
         # self.moveMotor(1, z_cmd)
-        # self.moveMotor(2, y_cmd)
+        self.moveMotor(2, y_cmd)
         # self.moveMotor(3, x_cmd)
         # pass
 
