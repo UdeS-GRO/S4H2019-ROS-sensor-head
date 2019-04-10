@@ -1,15 +1,16 @@
 List of material:
 Raspberry Pi 3B+
-Wyze Cam v2
+USB Camera (We used Microsoft LifeCam VX-2000)
 OpenCR 1.0
 Dynamixel Motor XL430-W250-T (2)
 Dynamixel Motor XM430-W350-T
+Xbox One Controller
+Android Cell Phone
 Mouse
 Screen
 Keyboard
 
 Raspberry Pi Power Supply (Type A - Micro-USB)
-Wyze Cam Power Supply (Type A - USB - Micro USB)
 OpenCR Power Supply (Type A - Coaxial)
 3-pin connector(3)
 USB-USB cable
