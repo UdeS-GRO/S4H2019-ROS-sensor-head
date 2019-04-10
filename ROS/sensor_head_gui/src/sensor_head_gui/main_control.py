@@ -289,9 +289,37 @@ class main_control():
         z = orientation.z
         w = orientation.w
 
-        roll = atan2(2*(x*y+z*w), 1-(2*(y**2+z**2)))
-        pitch = asin(2*(x*y-z*w))
-        yaw = atan2(2*(x*w+y*z), 1-(2*(z**2+w**2)))
+        # roll = atan2(2*(x*y+z*w), 1-(2*(y**2+z**2)))
+        # pitch = asin(2*(x*y-z*w))
+        # yaw = atan2(2*(x*w+y*z), 1-(2*(z**2+w**2)))
+
+        test = x * y + z * w
+
+        if (test > 0.499):
+            yaw = 2 * atan2(x, w)
+            pitch = pi / 2
+            roll = 0
+
+            euler1 = [ pitch, roll, yaw]
+            return euler1
+        
+
+        if (test < -0.499):
+            yaw = -2 * atan2(x, w)
+            pitch = -pi / 2
+            roll = 0
+            euler2 = [pitch, roll, yaw]
+            return euler2
+        
+
+        sqx = x * x
+        sqy = y * y
+        sqz = z * z
+        yaw = atan2(2 * y * w - 2 * x * z, 1 - 2 * sqy - 2 * sqz)
+        pitch = asin(2 * test)
+        roll = atan2(2 * x * w - 2 * y * z, 1 - 2 * sqx - 2 * sqz)
+
+        # euler = [pitch, roll, yaw]
         angles = {'roll': roll, 'pitch': pitch, 'yaw': yaw}
 
         return angles
