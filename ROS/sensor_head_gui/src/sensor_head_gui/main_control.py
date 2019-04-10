@@ -411,33 +411,35 @@ class main_control():
         # pass
 
     def callbackMobile2(self, vector3data):
-        factor = 1
-        self.gyropos[0] += factor*vector3data.x
-        self.gyropos[1] += factor*vector3data.y
-        self.gyropos[2] += factor*vector3data.z
 
-        motx = self.motor_range['x']
-        moty = self.motor_range['y']
-        motz = self.motor_range['z']
+        if (self.currentSource == Source.Mobile):
+            factor = 1
+            self.gyropos[0] += factor*vector3data.x
+            self.gyropos[1] += factor*vector3data.y
+            self.gyropos[2] += factor*vector3data.z
 
-        if (self.gyropos[2] < setHome[0]-setRange[0]/2):
-            self.gyropos[2] = setHome[0]-setRange[0]/2
-        elif (self.gyropos[2] < setHome[0]+setRange[0]/2):
-            self.gyropos[2] = setHome[0]+setRange[0]/2
+            motx = self.motor_range['x']
+            moty = self.motor_range['y']
+            motz = self.motor_range['z']
 
-        if (self.gyropos[0] < setHome[1]-setRange[1]/2):
-            self.gyropos[0] = setHome[1]-setRange[1]/2
-        elif (self.gyropos[0] < setHome[1]+setRange[1]/2):
-            self.gyropos[0] = setHome[1]+setRange[1]/2
+            if (self.gyropos[2] < setHome[0]-setRange[0]/2):
+                self.gyropos[2] = setHome[0]-setRange[0]/2
+            elif (self.gyropos[2] < setHome[0]+setRange[0]/2):
+                self.gyropos[2] = setHome[0]+setRange[0]/2
 
-        if (self.gyropos[1] < setHome[2]-setRange[2]/2):
-            self.gyropos[1] = setHome[2]-setRange[2]/2
-        elif (self.gyropos[1] < setHome[2]+setRange[2]/2):
-            self.gyropos[1] = setHome[2]+setRange[2]/2
+            if (self.gyropos[0] < setHome[1]-setRange[1]/2):
+                self.gyropos[0] = setHome[1]-setRange[1]/2
+            elif (self.gyropos[0] < setHome[1]+setRange[1]/2):
+                self.gyropos[0] = setHome[1]+setRange[1]/2
 
-        # self.moveMotor(1, self.gyropos[2])
-        # self.moveMotor(2, self.gyropos[0])
-        self.moveMotor(3, self.gyropos[1])
+            if (self.gyropos[1] < setHome[2]-setRange[2]/2):
+                self.gyropos[1] = setHome[2]-setRange[2]/2
+            elif (self.gyropos[1] < setHome[2]+setRange[2]/2):
+                self.gyropos[1] = setHome[2]+setRange[2]/2
+
+            # self.moveMotor(1, self.gyropos[2])
+            # self.moveMotor(2, self.gyropos[0])
+            self.moveMotor(3, self.gyropos[1])
 
         pass
 
