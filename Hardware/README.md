@@ -3,11 +3,12 @@
 ![full assy](https://github.com/gene2302/3-axis-ROS-sensor-head/blob/master/Hardware/Images/3_axis_render.PNG)
 
 ## 1 - Download BOM.
-	[Excel BOM](https://github.com/gene2302/3-axis-ROS-sensor-head/blob/master/Hardware/BOM/Master_parts_list.xlsx)
+Download the build of material, follow this link : 
+[Excel BOM](https://github.com/gene2302/3-axis-ROS-sensor-head/blob/master/Hardware/BOM/Master_parts_list.xlsx)
 
 ## 2 - Purchase required standards parts.
 
-You need purchase some standard parts from Servocity, dynamixel and McMaster for exemple. All links are in the BOM excel.
+You need purchase some standard parts from Servocity, Dynamixel and McMaster for exemple. All links are in the BOM excel.
 
 ## 3 - 3D print all 3d printed parts
 
@@ -39,7 +40,7 @@ Take the Y motor(XM-430-w250) and screw the motor adaptor on it. Plug 1in shaft 
 
 ## 7 - Assembly the full module.
 
-take all the modules and assemble them together with the appropriate screws and according to the image.
+Take all the modules and assemble them together with appropriates screws according with the picture.
 ![full assy](https://github.com/gene2302/3-axis-ROS-sensor-head/blob/master/Hardware/Images/3-axis-iso.PNG)
 
 
