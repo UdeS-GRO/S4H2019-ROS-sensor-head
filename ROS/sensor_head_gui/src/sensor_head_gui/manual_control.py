@@ -7,18 +7,17 @@ from Constants import *
 
 class manual_control():
     def callback(self, data):
-        """[summary]
-        
-        Arguments:
-            data {[type]} -- [description]
+        """Takes Joy's last values and store it in a new variable
         """
         self.currentData = data
   
 
     def publishXbox(self, otherunusedparam):
+        """Changes speed values to angle and publishs these new values in a message named 'Xbox' every 0.05s
+        """
         data = self.currentData
         Xbox = X_Controller()
-        vitesse = 32  # degrees # TODO: To be specified in parameter
+        vitesse = 32  # degrees
         deadzone = 0.1
         dataAxes3 = -1*data.axes[3]
 
@@ -63,7 +62,8 @@ class manual_control():
         
     
     def __init__(self):
-        """[summary]
+        """Initializes axes and buttons values and position in x, y and z
+            Subscribes to Joy, sets Publisher and calls the publish function every 0.05s
         """
         self.currentData = Joy()
         self.currentData.axes=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
@@ -86,7 +86,7 @@ class manual_control():
 
 
 if __name__ == '__main__':
-    """[summary]
+    """Creates a node name manualControl
     """
 
     try:
