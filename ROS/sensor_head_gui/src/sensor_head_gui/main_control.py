@@ -268,7 +268,7 @@ class main_control():
         """
 
         if (self.currentSource == Source.Mobile):
-            print "oui"
+            # print "oui"
 
             euler_or = self.quat_to_euler(data.orientation)
             self.move_to_xyz(euler_or['roll'], euler_or['pitch'], euler_or['yaw'])
@@ -304,12 +304,12 @@ class main_control():
              y_pitch_angle {double} -- [description]
              z_yaw_angle {double} -- [description]
         """
-        print "angle in", x_roll_angle, y_pitch_angle, z_yaw_angle
+        # print "angle in", x_roll_angle, y_pitch_angle, z_yaw_angle
         # Make sure that we at least have a number as an angle
         x_roll_angle = float(x_roll_angle)
         y_pitch_angle = float(y_pitch_angle)
         z_yaw_angle = float(z_yaw_angle)
-        print "angle float", x_roll_angle, y_pitch_angle, z_yaw_angle
+        # print "angle float", x_roll_angle, y_pitch_angle, z_yaw_angle
 
         # Creating a local copy to minimise calls to class member
         motx = self.motor_range['x']
@@ -347,7 +347,7 @@ class main_control():
             delta = (motz['maxPosMot']-motz['minPosMot']) / \
                 (motz['maxPosAng']-motz['minPosAng'])
             z_cmd = int(round(angle*delta + motz['minPosMot'], 0))
-            print delta, z_cmd
+            # print delta, z_cmd
 
         # Making sure that the motor commands are valid. Note that assert
         # statements do not execute if the optimisation is requested (compiled)
