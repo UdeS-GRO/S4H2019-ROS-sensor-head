@@ -435,6 +435,9 @@ class main_control():
         elif (self.gyropos[1] < setHome[2]+setRange[2]/2):
             self.gyropos[1] = setHome[2]+setRange[2]/2
 
+        # self.moveMotor(1, self.gyropos[2])
+        # self.moveMotor(2, self.gyropos[0])
+        self.moveMotor(3, self.gyropos[1])
 
         pass
 
