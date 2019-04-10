@@ -268,6 +268,7 @@ class main_control():
         """
 
         if (self.currentSource == Source.Mobile):
+            print "oui"
 
             euler_or = self.quat_to_euler(data.orientation)
             self.move_to_xyz(euler_or['roll'], euler_or['pitch'], euler_or['yaw'])
@@ -356,9 +357,9 @@ class main_control():
         # assert moty['minPosMot'] <= y_cmd <= moty['maxPosMot']
         # assert motz['minPosMot'] <= z_cmd <= motz['maxPosMot']
 
-        print "x", x_roll_angle, x_cmd, motx
-        print "y", y_pitch_angle, y_cmd, moty
-        print "z", z_yaw_angle, z_cmd, motz
+        print "x", x_roll_angle, x_cmd #, motx
+        print "y", y_pitch_angle, y_cmd#, moty
+        print "z", z_yaw_angle, z_cmd#, motz
 
         # On second thought, to make the system catch internal error, let's make
         # sure the tests are checked even when optimisation is on.
