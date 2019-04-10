@@ -420,10 +420,10 @@ class main_control():
         moty = self.motor_range['y']
         motz = self.motor_range['z']
 
-        if (self.gyropos[3] < setHome[0]-setRange[0]/2):
-            self.gyropos[3] = setHome[0]-setRange[0]/2
-        elif (self.gyropos[3] < setHome[0]+setRange[0]/2):
-            self.gyropos[3] = setHome[0]+setRange[0]/2
+        if (self.gyropos[2] < setHome[0]-setRange[0]/2):
+            self.gyropos[2] = setHome[0]-setRange[0]/2
+        elif (self.gyropos[2] < setHome[0]+setRange[0]/2):
+            self.gyropos[2] = setHome[0]+setRange[0]/2
 
         if (self.gyropos[0] < setHome[1]-setRange[1]/2):
             self.gyropos[0] = setHome[1]-setRange[1]/2
