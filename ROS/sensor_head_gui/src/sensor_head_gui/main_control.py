@@ -79,7 +79,7 @@ class main_control():
 
             # self.subMobileImuFiltered = rospy.Subscriber(
             #     "/mobile_imu", Vector3, self.callbackMobile2, queue_size=1)
-            # self.subHMI = rospy.Subscriber(
+            self.subHMI = rospy.Subscriber(
                 "/interface", HMI, self.callbackHMI, queue_size=1)
 
             self.subControlSource = rospy.Subscriber(
