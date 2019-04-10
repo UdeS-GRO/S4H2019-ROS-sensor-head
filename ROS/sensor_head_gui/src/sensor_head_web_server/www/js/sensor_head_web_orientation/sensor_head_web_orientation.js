@@ -312,10 +312,10 @@ function publishImuSnapshot() {
         //     w: quaternionpose.w
         // },
         orientation: {
-            x: quat[0],
-            y: quat[1],
-            z: quat[2],
-            w: quat[3]
+            x: quat[1],
+            y: quat[2],
+            z: quat[3],
+            w: quat[0]
         },
         orientation_covariance: orientation_covariance,
         angular_velocity: {
