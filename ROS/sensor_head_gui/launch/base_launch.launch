@@ -1,11 +1,41 @@
 <?xml version="1.0"?>
 <launch>
-  <arg name="joy_dev" default="/dev/input/js2" />
 
-  <node pkg="joy" type="joy_node" name="joy_node" output="log" respawn="false" respawn_delay="0">
-    <param name="dev" value="$(arg joy_dev)" />
+  <!-- Joy node configuration -->
+  <!-- For information on joy's parameters, see http://wiki.ros.org/joy -->
+  <arg name="dev" default="/dev/input/js0" doc="The device name of the joystic" />
+  <arg name="autorepeat_rate" default="10.0" doc="The rate in Hz that messages will be resent when no state has changed." />
+  <arg name="coalesce_interval" default="0.005" doc="Axis events that are received within coalesce_interval (seconds) of each other are sent out in a single ROS message." />
+  <arg name="deadzone" default="0.1" doc="Amount by which the joystick has to move before it is considered to be off-center." />
+  <!-- For the deadzone parameter: a similar value is used in the manual_control.py file -->
+
+  <node pkg="joy" type="joy_node" name="joy_node" output="screen" respawn="false" respawn_delay="0">
+    <param name="dev" value="$(arg dev)" />
+    <param name="deadzone" value="$(arg deadzone)" />
+    <param name="autorepeat_rate" value="$(arg autorepeat_rate)" />
+    <param name="coalesce_interval" value="$(arg coalesce_interval)" />
   </node>
-  <node pkg="sensor_head_gui" name="main_node" type="node_logic" respawn="false" output="screen" />
+  <node pkg="sensor_head_gui" type="manual_control.py" name="manual_control" output="screen" respawn="false" respawn_delay="0">
+  </node>
 
+  <!-- Not used yet might desactivate -->
+  <node pkg="sensor_head_gui" type="node_logic" name="main_node" respawn="false" output="screen" />
 
+  <!-- Controller node -->
+  <node pkg="sensor_head_gui" type="main_control.py" name="main_control_node" output="screen" respawn="false" respawn_delay="0">
+
+  </node>
+
+  <!-- Start motor controllers  -->
+  <include file="$(find sensor_head_gui)/launch/motor_controller.launch">
+
+  </include>
+
+  <!-- Start GUI -->
+  <node pkg="sensor_head_gui" name="sensor_head_gui" type="sensor_head_gui" respawn="false" output="screen" />
+
+  <!-- Start web server and camera for cellphone control -->
+  <include file="$(find sensor_head_gui)/launch/sensor_head_web_server.launch">
+
+  </include>
 </launch>

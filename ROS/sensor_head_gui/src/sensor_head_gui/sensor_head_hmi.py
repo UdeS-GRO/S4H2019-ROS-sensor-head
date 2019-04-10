@@ -1,14 +1,22 @@
+#!/usr/bin/env python
+
 import os
 import rospkg
 import rospy
 from python_qt_binding import *
 from PyQt5 import *
 from PyQt5.QtCore import pyqtSlot
+from PyQt5 import QtGui, QtWidgets
+from PyQt5.QtWidgets import QAbstractSlider
 from dynamixel_workbench_msgs.srv import *
 from dynamixel_workbench_msgs.msg import *
 from functools import partial
 from std_msgs.msg import Int32
 from geometry_msgs.msg import Vector3
+from sensor_head_gui.msg import HMI
+from sensor_head_gui.msg import ControlSource
+from Constants import *
+from Source import Source
 
 
 class SensorHeadHMIWidget(QtWidgets.QWidget):
@@ -20,26 +28,85 @@ class SensorHeadHMIWidget(QtWidgets.QWidget):
             'sensor_head_gui'), 'resource', 'sensor_head_hmi.ui')
         loadUi(ui_file, self)
 
-
         # TOPIC
-        self.xaxis = rospy.Publisher('XAxis', Int32)
-        self.yaxis = rospy.Publisher('YAxis', Int32)
-        self.zaxis = rospy.Publisher('ZAxis', Int32)
-
+        # self.xaxis = rospy.Publisher('XAxis', Int32)
+        # self.yaxis = rospy.Publisher('YAxis', Int32)
+        # self.zaxis = rospy.Publisher('ZAxis', Int32)
+        # self.telephone = rospy.Publisher('CB_telephone',)
+        # self.hmi = rospy.Publisher('CB_hmi')
 
         # SEND INFO
-        self.slider_position_axis_x.valueChanged[int].connect(self.xaxis.publish)
-        self.slider_position_axis_y.valueChanged[int].connect(self.yaxis.publish)
-        self.slider_position_axis_z.valueChanged[int].connect(self.zaxis.publish)
 
+        self.slider_position_axis_z.valueChanged[int].connect(
+            partial(self.RefreshValue, 1))
+        self.slider_position_axis_x.valueChanged[int].connect(
+            partial(self.RefreshValue, 2))
+        self.slider_position_axis_y.valueChanged[int].connect(
+            partial(self.RefreshValue, 3))
 
-        #self.enable_motor.setCheckable(True)
-        #self.enable_motor.toggled[bool].connect(self.ChangeMotorState1)
-        #self.enable_motor.setChecked(True)
-        #self.enable_motor.setChecked(False)
-
-
+        self.src_phone.clicked.connect(
+            partial(self.ChangeMode, Source.Mobile.value))
+        self.src_HMI.clicked.connect(
+            partial(self.ChangeMode, Source.Hmi.value))
+        self.src_Xbox.clicked.connect(
+            partial(self.ChangeMode, Source.Xbox.value))
+        self.Homing.clicked.connect(self.setHome)
 
         # RECEIVE INFO
-        #self.motor_sub = rospy.Subscriber(
-         #   "/dynamixel_workbench/dynamixel_state", DynamixelStateList, self.UpdateMotorsData)
+        # self.motor_sub = rospy.Subscriber(
+        #    "/dynamixel_workbench/dynamixel_state", DynamixelStateList, self.UpdateMotorsData)
+
+        self.pub_Interface = rospy.Publisher('interface', HMI, queue_size=10)
+        self.pubSource = rospy.Publisher(
+            '/control_source', ControlSource, queue_size=10)
+
+    def RefreshValue(self, axis, value):
+        interface = HMI()
+        if (axis == 1):
+            interface.axis.z = value
+            interface.axis.x = self.slider_position_axis_x.value()
+            interface.axis.y = self.slider_position_axis_y.value()
+        elif (axis == 2):
+            interface.axis.x = value
+            interface.axis.z = self.slider_position_axis_z.value()
+            interface.axis.y = self.slider_position_axis_y.value()
+        elif (axis == 3):
+            interface.axis.y = value
+            interface.axis.z = self.slider_position_axis_z.value()
+            interface.axis.x = self.slider_position_axis_x.value()
+        self.pub_Interface.publish(interface)
+
+    def ChangeMode(self, mode, desired_state):
+        print "hmidesired_state:", desired_state, "mode:", mode
+        if (desired_state == True):
+            source = ControlSource()
+            source.source = mode
+            self.pubSource.publish(source)
+
+        return
+
+    def setHome(self, state):
+        
+        self.slider_position_axis_z.setValue(setHome[0])
+        QtWidgets.qApp.processEvents()
+        self.slider_position_axis_x.setValue(setHome[1])
+        QtWidgets.qApp.processEvents()
+        self.slider_position_axis_y.setValue(setHome[2])
+        QtWidgets.qApp.processEvents()
+        # self.slider_position_axis_y.triggerAction(QAbstractSlider.SliderMove)
+        # self.slider_position_axis_z.triggerAction(QAbstractSlider.SliderMove)
+        # self.slider_position_axis_x.triggerAction(QAbstractSlider.SliderMove)
+        # QAbstractSlider.SliderMove
+        return
+
+
+if __name__ == '__main__':
+    """[summary]
+    """
+
+    try:
+        rospy.init_node('SensorHeadHMIWidget', anonymous=True)
+        mc = SensorHeadHMIWidget()
+        rospy.spin()
+    except rospy.ROSInterruptException:
+        pass
