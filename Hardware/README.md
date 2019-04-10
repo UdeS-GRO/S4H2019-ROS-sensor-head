@@ -1,6 +1,6 @@
 # Assembly Process
 
-![full assy](https://github.com/gene2302/3-axis-ROS-sensor-head/blob/master/Hardware/Images/3-axis-iso.PNG)
+![full assy](https://github.com/gene2302/3-axis-ROS-sensor-head/blob/master/Hardware/Images/3 axis render.PNG)
 
 ## 1 - Download BOM.
 	[Excel BOM](https://github.com/gene2302/3-axis-ROS-sensor-head/blob/master/Hardware/BOM/Master_parts_list.xlsx)
