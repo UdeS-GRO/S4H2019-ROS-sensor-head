@@ -17,20 +17,20 @@ var lastGamma = 0,
     lastBeta = 0;
 var quat = [0,0,0,1];
 
-// // const sensorAbs = new AbsoluteOrientationSensor();
-// const sensorAbs = new RelativeOrientationSensor();
-// sensorAbs.onreading = () => quat = sensorAbs.quaternion;
-// sensorAbs.start();
+// const sensorAbs = new AbsoluteOrientationSensor();
+const sensorAbs = new RelativeOrientationSensor();
+sensorAbs.onreading = () => quat = sensorAbs.quaternion;
+sensorAbs.start();
 
-let sensor = new Gyroscope();
-sensor.start();
-var gyro = [0,0,0];
-sensor.onreading = () => {gyro = [sensor.x, sensor.y, sensor.z];
-    // console.log([sensor.x, sensor.y, sensor.z]);
-    // console.log("Angular velocity around the X-axis " + sensor.x);
-    // console.log("Angular velocity around the Y-axis " + sensor.y);
-    // console.log("Angular velocity around the Z-axis " + sensor.z);
-};
+// let sensor = new Gyroscope();
+// sensor.start();
+// var gyro = [0,0,0];
+// sensor.onreading = () => {gyro = [sensor.x, sensor.y, sensor.z];
+//     // console.log([sensor.x, sensor.y, sensor.z]);
+//     // console.log("Angular velocity around the X-axis " + sensor.x);
+//     // console.log("Angular velocity around the Y-axis " + sensor.y);
+//     // console.log("Angular velocity around the Z-axis " + sensor.z);
+// };
 
 
 
@@ -52,17 +52,17 @@ ros.on('close', function () {
 
 });
 
-// var imuTopic = new ROSLIB.Topic({
-//     ros: ros,
-//     name: '/mobile_imu',
-//     messageType: 'sensor_msgs/Imu'
-// });
-
 var imuTopic = new ROSLIB.Topic({
     ros: ros,
     name: '/mobile_imu',
-    messageType: 'goemetry_msgs/Vector3'
+    messageType: 'sensor_msgs/Imu'
 });
+
+// var imuTopic = new ROSLIB.Topic({
+//     ros: ros,
+//     name: '/mobile_imu',
+//     messageType: 'goemetry_msgs/Vector3'
+// });
 
 
 var imageTopic = new ROSLIB.Topic({
@@ -270,142 +270,142 @@ var setObjectQuaternion = function () {
 
 
 function publishImuSnapshot() {
-//     // let imuData = {
-//     //     alpha: alpha,
-//     //     beta: beta,
-//     //     gamma: gamma,
-//     //     valpha: valpha,
-//     //     vbeta: vbeta,
-//     //     vgamma: vgamma,
-//     //     x: x,
-//     //     y: y,
-//     //     z: z
-//     // };
+    // let imuData = {
+    //     alpha: alpha,
+    //     beta: beta,
+    //     gamma: gamma,
+    //     valpha: valpha,
+    //     vbeta: vbeta,
+    //     vgamma: vgamma,
+    //     x: x,
+    //     y: y,
+    //     z: z
+    // };
 
-//     // scope.deviceOrientation = currentDevOr;
-//     // let devo = currentDevOr;
-//     let imuData = {
-//         // alpha: devo.alpha,
-//         // beta: devo.beta,
-//         // gamma: devo.gamma,
-//         valpha: valpha,
-//         vbeta: vbeta,
-//         vgamma: vgamma,
-//         x: x,
-//         y: y,
-//         z: z
-//     };
-//     let orientation_covariance = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-//     let angular_velocity_covariance = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-//     let linear_acceleration_covariance = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-
-
-//     if (!imuData.alpha || !imuData.beta || !imuData.gamma) {
-//         orientation_covariance[0] = -1;
-//     }
-//     if (!imuData.valpha || !imuData.vbeta || !imuData.vgamma) {
-//         angular_velocity_covariance[0] = -1;
-//     }
-//     if (!imuData.x || !imuData.y || !imuData.z) {
-//         linear_acceleration_covariance[0] = -1;
-//     }
-
-
-//     // const beta_radian = imuData.beta ? ((imuData.beta + 360) / 360 * 2 * Math.PI) % (2 * Math.PI) : 0;
-//     // const gamma_radian = imuData.gamma ? ((imuData.gamma + 360) / 360 * 2 * Math.PI) % (2 * Math.PI) : 0;
-//     // const alpha_radian = imuData.alpha ? ((imuData.alpha + 360) / 360 * 2 * Math.PI) % (2 * Math.PI) : 0;
-//     // var eurlerpose = new THREE.Euler(beta_radian, gamma_radian, alpha_radian);
-//     // var quaternionpose = new THREE.Quaternion();
-//     // quaternionpose.setFromEuler(eurlerpose);
+    // scope.deviceOrientation = currentDevOr;
+    // let devo = currentDevOr;
+    let imuData = {
+        // alpha: devo.alpha,
+        // beta: devo.beta,
+        // gamma: devo.gamma,
+        valpha: valpha,
+        vbeta: vbeta,
+        vgamma: vgamma,
+        x: x,
+        y: y,
+        z: z
+    };
+    let orientation_covariance = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+    let angular_velocity_covariance = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+    let linear_acceleration_covariance = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 
 
-//     var imuMessage = new ROSLIB.Message({
-//         header: {
-//             frame_id: "world"
-//         },
-//         // orientation: {
-//         //     x: quaternionpose.x,
-//         //     y: quaternionpose.y,
-//         //     z: quaternionpose.z,
-//         //     w: quaternionpose.w
-//         // },
-//         orientation: {
-//             x: quat[0],
-//             y: quat[1],
-//             z: quat[2],
-//             w: quat[3]
-//         },
-//         orientation_covariance: orientation_covariance,
-//         angular_velocity: {
-//             x: imuData.vbeta ? imuData.vbeta : 0,
-//             y: imuData.vgamma ? imuData.vgamma : 0,
-//             z: imuData.valpha ? imuData.valpha : 0,
-//         },
-//         angular_velocity_covariance: angular_velocity_covariance,
-//         linear_acceleration: {
-//             x: imuData.x ? imuData.x : 0,
-//             y: imuData.y ? imuData.y : 0,
-//             z: imuData.z ? imuData.z : 0,
-//         },
-//         linear_acceleration_covariance: linear_acceleration_covariance,
-//     });
+    if (!imuData.alpha || !imuData.beta || !imuData.gamma) {
+        orientation_covariance[0] = -1;
+    }
+    if (!imuData.valpha || !imuData.vbeta || !imuData.vgamma) {
+        angular_velocity_covariance[0] = -1;
+    }
+    if (!imuData.x || !imuData.y || !imuData.z) {
+        linear_acceleration_covariance[0] = -1;
+    }
 
+
+    // const beta_radian = imuData.beta ? ((imuData.beta + 360) / 360 * 2 * Math.PI) % (2 * Math.PI) : 0;
+    // const gamma_radian = imuData.gamma ? ((imuData.gamma + 360) / 360 * 2 * Math.PI) % (2 * Math.PI) : 0;
+    // const alpha_radian = imuData.alpha ? ((imuData.alpha + 360) / 360 * 2 * Math.PI) % (2 * Math.PI) : 0;
+    // var eurlerpose = new THREE.Euler(beta_radian, gamma_radian, alpha_radian);
+    // var quaternionpose = new THREE.Quaternion();
+    // quaternionpose.setFromEuler(eurlerpose);
+
+
+
+    var imuMessage = new ROSLIB.Message({
+        header: {
+            frame_id: "world"
+        },
+        // orientation: {
+        //     x: quaternionpose.x,
+        //     y: quaternionpose.y,
+        //     z: quaternionpose.z,
+        //     w: quaternionpose.w
+        // },
+        orientation: {
+            x: quat[0],
+            y: quat[1],
+            z: quat[2],
+            w: quat[3]
+        },
+        orientation_covariance: orientation_covariance,
+        angular_velocity: {
+            x: imuData.vbeta ? imuData.vbeta : 0,
+            y: imuData.vgamma ? imuData.vgamma : 0,
+            z: imuData.valpha ? imuData.valpha : 0,
+        },
+        angular_velocity_covariance: angular_velocity_covariance,
+        linear_acceleration: {
+            x: imuData.x ? imuData.x : 0,
+            y: imuData.y ? imuData.y : 0,
+            z: imuData.z ? imuData.z : 0,
+        },
+        linear_acceleration_covariance: linear_acceleration_covariance,
+    });
+
+    // var info = {
+    //     'x': imuData.beta,
+    //     'y': imuData.gamma,
+    //     'z': imuData.alpha,
+    //     'ob': beta_offset,
+    //     'og': gamma_offset,
+    //     'oa': alpha_offset
+    // };
+
+    // tmp=[];
+    // tmp[0]=imuData.beta;
+    // tmp[1]=imuData.gamma;//<0 ? imuData.gamma-90: imuData.gamma;
+    // tmp[2]= imuData.alpha;
+
+//     var info = [
+//         imuData.beta,
+//         imuData.gamma-90.0,
+//         imuData.alpha,
+//         beta_offset,
+//         gamma_offset,
+//         alpha_offset, window.orientation
+// ];
 //     // var info = {
-//     //     'x': imuData.beta,
-//     //     'y': imuData.gamma,
-//     //     'z': imuData.alpha,
-//     //     'ob': beta_offset,
-//     //     'og': gamma_offset,
-//     //     'oa': alpha_offset
+//     //     'x': imuData.vbeta,
+//     //     'y': imuData.vgamma,
+//     //     'z': imuData.valpha
 //     // };
 
-//     // tmp=[];
-//     // tmp[0]=imuData.beta;
-//     // tmp[1]=imuData.gamma;//<0 ? imuData.gamma-90: imuData.gamma;
-//     // tmp[2]= imuData.alpha;
+    // var alpha = scope.deviceOrientation.alpha ? THREE.Math.degToRad(scope.deviceOrientation.alpha) : 0;
+    // var beta = scope.deviceOrientation.beta ? THREE.Math.degToRad(scope.deviceOrientation.beta) : 0;
+    // var gamma = scope.deviceOrientation.gamma ? THREE.Math.degToRad(scope.deviceOrientation.gamma) : 0;
+    // var orient = scope.screenOrientation ? THREE.Math.degToRad(scope.screenOrientation) : 0;
+     
+    // var currentQ = quaternionpose; //new THREE.Quaternion().copy(scope.object.quaternion);
+     
+    // setObjectQuaternion(currentQ, alpha, beta, gamma, orient);
+    // var currentAngle = Quat2Angle(currentQ.x, currentQ.y, currentQ.z, currentQ.w);
+    // var radDeg = 180 / Math.PI;
+     
+    // // rotateLeft(lastGamma - currentAngle.z);
+    // lastGamma = currentAngle.z;
+     
+    // // rotateUp(lastBeta - currentAngle.y);
+    // lastBeta = currentAngle.y;
 
-// //     var info = [
-// //         imuData.beta,
-// //         imuData.gamma-90.0,
-// //         imuData.alpha,
-// //         beta_offset,
-// //         gamma_offset,
-// //         alpha_offset, window.orientation
-// // ];
-// //     // var info = {
-// //     //     'x': imuData.vbeta,
-// //     //     'y': imuData.vgamma,
-// //     //     'z': imuData.valpha
-// //     // };
-
-//     // var alpha = scope.deviceOrientation.alpha ? THREE.Math.degToRad(scope.deviceOrientation.alpha) : 0;
-//     // var beta = scope.deviceOrientation.beta ? THREE.Math.degToRad(scope.deviceOrientation.beta) : 0;
-//     // var gamma = scope.deviceOrientation.gamma ? THREE.Math.degToRad(scope.deviceOrientation.gamma) : 0;
-//     // var orient = scope.screenOrientation ? THREE.Math.degToRad(scope.screenOrientation) : 0;
-     
-//     // var currentQ = quaternionpose; //new THREE.Quaternion().copy(scope.object.quaternion);
-     
-//     // setObjectQuaternion(currentQ, alpha, beta, gamma, orient);
-//     // var currentAngle = Quat2Angle(currentQ.x, currentQ.y, currentQ.z, currentQ.w);
-//     // var radDeg = 180 / Math.PI;
-     
-//     // // rotateLeft(lastGamma - currentAngle.z);
-//     // lastGamma = currentAngle.z;
-     
-//     // // rotateUp(lastBeta - currentAngle.y);
-//     // lastBeta = currentAngle.y;
-
-//     // let info = [ lastGamma*180/Math.PI, lastBeta*180/Math.PI, currentAngle.x*180/Math.PI];
+    // let info = [ lastGamma*180/Math.PI, lastBeta*180/Math.PI, currentAngle.x*180/Math.PI];
     
-//     // console.log(tmp);
+    // console.log(tmp);
 
-var imuMessage = new ROSLIB.Message({
-    x: gyro[0],
-    y: gyro[1],
-    z: gyro[2]
-});
+// var imuMessage = new ROSLIB.Message({
+//     x: gyro[0],
+//     y: gyro[1],
+//     z: gyro[2]
+// });
 
     imuTopic.publish(imuMessage);
 

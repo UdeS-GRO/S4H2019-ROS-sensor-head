@@ -24,7 +24,7 @@
         <param name="io_method" value="mmap" />
         <param name="framerate " value="24" />
     </node>
-    <!-- <node pkg="sensor_head_gui" type="filter.py" name="filter_angle" output="screen" respawn="false" respawn_delay="0">
+    <node pkg="sensor_head_gui" type="filter.py" name="filter_angle" output="screen" respawn="false" respawn_delay="0">
         
-    </node> -->
+    </node>
 </launch>

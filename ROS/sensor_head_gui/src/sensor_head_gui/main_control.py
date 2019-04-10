@@ -74,12 +74,12 @@ class main_control():
 
             # self.subMobileImuFiltered = rospy.Subscriber(
             #     "/mobile_imu_filtered", Imu, self.callbackMobile, queue_size=1)
-            # self.subMobileImuFiltered = rospy.Subscriber(
-            #     "/mobile_imu", Imu, self.callbackMobile, queue_size=1)
-
             self.subMobileImuFiltered = rospy.Subscriber(
-                "/mobile_imu", Vector3, self.callbackMobile2, queue_size=1)
-            self.subHMI = rospy.Subscriber(
+                "/mobile_imu", Imu, self.callbackMobile, queue_size=1)
+
+            # self.subMobileImuFiltered = rospy.Subscriber(
+            #     "/mobile_imu", Vector3, self.callbackMobile2, queue_size=1)
+            # self.subHMI = rospy.Subscriber(
                 "/interface", HMI, self.callbackHMI, queue_size=1)
 
             self.subControlSource = rospy.Subscriber(
@@ -405,7 +405,7 @@ class main_control():
         # print "y", y_pitch_angle, y_cmd
         # print "z", z_yaw_angle, z_cmd
 
-        # self.moveMotor(1, z_cmd)
+        self.moveMotor(1, z_cmd)
         self.moveMotor(2, y_cmd)
         self.moveMotor(3, x_cmd)
         # pass
