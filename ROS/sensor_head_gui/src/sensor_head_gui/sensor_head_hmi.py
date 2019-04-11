@@ -20,6 +20,10 @@ from Source import Source
 
 
 class SensorHeadHMIWidget(QtWidgets.QWidget):
+    """[summary]
+        Node which connect the ROS RQT plugin with the main control.
+
+    """
     def __init__(self):
 
         # Start the HMI
@@ -28,15 +32,11 @@ class SensorHeadHMIWidget(QtWidgets.QWidget):
             'sensor_head_gui'), 'resource', 'sensor_head_hmi.ui')
         loadUi(ui_file, self)
 
-        # TOPIC
-        # self.xaxis = rospy.Publisher('XAxis', Int32)
-        # self.yaxis = rospy.Publisher('YAxis', Int32)
-        # self.zaxis = rospy.Publisher('ZAxis', Int32)
-        # self.telephone = rospy.Publisher('CB_telephone',)
-        # self.hmi = rospy.Publisher('CB_hmi')
 
         # SEND INFO
-
+        """[summary]
+            Connect object of the hmi with variables and fonctions.
+        """
         self.slider_position_axis_z.valueChanged[int].connect(
             partial(self.RefreshValue, 1))
         self.slider_position_axis_x.valueChanged[int].connect(
@@ -53,14 +53,17 @@ class SensorHeadHMIWidget(QtWidgets.QWidget):
         self.Homing.clicked.connect(self.setHome)
 
         # RECEIVE INFO
-        # self.motor_sub = rospy.Subscriber(
-        #    "/dynamixel_workbench/dynamixel_state", DynamixelStateList, self.UpdateMotorsData)
-
+        """[summary]
+            Topic publicher
+        """
         self.pub_Interface = rospy.Publisher('interface', HMI, queue_size=10)
         self.pubSource = rospy.Publisher(
             '/control_source', ControlSource, queue_size=10)
 
     def RefreshValue(self, axis, value):
+        """[summary]
+            asign value of the slider to the right axis.
+        """
         interface = HMI()
         if (axis == 1):
             interface.axis.z = value
@@ -77,7 +80,10 @@ class SensorHeadHMIWidget(QtWidgets.QWidget):
         self.pub_Interface.publish(interface)
 
     def ChangeMode(self, mode, desired_state):
-        print "hmidesired_state:", desired_state, "mode:", mode
+        """[summary]
+            fonction who asign the wanted mode to the global variable source.
+        """
+        print ("hmidesired_state:", desired_state, "mode:", mode)
         if (desired_state == True):
             source = ControlSource()
             source.source = mode
@@ -86,6 +92,9 @@ class SensorHeadHMIWidget(QtWidgets.QWidget):
         return
 
     def setHome(self, state):
+        """[summary]
+            fonction who asign home's values to sliders in the hmi.
+        """
         
         self.slider_position_axis_z.setValue(setHome[0])
         QtWidgets.qApp.processEvents()
@@ -102,6 +111,7 @@ class SensorHeadHMIWidget(QtWidgets.QWidget):
 
 if __name__ == '__main__':
     """[summary]
+        node initialisation and cration
     """
 
     try:
